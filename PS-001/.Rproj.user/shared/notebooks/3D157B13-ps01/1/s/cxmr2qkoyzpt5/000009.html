@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+<link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+</head>
+<body>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Variable </th>
+   <th style="text-align:left;"> Description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> .mono-small[state] </td>
+   <td style="text-align:left;"> State abbreviation </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[age] </td>
+   <td style="text-align:left;"> The individual's age (in years) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_urban] </td>
+   <td style="text-align:left;"> Binary indicator for whether home county is 'urban' </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_citizen] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual is a citizen (naturalized or born.) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_noenglish] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual speaks English </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_only_english] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual speaks ONLY English </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_drive_to_work] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual drives to work or takes a personal car </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_asian] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual identified as Asian </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_black] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual identified as Black </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_indigenous] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual identified with a group indigenous to North Am. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_white] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual identified as White </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_female] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual identified as Female </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_male] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual identified as Male </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_grad_college] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual graduated college </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_grad_highschool] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual graduated high school </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_married] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual was married at the time of the sample </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_married_mult] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual has been married multiple times at the time of the sample </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[personal_income] </td>
+   <td style="text-align:left;"> Total (annual) personal income (tens of thousands of dollars) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_health_insurance] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual has health insurance </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[i_internet] </td>
+   <td style="text-align:left;"> Binary indicator for whether the individual has access to the internet </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[time_depart] </td>
+   <td style="text-align:left;"> The time that the individual typically leaves for work (in minutes since midnight) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[time_arrive] </td>
+   <td style="text-align:left;"> The time that the individual typically arrives at work (in minutes since midnight) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .mono-small[time_commuting] </td>
+   <td style="text-align:left;"> The length of time that the individual typically travels to work (in minutes) </td>
+  </tr>
+</tbody>
+</table> <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}})</script><script async src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
