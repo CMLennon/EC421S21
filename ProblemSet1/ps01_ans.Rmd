@@ -1,0 +1,365 @@
+---
+title: "Problem Set 1"
+subtitle: "Econometrics Review"
+author: "**EC 421:** Introduction to Econometrics"
+date: "<br>Due *before* midnight (11:59pm) on Sunday, 24 April 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    # self_contained: true
+    nature:
+      ratio: '8.5:11'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: clear
+
+```{R, setup, include = F}
+# Packages
+library(pacman)
+p_load(
+  ggplot2, gridExtra, ggthemes, latex2exp, kableExtra,
+  tidyverse, broom, knitr, magrittr
+)
+# Colors
+red_pink <- "#e64173"
+turquoise <- "#20B2AA"
+grey_light <- "grey70"
+grey_mid <- "grey50"
+grey_dark <- "grey20"
+# Themes
+theme_axes_y <- theme_void() + theme(
+  text = element_text(family = "sans"),
+  axis.title = element_text(size = 11),
+  plot.title = element_text(size = 11, hjust = 0.5),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, -0.2, 0, 0, unit = "lines")),
+  axis.text.y = element_text(
+    size = 10, angle = 0, hjust = 0.9, vjust = 0.5,
+    margin = margin(0, 0.4, 0, 0, unit = "lines")
+  ),
+  axis.line = element_line(
+    color = grey_light,
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.07, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes_x <- theme_void() + theme(
+  text = element_text(family = "sans"),
+  axis.title = element_text(size = 11),
+  plot.title = element_text(size = 11, hjust = 0.5),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, -0.2, 0, 0, unit = "lines")),
+  axis.text.x = element_text(
+    size = 10, angle = 0, hjust = 0.9, vjust = 0.5,
+    margin = margin(0, 0.4, 0, 0, unit = "lines")
+  ),
+  axis.line = element_line(
+    color = grey_light,
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.07, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_set(theme_gray(base_size = 11))
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  warning = F,
+  message = F
+)
+```
+
+.mono[**DUE**] Your solutions to this problem set are due *before* 11:59pm on Sunday, 24 April 2021 on [Canvas](https://canvas.uoregon.edu/). .hi[Your answers must include two files] (.hi[1]) your responses/answers to the question (_e.g._, a Word document) and (.hi[2]) the .mono[R] script you used to generate any answers in .mono[R]. Each student must turn in her/his own answers.
+
+If you are using RMarkdown, you can turn a single file, but it must be a `html` or `pdf` file with **both** your .mono[R] code **and** your answers.
+
+.mono.b[README!] The data in this problem set come from the 2018 American Community Survey (ACS), which I downloaded from [IPUMS](https://ipums.org/). The last page has a table that describes each variable in the dataset(s).
+
+.mono.b[OBJECTIVE] This problem set has three purposes: (1) reinforce the metrics topics we reviewed in class; (2) build your .mono[R] toolset; (3) start building your intuition about causality within econometrics/regression.
+
+.mono.b[INTEGRITY] If you are suspected of cheating, then you will receive a zero. We may report you to the dean. **Cheating includes copying from your classmates, from the internet, and from previous assignments.**
+
+## Getting started
+
+## Setup 
+
+.b[Q01.] Load your .mono[R] packages. You're probably going to need/want `tidyverse` and `here` (among others).
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q02.] Now load the data. I saved the same dataset as two different formats:
+
+- an `.rds` file: use a function that reads `.rds` files—for example, `readRDS()` or `read_rds()` (from the `readr` package in the `tidyverse`.
+- a `.csv` file: use a function that reads `.csv` files—for example, `read.csv()` or `read_csv()` (from the `readr` package in the `tidyverse`.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q03.] Check your dataset. How many observations and variables do you have? *Hint:* Try `dim()`, `ncol()`, `nrow()`.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+ 
+
+## Getting to know your data
+
+.b[Q04.] Plot a histogram of individuals' personal income (variable: `personal_income`). *Note:* Household income is in tens of thousands of dollars (so a value of `3` implies an income of $30,000.)
+
+Don't forget to label your plot's axes. A title wouldn't be terrible, either.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q05.] Compare the distributions of personal income for (1) women .it[vs.] men and (2) black individuals .it[vs.] white individuals. Are the differences at the extremes of the distribution or at the center (*e.g.*, mean and median)?
+
+.it[Note:] Your answer should include four histograms (women, men, black, and white).
+
+.it[Hints]
+
+- There is an indicator for female in the data called `i_female`. There are also indicators for .it[black] and .it[white] names `i_black` and `i_white`.
+- You can take a subset of a variable using the `filter()` variable from the `tidyverse`. *E.g.*, to take find all married individuals in the `ex_df` dataset, you could use `filter(ex_df, i_married == 1)`.
+
+ 
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q06.] Create a scatterplot (AKA: dot plot) with commute time (`time_commuting`, which the length of the individual's morning commute, in minutes) on the `y` axis and personal income on the `x` axis. 
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q07.] Based upon your plot in .b[Q06]: If we regressed commute time on income, do you think the coefficient on income would be *positive* or *negative*? **Explain** your answer.
+
+---
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q08.] Run a regression that helps summarize the relationship between commute length and personal income. Interpret the results of the regression—the meaning of the coefficient(s). Comment on the coefficient's statistical significance.
+
+<!-- <noscript> -->.
+
+<!-- </noscript> -->
+
+ 
+
+.b[Q09.] Explain why you chose the specification you chose in the previous question.
+
+- Was it linear, log-linear, log-log?
+- What was the outcome variable?
+- What was the explanatory variable?
+- Why did you make these choices?
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+## Regression refresher: Varying the specification
+
+.note[Note:] In this section, when I ask you to "comment on the statistical significance," I want you to tell me whether the coefficient is significantly different from zero at the 5% level. You do not need write out the full hypothesis test.
+
+.b[Q10.] <b>Linear specification</b> Regress average commute time (`time_commuting`) on household income (`personal_income`). Interpret the coefficient and comment on its statistical significance.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q11.] Did the sign of the coefficient on personal income surprise you based upon your figure in .b[06]? Explain.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q12.] <b>Log-linear specification</b> Regress the log of commute time on personal income. Interpret the slope coefficient and comment on its statistical significance.
+
+ 
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q13.] <b>Log-log specification</b> Regress the log of average commute time on the log of household income. Interpret the coefficient and comment on its statistical significance.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+
+## Multiple linear regression and indicator variables
+
+.note[Note:] We're now moving to thinking about the time at which an individual leaves her home to go to work (`time_depart`). This variable is measured in minutes from midnight (so smaller values are earlier in the day).
+
+.b[Q14.]  Regress departure time (`time_depart`) on the indicator for female (`i_male`) <b>and</b> the indicator for whether the individual was married at the time of the sample (`i_married`). Interpret the intercept and **both** coefficients (commenting on their statistical significances). 
+
+ 
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q15.] What would need to be true for `age` to cause omitted-variable bias. Explain the requirements and whether you think they are likely to cause bias in this setting.
+
+<!-- <noscript> -->
+
+<!-- </noscript>  -->
+
+.b[Q16.] Add `age` to the reression you ran in .b[Q14]. Do the results of this new regression suggest that `age` was causing omitted-variable bias? Explain your answer. 
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q17.] Now regress departure time on `i_male`, `i_married`, **and their interaction**. (You should have an intercept and three coefficients: the two variables and their interaction.) Interpret the coefficient on the interaction and comment on its statistical significance.
+
+.note[Hint:] In .mono[R] you can get an interaction using `:`, for example, `lm(y ~ x1 + x2 + x1:x2, data = not_a_real_df)`.
+
+---
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q18.] For this last regression, we are going to do something totally different. Our outcome variable is going to be an indicator for whether the individual has internet access (`i_internet`). Regress this internet-access variable on a two explanatory variables: (1) an indicator for whether the household's location is considered urban `i_urban` (vs. rural) and (2) an indicator for whether the individual is a citizen (`i_citizen`). 
+
+Interpret the intercept and coefficients. Comment on their statistical significance.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+## The bigger picture
+
+Write short answers to each of these questions. No math-work needed: Just explain your reasoning.
+
+**Figure 1**
+```{R, fig1, echo = F, dev = "svg", fig.height = 3.5}
+# Three distributions
+ggplot(data = tibble(x = c(-5, 45)), aes(x)) +
+stat_function(
+  fun = dchisq, args = list(df = 2), n = 1e4,
+  geom = "area", fill = "grey10", color = "black", alpha = 0.4, size = 0.3
+) +
+stat_function(
+  fun = dnorm, args = list(mean = 20, sd = 3), n = 5e3,
+  geom = "area", fill = "grey50", color = "black", alpha = 0.3, size = 0.3
+) +
+stat_function(
+  fun = dnorm, args = list(mean = 20, sd = 7), n = 5e3,
+  geom = "area", fill = "grey70", color = "black", alpha = 0.3, size = 0.3
+) +
+geom_vline(xintercept = 20, linetype = "dotted", alpha = 0.5) +
+annotate(geom = "text", x = 20, y = -0.015, label = TeX("$\\beta$"), hjust = 0.5, size = 5) +
+annotate(geom = "text", x = 2.75, y = 0.2, label = "B") +
+annotate(geom = "text", x = 16.8, y = 0.1, label = "C") +
+annotate(geom = "text", x = 32, y = 0.02, label = "A") +
+theme_void()
+```
+**Note** This figure shows the distributions of three estimators (A, B, and C) that each estimate the unknown parameter $\beta$. E[A]= $\beta-3$, E[B]= $\beta$, E[C]= $\beta$
+
+.b[Q19a.] Are the estimators in Figure 1 (above) unbiased? Which ones? *Hint:* There may be more than one.
+
+<!-- <noscript> -->
+
+<!-- <noscript> -->
+
+.b[Q19b.] Which of the estimators in Figure 1 (above) has the minimum variance?
+
+<!-- <noscript> -->
+<!-- <noscript> -->
+
+.b[Q19c.] Which of the estimators in Figure 1 (above) is the best (minimum variance) unbiased estimator?
+
+<!-- <noscript> -->
+
+<!-- <noscript> -->
+
+.b[Q20.] What is the definition of a <i>standard error</i>.
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q21.] Exogeneity is written as $\mathop{E}\left[ u | x \right] = 0$. What does this mathematical expression mean for the relationship between $u$ and $x$?
+
+<!-- <noscript> -->
+
+<!-- </noscript> -->
+
+.b[Q22.] Imagine - on a die throw where $d$ is our die random variable and $c$ is a coin flip with the results `heads/tails` and you know $\mathop{E}\left[ d | c = heads \right] = 3$. If you had to pay $2 to play this game, would you expect to earn money on this game? Assume nothing about the relationship between the coin and the die.
+<!-- <noscript> -->
+
+<!-- <noscript> -->
+
+.b[Q23.] Throughout this course, we will use the OLS estimator $\hat{\beta}$ to estimate $\beta$. Explain what it means for $\hat{\beta}$ to be biased for $\beta$.
+
+---
+
+<!-- <noscript> -->
+
+
+
+
+```{r, background variables, echo = F, out.height = "90%"}
+# Load requisite packages
+pacman::p_load(tidyverse, knitr, kableExtra, here)
+# Load data
+acs_sub = here("ps-001-data.rds") %>% read_rds()
+# Create table of variable descriptions
+var_tbl = data.frame(
+  Variable = names(acs_sub) %>% paste0(".mono-small[", ., "]"),
+  Description = c(
+    "State abbreviation",
+    "The individual's age (in years)",
+    "Binary indicator for whether home county is 'urban'",
+    "Binary indicator for whether the individual is a citizen (naturalized or born.)",
+    "Binary indicator for whether the individual speaks English",
+    "Binary indicator for whether the individual speaks ONLY English",
+    "Binary indicator for whether the individual drives to work or takes a personal car",
+    "Binary indicator for whether the individual identified as Asian",
+    "Binary indicator for whether the individual identified as Black",
+    "Binary indicator for whether the individual identified as Hispanic",
+    "Binary indicator for whether the individual identified with a group indigenous to North Am.",
+    "Binary indicator for whether the individual identified as White",
+    "Binary indicator for whether the individual identified as Female",
+    "Binary indicator for whether the individual identified as Male",
+    "Binary indicator for whether the individual graduated college",
+    "Binary indicator for whether the individual graduated high school",
+    "Binary indicator for whether the individual was married at the time of the sample",
+    "Binary indicator for whether the individual has been married multiple times at the time of the sample",
+    "Total (annual) personal income (tens of thousands of dollars)",
+    "Binary indicator for whether the individual has health insurance",
+    "Binary indicator for whether the individual has access to the internet",
+    "The time that the individual typically leaves for work (in minutes since midnight)",
+    "The time that the individual typically arrives at work (in minutes since midnight)",
+    "The length of time that the individual typically travels to work (in minutes)"
+  )
+)
+kable(var_tbl, linesep = '') %>%
+  kable_styling(full_width = F, font_size = 6)
+```
+
+I've tried to stick with a naming convention. Variables that begin with .mono-small[i\\_] denote binary/indicator variables (taking on the value of .mono-small[0] or .mono-small[1]). 
+
+---
+exclude: true
+
+```{r, print pdf, echo = F, eval = F}
+# pagedown::chrome_print("001-questions.html")
+pagedown::chrome_print("001-questions.html", output = "001-solutions.pdf")
+```

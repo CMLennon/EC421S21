@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Problem Set 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="EC 421: Introduction to Econometrics" />
+    <script src="ps01_ans_files/header-attrs-2.7/header-attrs.js"></script>
+    <link href="ps01_ans_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="ps01_ans_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="ps01_ans_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="ps01_ans_files/kePrint-0.0.1/kePrint.js"></script>
+    <link href="ps01_ans_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Problem Set 1
+## Econometrics Review
+### <strong>EC 421:</strong> Introduction to Econometrics
+### <br>Due <em>before</em> midnight (11:59pm) on Sunday, 24 April 2021
+
+---
+
+class: clear
+
+
+
+.mono[**DUE**] Your solutions to this problem set are due *before* 11:59pm on Sunday, 24 April 2021 on [Canvas](https://canvas.uoregon.edu/). .hi[Your answers must include two files] (.hi[1]) your responses/answers to the question (_e.g._, a Word document) and (.hi[2]) the .mono[R] script you used to generate any answers in .mono[R]. Each student must turn in her/his own answers.
+
+If you are using RMarkdown, you can turn a single file, but it must be a `html` or `pdf` file with **both** your .mono[R] code **and** your answers.
+
+.mono.b[README!] The data in this problem set come from the 2018 American Community Survey (ACS), which I downloaded from [IPUMS](https://ipums.org/). The last page has a table that describes each variable in the dataset(s).
+
+.mono.b[OBJECTIVE] This problem set has three purposes: (1) reinforce the metrics topics we reviewed in class; (2) build your .mono[R] toolset; (3) start building your intuition about causality within econometrics/regression.
+
+.mono.b[INTEGRITY] If you are suspected of cheating, then you will receive a zero. We may report you to the dean. **Cheating includes copying from your classmates, from the internet, and from previous assignments.**
+
+## Getting started
+
+## Setup 
+
+.b[Q01.] Load your .mono[R] packages. You're probably going to need/want `tidyverse` and `here` (among others).
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q02.] Now load the data. I saved the same dataset as two different formats:
+
+- an `.rds` file: use a function that reads `.rds` files—for example, `readRDS()` or `read_rds()` (from the `readr` package in the `tidyverse`.
+- a `.csv` file: use a function that reads `.csv` files—for example, `read.csv()` or `read_csv()` (from the `readr` package in the `tidyverse`.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q03.] Check your dataset. How many observations and variables do you have? *Hint:* Try `dim()`, `ncol()`, `nrow()`.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+ 
+
+## Getting to know your data
+
+.b[Q04.] Plot a histogram of individuals' personal income (variable: `personal_income`). *Note:* Household income is in tens of thousands of dollars (so a value of `3` implies an income of $30,000.)
+
+Don't forget to label your plot's axes. A title wouldn't be terrible, either.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q05.] Compare the distributions of personal income for (1) women .it[vs.] men and (2) black individuals .it[vs.] white individuals. Are the differences at the extremes of the distribution or at the center (*e.g.*, mean and median)?
+
+.it[Note:] Your answer should include four histograms (women, men, black, and white).
+
+.it[Hints]
+
+- There is an indicator for female in the data called `i_female`. There are also indicators for .it[black] and .it[white] names `i_black` and `i_white`.
+- You can take a subset of a variable using the `filter()` variable from the `tidyverse`. *E.g.*, to take find all married individuals in the `ex_df` dataset, you could use `filter(ex_df, i_married == 1)`.
+
+ 
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q06.] Create a scatterplot (AKA: dot plot) with commute time (`time_commuting`, which the length of the individual's morning commute, in minutes) on the `y` axis and personal income on the `x` axis. 
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q07.] Based upon your plot in .b[Q06]: If we regressed commute time on income, do you think the coefficient on income would be *positive* or *negative*? **Explain** your answer.
+
+---
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q08.] Run a regression that helps summarize the relationship between commute length and personal income. Interpret the results of the regression—the meaning of the coefficient(s). Comment on the coefficient's statistical significance.
+
+&lt;!-- &lt;noscript&gt; --&gt;.
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+ 
+
+.b[Q09.] Explain why you chose the specification you chose in the previous question.
+
+- Was it linear, log-linear, log-log?
+- What was the outcome variable?
+- What was the explanatory variable?
+- Why did you make these choices?
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+## Regression refresher: Varying the specification
+
+.note[Note:] In this section, when I ask you to "comment on the statistical significance," I want you to tell me whether the coefficient is significantly different from zero at the 5% level. You do not need write out the full hypothesis test.
+
+.b[Q10.] &lt;b&gt;Linear specification&lt;/b&gt; Regress average commute time (`time_commuting`) on household income (`personal_income`). Interpret the coefficient and comment on its statistical significance.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q11.] Did the sign of the coefficient on personal income surprise you based upon your figure in .b[06]? Explain.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q12.] &lt;b&gt;Log-linear specification&lt;/b&gt; Regress the log of commute time on personal income. Interpret the slope coefficient and comment on its statistical significance.
+
+ 
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q13.] &lt;b&gt;Log-log specification&lt;/b&gt; Regress the log of average commute time on the log of household income. Interpret the coefficient and comment on its statistical significance.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+
+## Multiple linear regression and indicator variables
+
+.note[Note:] We're now moving to thinking about the time at which an individual leaves her home to go to work (`time_depart`). This variable is measured in minutes from midnight (so smaller values are earlier in the day).
+
+.b[Q14.]  Regress departure time (`time_depart`) on the indicator for female (`i_male`) &lt;b&gt;and&lt;/b&gt; the indicator for whether the individual was married at the time of the sample (`i_married`). Interpret the intercept and **both** coefficients (commenting on their statistical significances). 
+
+ 
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q15.] What would need to be true for `age` to cause omitted-variable bias. Explain the requirements and whether you think they are likely to cause bias in this setting.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt;  --&gt;
+
+.b[Q16.] Add `age` to the reression you ran in .b[Q14]. Do the results of this new regression suggest that `age` was causing omitted-variable bias? Explain your answer. 
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q17.] Now regress departure time on `i_male`, `i_married`, **and their interaction**. (You should have an intercept and three coefficients: the two variables and their interaction.) Interpret the coefficient on the interaction and comment on its statistical significance.
+
+.note[Hint:] In .mono[R] you can get an interaction using `:`, for example, `lm(y ~ x1 + x2 + x1:x2, data = not_a_real_df)`.
+
+---
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q18.] For this last regression, we are going to do something totally different. Our outcome variable is going to be an indicator for whether the individual has internet access (`i_internet`). Regress this internet-access variable on a two explanatory variables: (1) an indicator for whether the household's location is considered urban `i_urban` (vs. rural) and (2) an indicator for whether the individual is a citizen (`i_citizen`). 
+
+Interpret the intercept and coefficients. Comment on their statistical significance.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+## The bigger picture
+
+Write short answers to each of these questions. No math-work needed: Just explain your reasoning.
+
+**Figure 1**
+&lt;img src="ps01_ans_files/figure-html/fig1-1.svg" style="display: block; margin: auto;" /&gt;
+**Note** This figure shows the distributions of three estimators (A, B, and C) that each estimate the unknown parameter `\(\beta\)`. E[A]= `\(\beta-3\)`, E[B]= `\(\beta\)`, E[C]= `\(\beta\)`
+
+.b[Q19a.] Are the estimators in Figure 1 (above) unbiased? Which ones? *Hint:* There may be more than one.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+.b[Q19b.] Which of the estimators in Figure 1 (above) has the minimum variance?
+
+&lt;!-- &lt;noscript&gt; --&gt;
+&lt;!-- &lt;noscript&gt; --&gt;
+
+.b[Q19c.] Which of the estimators in Figure 1 (above) is the best (minimum variance) unbiased estimator?
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+.b[Q20.] What is the definition of a &lt;i&gt;standard error&lt;/i&gt;.
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q21.] Exogeneity is written as `\(\mathop{E}\left[ u | x \right] = 0\)`. What does this mathematical expression mean for the relationship between `\(u\)` and `\(x\)`?
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;/noscript&gt; --&gt;
+
+.b[Q22.] Imagine - on a die throw where `\(d\)` is our die random variable and `\(c\)` is a coin flip with the results `heads/tails` and you know `\(\mathop{E}\left[ d | c = heads \right] = 3\)`. If you had to pay $2 to play this game, would you expect to earn money on this game? Assume nothing about the relationship between the coin and the die.
+&lt;!-- &lt;noscript&gt; --&gt;
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+.b[Q23.] Throughout this course, we will use the OLS estimator `\(\hat{\beta}\)` to estimate `\(\beta\)`. Explain what it means for `\(\hat{\beta}\)` to be biased for `\(\beta\)`.
+
+---
+
+&lt;!-- &lt;noscript&gt; --&gt;
+
+
+
+
+&lt;table class="table" style="font-size: 6px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[state] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; State abbreviation &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[age] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The individual's age (in years) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_urban] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether home county is 'urban' &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_citizen] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual is a citizen (naturalized or born.) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_noenglish] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual speaks English &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_only_english] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual speaks ONLY English &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_drive_to_work] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual drives to work or takes a personal car &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_asian] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Asian &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_black] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Black &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_indigenous] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Hispanic &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_white] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified with a group indigenous to North Am. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_female] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as White &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_male] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_grad_college] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Male &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_grad_highschool] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual graduated college &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_married] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual graduated high school &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_married_mult] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual was married at the time of the sample &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[personal_income] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has been married multiple times at the time of the sample &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_health_insurance] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Total (annual) personal income (tens of thousands of dollars) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_internet] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has health insurance &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[time_depart] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has access to the internet &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[time_arrive] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The time that the individual typically leaves for work (in minutes since midnight) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[time_commuting] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The time that the individual typically arrives at work (in minutes since midnight) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[weights] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The length of time that the individual typically travels to work (in minutes) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+I've tried to stick with a naming convention. Variables that begin with .mono-small[i\\_] denote binary/indicator variables (taking on the value of .mono-small[0] or .mono-small[1]). 
+
+---
+exclude: true
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "8.5:11",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.Rproj
+
+ps01_ans.pdf
+ps01.html
+ps01_ans_files
+ps01_files
+PS1_data
