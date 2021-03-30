@@ -8,5 +8,9 @@
 *.zip
 *.Rproj
 *.css
-*.Rmd
-*_files
+
+
+PS-001/
+PS-002/
+PS-003/
+PS-004/

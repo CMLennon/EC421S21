@@ -1,0 +1,276 @@
+\documentclass[10pt]{article}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\hypersetup{colorlinks = true,
+linkcolor = pine_green,
+urlcolor  = pine_green,
+citecolor = pine_green,
+anchorcolor = black}
+%\usepackage{fontspec}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{setspace, titling}
+\usepackage{url}
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}%
+}
+
+%% FONTS
+\usepackage{fontspec}
+% See: https://tex.stackexchange.com/a/50593
+\setmainfont[
+BoldFont       = FiraSans-SemiBold.ttf,
+ItalicFont     = FiraSans-Italic.ttf,
+BoldItalicFont = FiraSans-SemiBoldItalic.ttf
+]{FiraSans-Regular.ttf} %
+\setmonofont[
+BoldFont       = FiraCode-SemiBold.ttf
+]{FiraCode-Regular.ttf}
+\usepackage{marvosym} % For cool symbols.
+\usepackage{fontawesome} % Ditto
+
+\usepackage[normalem]{ulem} %% For strikeout font: \sout()
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{uo_green}{HTML}{154733}
+\definecolor{forest_green}{HTML}{006241}
+\definecolor{pine_green}{HTML}{007935}
+\definecolor{grass_green}{HTML}{62A70F}
+\definecolor{golden_yellow}{HTML}{FFD200}
+\definecolor{cool_gray}{HTML}{54565B}
+\definecolor{light_cool_gray}{HTML}{A8A8AA}
+\usepackage{amssymb,amsmath}
+
+\usepackage{graphicx}
+
+% For table formatting:
+\usepackage{array, booktabs, caption, siunitx}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
+\begin{document}
+
+\title{
+	\texttt{\textbf{Introduction to Econometrics} [EC421]}\\[1em]
+	\large Spring 2021 Syllabus
+}
+\author{Connor Lennon\\ Dept. of Economics, University of Oregon}
+%\date{}  % Toggle commenting to test
+\date{\vspace{-5ex}}
+
+\maketitle
+
+\section*{Basics}
+
+\begin{table}[!h]
+	\ra{1.2}
+\begin{tabular}{@{\extracolsep{5pt}} l l l l l l @{}}
+	& \underline{\textbf{{Lecture}}} & \underline{\textbf{{Lab}}} & \underline{\textbf{{Office Hours}}} \\
+	\faClockO & Tu. \& Th., 10:15am--12:45pm & - & Tu., 1pm--2pm; Th., 1pm--2pm \\
+	\faMapMarker & \href{https://canvas.uoregon.edu/courses/176868}{Canvas} & \href{https://canvas.uoregon.edu/courses/176868}{Canvas} & \href{https://canvas.uoregon.edu/courses/176868/external_tools/1449}{Zoom Office Hours} \\
+	\faUser & Connor Lennon & - & Connor Lennon \\
+& \underline{\textbf{{Texts}}} & & \\
+ \faBook & \multicolumn{5}{l}{\href{http://smile.amazon.com/Introduction-Econometrics-Christopher-Dougherty/dp/0199676828/}{Introduction to Econometrics, 5\textsuperscript{th} ed. }} \\
+ \faBook & \multicolumn{5}{l}{\href{https://www.amazon.com/Mastering-Metrics-Path-Cause-Effect/dp/0691152845/}{Mastering `Metrics: The Path from Cause to Effect}}\\
+  \faBook & \multicolumn{5}{l}{\href{https://www.bradyneal.com/causal-inference-course\#course-textbook}{Introduction to Causal Inference: a Machine Learning Perspective}}
+ \end{tabular}
+ \end{table}
+
+\begin{table}[!h]
+	% \centering
+	\ra{1.2}
+\begin{tabular}{@{\extracolsep{5pt}} lll @{}}
+	& \underline{\textbf{{Contact}}}\\
+	\faUser & Connor Lennon\\
+	\faPaperPlaneO & \href{mailto:clennon@uoregon.edu}{clennon@uoregon.edu} & Use ``\texttt{EC421}'' in email subject.\\
+	\faChevronRight & \href{https://github.com/cmlennon/EC421S21}{https://github.com/cmlennon/EC421S21} & Our course on Github\\
+\end{tabular}
+\end{table}
+
+\section*{Links}
+
+\faBook Introduction to Econometrics, 5\textsuperscript{th} ed.: \url{https://tinyurl.com/EC421-ItE} \\
+\\
+ \faBook Mastering `Metrics: The Path from Cause to Effect: \url{https://tinyurl.com/EC421-MM} \\
+ \\
+\faBook Introduction to Causal Inference: a Machine Learning Perspective: \url{https://tinyurl.com/EC421-ICI}\\
+\\
+\faMapMarker Canvas Course:  \url{https://canvas.uoregon.edu/courses/176868}
+
+\bigskip
+
+\section*{Cellphone policy}
+
+\textbf{No phones.} \sout{\textbf{You cannot use your phone in class}---texting included. Offenders will lose 1 percentage point off of their final grade for each offense. If you have a concern about this policy, please contact me via email or discuss in office hours during the first week of classes.} \textbf{Remote Learning Policy}: You know what is helpful to your learning, and what is not helpful. Use what tools you find useful, so long as they do not disrupt the class or any other person's learning - it's fine.
+
+%\bigskip \noindent The only exceptions to this rule:
+%\begin{enumerate}
+%  \item actual emergencies
+%  \item in-class activities in which I give you permission to use your phone
+%\end{enumerate}
+%If you are watching videos or partaking in other distracting activities on laptops/tablets, I will ask you to leave. Try to be considerate---don't be a jerk.\footnote{\textit{Note:} This is great advice for life---not just the classroom.}
+
+\section*{Course summary}
+
+\paragraph{Description:} This course aims to prepare economics majors for the demands of real-world applications. Toward this goal, we will examine the assumptions that underly the econometric and statistical models that you learned in Economics 320 (along with Math 243). These models imposed strong assumptions that are often violated in practice. Thus, we will relax these assumptions---replacing them with looser, more palatable assumptions---and derive, build, and estimate the resulting new models, using frameworks derived from the hard-earned expert knowledge you've acquired in coursework you've completed up until now. By the end of this course, students should have the ability to statistically examine the bulk of economic issues using econometrics---knowing how to empirically test economic models, be familiar with causal inference, and know the strengths, weaknesses, and assumptions of their chosen route and framework of analysis.
+
+Learning statistical programming is inherent to practicing applied econometrics. Consequently, throughout this course we will also teach the statistical programming language \texttt{{R}}.
+
+\paragraph{Prerequisites:} This course requires Economics 320 (Introduction to Econometrics)---we assume you are comfortable with the content in the first six chapters of the Dougherty \textit{Introduction to Econometrics} (ItE) textbook. We will have some review, but the course operates under the assumption this material is known, as well as familiarity with probability/statistics from 243.
+
+\section*{Software and tools}
+
+\paragraph{R:} We will use the statistical programming language \href{https://www.r-project.org/}{\textbf{\texttt{R}}}, and we will use \href{https://www.rstudio.com}{\textbf{\texttt{RStudio}}} to interact with \texttt{R}.
+
+\paragraph{Learning \texttt{R}} will require time and effort, but it is a powerful and versatile tool that is valued by many employers. Put in the requisite effort and time, and you will be rewarded. You will be required to install \texttt{R} and \texttt{RStudio} on your own computer. I also suggest that you purchase a flash drive to save your programs, data, and working documents.
+
+If you are concerned about learning \texttt{R}---or want to learn more/quickly---I suggest that you check out the following free, online resources.
+\begin{itemize}
+  \item \href{https://www.datacamp.com/courses/free-introduction-to-r}{DataCamp's \textit{Introduction to R}}
+  \item \href{https://www.teamleada.com/courses/r-bootcamp}{TeamLeada's \textit{R Bootcamp}}
+  \item \href{https://www.computerworld.com/article/2497143/business-intelligence-beginner-s-guide-to-r-introduction.html}{Computerworld's \textit{Beginner's guide to R}}
+\end{itemize}
+The folks at \texttt{RStudio} put together a \href{https://education.rstudio.com/learn/beginner/}{set of resources}.
+
+\section*{Labs, homework, and exams}
+
+\paragraph{Lab:} This course includes a lab, which is integral to learning the material in (and passing) this course. Due to space constraints, you must attend the lab for which you registered. The lab includes both general econometrics instruction and computing tips necessary to complete the homework assignments---linking the lecture material to \texttt{R}---as well as topics which the lecture may not be cover. \textbf{The lab is the best way you can get quick feedback and help in this course.}
+
+\paragraph{Problem Sets}
+\begin{itemize}
+  \item You will \textbf{turn in assignments online via Canvas}.
+  \item Assignments will be due approximately every other week.
+  \item See below for \textbf{late policy}.
+\end{itemize}
+Feel free to work together on the assignments. Unless explicitly stated, \textbf{each student is required to write and submit independent answers}. This means that word-for-word copies will not be accepted and will be viewed as academic dishonesty. If you work with other students, you must list the students in your study group at the top of your assignment. If you fail to do so, you will receive a score of zero. \textbf{Copying from previous assignments is also considered cheating.}
+
+\paragraph{Late policy}
+\begin{itemize}
+  \item We will accept assignments \textbf{up to 48 hours late}, but we will \textbf{subtract 2 percentage points for each hour it is late.}
+  \item For example, you turn in an assignment 12 hours late and would have received 85\%. We subtract 12$\times$2$=$24 percentage points, meaning you will receive 85\%$-$24\%=61\%.
+  \item No exceptions.
+\end{itemize}
+
+\paragraph{Exams}
+\begin{itemize}
+  \item We will proctor the \textbf{in-class midterm on May 4, 2021} 
+  %in \href{https://map.uoregon.edu/cfce292ac}{LLCS 101}.
+  \item We will proctor the \textbf{final exam on Th., June 10, 2021 from 10:15am--12:15am} 
+  %(likely in \href{https://map.uoregon.edu/cfce292ac}{LLCS 101}).
+\end{itemize}
+Given the remote environment, there are no excuses for missing an exam window. We will not offer early or late exams. Schedule flights, visits, and funerals accordingly.
+
+\paragraph{Midterm Project}
+\begin{itemize}
+  \item The project should be \textbf{turned in online via Canvas}.
+  \item It will be assigned and due the week after the midterm
+  \item The project follows the same \textbf{late policy} as problem sets.
+\end{itemize}
+This project will be assigned shortly after the midterm and will be very open-ended. Details on rubric and requirements will show up at that time. More-so than for any other assignment, plagiarism will not be tolerated here. I have a zero tolerance policy on plagiarized projects.
+
+\section*{Grades}
+
+Grades for this class will be assigned based on the following assignments: (approximately) biweekly homework assignments, one midterm exam, and one final exam. Final grades will be determined based on your rank-ordered position within the class (\textit{i.e.}, the course is curved). You can track your grades for individual assignments on Canvas. The weights for the final grade:
+\begin{table}[!h]
+  \ra{1.2}
+  \centering
+  \begin{tabular}{@{\extracolsep{2cm}}ll@{}}
+    \textbf{Problem Sets} & 25\% \\
+    \textbf{Midterm}      & 25\% \\
+    \textbf{Project}	  & 20\%\\
+    \textbf{Final Exam}   & 30\%
+  \end{tabular}
+\end{table}
+
+\noindent While attendance is voluntary---both for lecture and for lab---we will occasionally have in-class and in-lab quizzes, problems, or opportunities for extra credit. These exercises will go into your \textit{Problem Sets} grade. There is also a notable correlation between attendance and final grade received in this class.
+
+\section*{Textbook and other readings}
+
+One of the goals of this course is to make you aware of the incredible array of instruction material that is freely available online. I also want to encourage you to be entrepreneurial and develop an affinity for \href{https://en.wikipedia.org/wiki/Autodidacticism}{autodidacticism} (key for learning to program).
+
+\paragraph{Econometrics books:} There are two recommended textbooks for this course, and one online resource we'll refer to for the lectures after the midterm.
+
+\begin{enumerate}
+  \item \href{https://www.amazon.com/Mastering-Metrics-Path-Cause-Effect/dp/0691152845/}{\textbf{Mastering `Metrics: The Path from Cause to Effect}} by Angrist and Pischke (\textbf{MM})
+  \item \href{http://smile.amazon.com/Introduction-Econometrics-Christopher-Dougherty/dp/0199676828/}{\textbf{Introduction to Econometrics}, 5\textsuperscript{th} ed.} by Christopher Dougherty (\textbf{ItE})
+  \item \href{https://www.bradyneal.com/causal-inference-course\#course-textbook}{\textbf{Introduction to Causal Inference: a Machine Learning Perspective}, free, online draft text} by Brady Neal (\textbf{ICI})\end{enumerate}
+You may be able to purchase these books at the UO Duckstore (you should already have ItE from EC320) or find them online for free. I strongly recommend that you read the assigned readings from the textbooks. Attending class is not a replacement for reading and comprehending the texts---nor will solely reading sufficiently replace class. The course schedule (farther below) contains suggested readings for each topic.
+
+\paragraph{R books:} For learning \texttt{R}, I recommend Garrett Grolemund and Hadley Wickham's \href{http://r4ds.had.co.nz}{\textbf{\textit{R} for Data Science}}, which is available for free online. Want to go deeper? Check out \href{http://adv-r.had.co.nz/}{\textbf{Advanced \textit{R}}} (Hadley Wickham, again) and \href{http://socviz.co/}{\textbf{Data Visualization: A practical introduction}} (Kieran Healy)---both books are free online.
+
+\newpage
+
+\section*{Lab GE contact information}
+\begin{table}[!h]
+  \centering
+  \ra{1.1}
+  \begin{tabular}{c c c}
+    & \textbf{Monday \& Wednesday Lab} 3:30-4:30 & \textbf{Tuesday \& Thursday Lab} 3:30-4:30\\
+    & Robert McDonough  & Colleen O'Briant \\
+    & Zoom & Zoom\\
+    & rmcdono2@uoregon.edu & cobriant@uoregon.edu\\
+    \textbf{Office hours} & Check Zoom for O.O. &  Check Zoom for O.O \\
+  \end{tabular}
+\end{table}
+
+\noindent \textbf{Note:} Feel free to go to any office hours. Don't feel restricted to only go to those of your lab GE.
+
+\section*{Recommendations}
+
+\begin{enumerate}
+  \item \textbf{Take responsibility} for your own education and try to \textbf{learn} as much as you can.
+  \item \textbf{Do your own work}.
+  \item Develop your \textbf{intuition}---\textit{e.g.}, why does regression work in one situation and fail in another?
+  \item \textbf{Learn \texttt{R}}. Struggle while you try---and use \textbf{Google} to figure things out.
+  \item Come to \textbf{office hours}.\footnote{Two related articles from NPR on office hours: \href{https://www.npr.org/2019/10/05/678815966/college-students-how-to-make-office-hours-less-scary}{\textit{College Students: How to Make Office Hours Less Scary}} and \href{https://www.npr.org/2019/10/02/766568824/uncovering-a-huge-mystery-of-college-office-hours}{\textit{Uncovering A Huge Mystery Of College: Office Hours}}.}
+  \item \textbf{Ask for help early}---don't wait until the end of the term.
+\end{enumerate}
+
+\section*{Honesty and academic integrity}
+
+You must do your own work. Do not claim credit for any work other than your own. Cheating (such as consulting others on test answers or copying text from other sources) or plagiarizing of any sort on exam questions, projects or homeworks in this class will result in a failing grade for the term and a report of the offense to the university. \textbf{I am super serious about this.} I failed many students last term for not following these rules. Lack of awareness of these procedures will not grant you any leniency from me. Please acquaint yourself with the \href{http://studentlife.uoregon.edu}{Student Conduct Code}.
+
+\section*{Accessibility}
+
+If you have a documented need and would like accommodations in this course, please make arrangements with me during the first week of the term. Please request that the \href{https://aec.uoregon.edu/}{Accessible Education Center} send me a letter verifying your accommodations. If you haven't spoken to the AEC yet on any needs you may be entitled to, I recommend reaching out to them (they're still open to appointments).
+
+\section*{Tentative course outline}
+
+The next page presents the current plan for the course outline and associated textbook reading assignments. We will occasionally assign papers for you to read for class, lab, or your homework assignments. I will post these papers on Canvas. As the title of this section suggests, the timing and topics on this schedule may change.
+
+\begin{table}[htb]
+  \caption*{\textbf{Tentative course schedule}}
+  \ra{1.5}
+  \begin{tabular}{@{\extracolsep{1cm}} c c l l @{}}
+    \toprule
+    \textbf{Class} & \textbf{Date} & \textbf{Topics} & \textbf{Suggested readings}  \\ \toprule
+    \texttt{01} & 03/30 & Pre-Quiz & ItE 1--6 \\
+    \texttt{02} & 04/01 & Intro \& Review & ItE 1--6; MM 2 \\
+    \texttt{03} & 04/06 & Review & ItE 1--6; MM 2 \\
+    \texttt{04} & 04/08 & Review & ItE 1--7 \\
+    \texttt{04} & 04/13 & Heteroskedasticity & ItE 7 \\
+    \texttt{05} & 04/15 & Heteroskedasticity & ItE 7 \\
+    \texttt{05} & 04/20 & Consistency (and Inconsistency) & ItE pp. 68--75  \\
+    \texttt{06} & 04/22 & Time Series & ItE 11\\
+    \texttt{09} & 04/27 & Time Series & ItE 11 \\
+    \texttt{09} & 04/29 & Autocorrelation \& Nonstationarity & ItE 12 \& 13 \\
+    \texttt{10} & 05/04 & Midterm Review & ItE 12 \\ \midrule
+    \texttt{11} & 05/06 & \textbf{In-Class Midterm} \\ \midrule
+    \texttt{13} & 05/11 & Causality I & MM 1; ICI 1\\
+    \texttt{14} & 05/13 & Causality II & MM 1; ICI 2--3\\
+    \texttt{15} & 05/18 & Instrumental Variables & ItE 9; MM 3 \\
+    \texttt{16} & 05/20 & Instrumental Variables & ItE 9; MM 3 \\
+    \texttt{17} & 05/25 & Panel Data Methods & ItE 14; MM 5 \\
+    \texttt{18} & 05/27 & Panel Data Methods & ItE 14; MM 5 \\
+    \texttt{19} & 06/01 & Difference in differences & MM 5; ICI  \\
+    \texttt{20} & 06/03 & Additional topics & TBA \\ \midrule
+    \texttt{  } & 06/10 & \textbf{Final Exam, 10:15am} & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\end{document}
