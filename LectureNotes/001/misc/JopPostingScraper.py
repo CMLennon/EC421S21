@@ -7,6 +7,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
+import numpy as np
+import pandas as pd
+import time
 
 # specify driver path
 DRIVER_PATH = '/Users/connor/Documents/chromedriver'
@@ -30,24 +33,6 @@ city_set = list(set(["New York",
                      "Dallas",
                      "Pittsburgh",
                      "Portland",
-                     "Phoenix",
-                     "Denver",
-                     "Houston",
-                     "Miami",
-                     "Washington DC",
-                     "Boulder",
-                     "Sacramento",
-                     "Olympia",
-                     "Boise",
-                     "Salt Lake City",
-                     "Bozeman",
-                     "Missoula",
-                     "Albuquerque",
-                     "New Orleans",
-                     "Nashville",
-                     "Birmingham",
-                     "Columbus",
-                     "Cleveland",
                      "Charlotte",
                      "Boston",
                      "Portland, MN"]))
@@ -87,7 +72,7 @@ for city in city_set:
         close_popup.click()
     except:
         pass
-    for i in range(0, 20):
+    for i in range(0, 5):
         try:
             close_popup = driver.find_element_by_xpath('//*[@id="popover-x"]/button')
             close_popup.click()
@@ -97,6 +82,7 @@ for city in city_set:
         job_card = driver.find_elements_by_xpath('//div[contains(@class,"clickcard")]')
 
         for job in job_card:
+            time.sleep(1)
             city_list.append(city)
 
             #.  not all companies have review
@@ -112,7 +98,11 @@ for city in city_set:
                 salary = "None"
             #.  tells only to look at the element
             salaries.append(salary)
-
+            try:
+                description = job.find_element_by_xpath('//*[@id="jobDescriptionText"]').text
+            except:
+                description = "None"
+            descriptions.append(description)
             try:
                 location = job.find_element_by_xpath('.//span[contains(@class,"location")]').text
             except:
@@ -145,44 +135,97 @@ for city in city_set:
 
         print("Page: {}".format(str(i + 2)))
 
-descriptions = []
-for link in links:
-    driver.get(link)
-    try:
-        jd = driver.find_element_by_xpath('//div[@id="jobDescriptionText"]').text
-    except:
-        jd = "None"
-    # search for R requirements
-    if " r " or " r, " or " r." in jd.lower():
-        R = 1
-    else:
-        R = 0
-    # search for python req
-    if "python" in jd.lower():
-        python = 1
-    else:
-        python = 0
-    # search for SQL req
-    if " sql" in jd.lower():
-        SQL = 1
-    else:
-        SQL = 0
-    # search for sas req
-    if " sas" in jd.lower():
-        sas = 1
-    else:
-        sas = 0
-    # search for stata req
-    if "stata" in jd.lower():
-        stata = 1
-    else:
-        stata = 0
-    # search for Julia req
-    if "julia" in jd.lower():
-        julia = 1
-    else:
-        julia = 0
+# load results into data-frame
+df_da = pd.DataFrame()
+df_da['Title'] = titles
+df_da['Company'] = companies
+df_da['Location'] = "Palo Alto, CA"
+df_da['Link'] = links
+df_da['Review'] = reviews
+df_da['Salary'] = salaries
+df_da['descriptions'] = descriptions
 
+df_da.to_csv("/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/JobRelevancyData1.csv", encoding=utf - 8)
+
+descriptions = []
+i = 0
+for link in links:
+    i = i + 1
+    if i % 10 != 0:
+        driver.implicitly_wait(8)
+        driver.get(link)
+        try:
+            jd = driver.find_element_by_xpath('//div[@id="jobDescriptionText"]').text
+        except:
+            jd = "None"
+        # search for R requirements
+        if " r " or " r, " or " r." in jd.lower():
+            R = 1
+        else:
+            R = 0
+        # search for python req
+        if "python" in jd.lower():
+            python = 1
+        else:
+            python = 0
+        # search for SQL req
+        if " sql" in jd.lower():
+            SQL = 1
+        else:
+            SQL = 0
+        # search for sas req
+        if " sas" in jd.lower():
+            sas = 1
+        else:
+            sas = 0
+        # search for stata req
+        if "stata" in jd.lower():
+            stata = 1
+        else:
+            stata = 0
+        # search for Julia req
+        if "julia" in jd.lower():
+            julia = 1
+        else:
+            julia = 0
+    else:
+        time.sleep(6)
+        driver.implicitly_wait(8)
+        driver.get(link)
+        try:
+            jd = driver.find_element_by_xpath('//div[@id="jobDescriptionText"]').text
+        except:
+            jd = "None"
+        # search for R requirements
+        if " r " or " r, " or " r." in jd.lower():
+            R = 1
+        else:
+            R = 0
+        # search for python req
+        if "python" in jd.lower():
+            python = 1
+        else:
+            python = 0
+        # search for SQL req
+        if " sql" in jd.lower():
+            SQL = 1
+        else:
+            SQL = 0
+        # search for sas req
+        if " sas" in jd.lower():
+            sas = 1
+        else:
+            sas = 0
+        # search for stata req
+        if "stata" in jd.lower():
+            stata = 1
+        else:
+            stata = 0
+        # search for Julia req
+        if "julia" in jd.lower():
+            julia = 1
+        else:
+            julia = 0
     # build list of summary variables from long link-list + add descriptions to dataset
     descriptions.append(jd)
     uses_r.append(R)
