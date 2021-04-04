@@ -4,6 +4,7 @@
     <title>Metrics Review, Part 2</title>
     <meta charset="utf-8" />
     <meta name="author" content="Connor Lennon" />
+    <script src="03-Review_files/header-attrs/header-attrs.js"></script>
     <link href="03-Review_files/remark-css/default.css" rel="stylesheet" />
     <link href="03-Review_files/remark-css/metropolis.css" rel="stylesheet" />
     <link href="03-Review_files/remark-css/metropolis-fonts.css" rel="stylesheet" />
@@ -104,35 +105,35 @@ $$ \color{#e64173}{y\_i} = \beta\_0 + \beta\_1 \color{#6A5ACD}{x\_{1i}} + \beta\
 
 `\(y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + u_i \quad\)` `\(x_1\)` is continuous `\(\quad x_2\)` is categorical
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/mult reg plot 1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/mult reg plot 1-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 
 The intercept and categorical variable `\(x_2\)` control for the groups' means.
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/mult reg plot 2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/mult reg plot 2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 
 With groups' means removed:
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/mult reg plot 3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/mult reg plot 3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 
 `\(\hat{\beta}_1\)` estimates the relationship between `\(y\)` and `\(x_1\)` after controlling for `\(x_2\)`.
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/mult reg plot 4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/mult reg plot 4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 
 Another way to think about it:
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/mult reg plot 5-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/mult reg plot 5-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 Looking at our estimator can also help.
@@ -182,7 +183,7 @@ $$ \hat{\beta}_1 = \dfrac{\mathop{\hat{\text{Cov}}}(\color{#e64173}{\tilde{x}_1}
 layout: false
 class: clear, middle
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/venn_iv-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/venn_iv-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 layout: true
@@ -256,13 +257,13 @@ r_df &lt;- mclapply(X = 1:(1e3-1), mc.cores = detectCores() - 1, FUN = function(
 
 
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/r2 plot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/r2 plot-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 **One solution:** .pink[Adjusted] `\(\color{#e64173}{R^2}\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/adjusted r2 plot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/adjusted r2 plot-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -395,35 +396,35 @@ layout: true
 
 The relationship between pay and schooling.
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/plot ovb 1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/plot ovb 1-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 count: false
 Biased regression estimate: `\(\widehat{\text{Pay}}_i = 31.3 + -0.9 \times \text{School}_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/plot ovb 2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/plot ovb 2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 Recalling the omitted variable: Gender (**&lt;font color="#e64173"&gt;female&lt;/font&gt;** and **&lt;font color="#314f4f"&gt;male&lt;/font&gt;**)
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/plot ovb 3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/plot ovb 3-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 Recalling the omitted variable: Gender (**&lt;font color="#e64173"&gt;female&lt;/font&gt;** and **&lt;font color="#314f4f"&gt;male&lt;/font&gt;**)
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/plot ovb 4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/plot ovb 4-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 Unbiased regression estimate: `\(\widehat{\text{Pay}}_i = 20.9 + 0.4 \times \text{School}_i + 9.1 \times \text{Male}_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/plot ovb 5-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/plot ovb 5-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 layout: false
 class: clear, middle, center
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/venn2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/venn2-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 layout: false
 
@@ -594,14 +595,14 @@ $$
 
 
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/dat plot 1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/dat plot 1-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Categorical variables
 
 `\(y_i = \beta_0 + \beta_1 x_i + u_i\)` for binary variable `\(x_i = \{\color{#314f4f}{0}, \, \color{#e64173}{1}\}\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/dat plot 2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/dat plot 2-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 ## Interactions
 
@@ -633,14 +634,14 @@ The model where schooling has the same effect for everyone (**&lt;font color="#e
 
 
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/int plot 1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/int plot 1-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Interactions
 
 The model where schooling's effect can differ by gender (**&lt;font color="#e64173"&gt;F&lt;/font&gt;** and **&lt;font color="#314f4f"&gt;M&lt;/font&gt;**):
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/int plot 2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/int plot 2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Interactions
@@ -713,7 +714,7 @@ $$ \log(y_i) = \beta_0 + \beta_1 \, x_i + u_i \iff y_i = e^{\beta_0 + \beta_1 x_
 ---
 ## Log-linear specification
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/log linear plot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/log linear plot-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -765,7 +766,7 @@ The interpretation of `\(\beta_1\)` is now
 ---
 ## Log-log specification
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/log log plot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/log log plot-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 layout: true
@@ -842,51 +843,51 @@ We allow nonlinear relationships between `\(y\)` and the explanatory variables.
 
 **Transformation challenge:** (literally) infinite possibilities. What do we pick?
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure start-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure start-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 `\(y_i = \beta_0 + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 0-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 0-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 count: false
 
 `\(y_i = \beta_0 + \beta_1 x + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 1-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 count: false
 
 `\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 2-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 
 `\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 3-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 count: false
 
 `\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 x^4 + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 4-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 count: false
 
 `\(y_i = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 x^4 + \beta_5 x^5 + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 5-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 5-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 count: false
 
 **Truth:** `\(y_i = 2 e^{x} + u_i\)`
 
-&lt;img src="/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/003/03-Review_files/figure-html/trans figure 6-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Review_files/figure-html/trans figure 6-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Outliers
@@ -928,6 +929,8 @@ If the observations are missing in a nonrandom way, a random sample may end up n
 
 ---
 exclude: true
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

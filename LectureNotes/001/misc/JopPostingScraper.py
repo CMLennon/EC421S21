@@ -10,8 +10,22 @@ from selenium.common.exceptions import NoSuchElementException
 import numpy as np
 import pandas as pd
 import time
+from http_request_randomizer.requests.proxy.requestProxy import RequestProxy
+req_proxy = RequestProxy()  # you may get different number of proxy when  you run this at each time
+
+proxies = req_proxy.get_proxy_list()
 
 # specify driver path
+PROXY = proxies[0].get_address()
+webdriver.DesiredCapabilities.CHROME['proxy'] = {
+    "httpProxy": PROXY,
+    "ftpProxy": PROXY,
+    "sslProxy": PROXY,
+
+    "proxyType": "MANUAL",
+
+}
+
 DRIVER_PATH = '/Users/connor/Documents/chromedriver'
 driver = webdriver.Chrome(executable_path=DRIVER_PATH)
 
@@ -54,6 +68,16 @@ uses_SQL = []
 city_list = []
 
 for city in city_set:
+    PROXY = proxies[0].get_address()
+    webdriver.DesiredCapabilities.CHROME['proxy'] = {
+        "httpProxy": PROXY,
+        "ftpProxy": PROXY,
+        "sslProxy": PROXY,
+
+        "proxyType": "MANUAL",
+    }
+
+    driver = webdriver.Chrome(executable_path=DRIVER_PATH)
     driver.get("https://www.indeed.com/advanced_search")
     initial_search_button = driver.find_element_by_xpath('//*[@id="fj"]')
     location_field = driver.find_element_by_xpath('//*[@id="where"]')
@@ -152,6 +176,19 @@ i = 0
 for link in links:
     i = i + 1
     if i % 10 != 0:
+        proxies = req_proxy.get_proxy_list()
+
+        # specify driver path
+        PROXY = proxies[0].get_address()
+        webdriver.DesiredCapabilities.CHROME['proxy'] = {
+            "httpProxy": PROXY,
+            "ftpProxy": PROXY,
+            "sslProxy": PROXY,
+
+            "proxyType": "MANUAL",
+        }
+
+        driver = webdriver.Chrome(executable_path=DRIVER_PATH)
         driver.implicitly_wait(8)
         driver.get(link)
         try:

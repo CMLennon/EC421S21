@@ -1520,7 +1520,7 @@ exclude: true
 
 ```{R, print pdfs, echo = F, eval = F}
 pagedown::chrome_print(
-  input = "03-review.html",
+  input = here("03-review.html"),
   timeout = 60
 )
 ```

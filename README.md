@@ -13,9 +13,9 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 1. [Introduction to Econometrics, part II](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/001/01-intro.html) <br> [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/001/01-intro.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/001/01-intro.Rmd)
 
-2. Review of Key Math Topics
+2. [Review of Key Math Topics](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/002/002/02-Review.html) <br> [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/002/02-Review.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/002/002/02-Review.pdf)
 
-3. Review of Key 'Metrics Topics
+3. [Review of Key 'Metrics Topics](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/003/03-Review.html)
 
 4. Heteroskedasticity
 
@@ -35,4 +35,5 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 **Problem set 01: Review of OLS** *Due - 4/24/2021*
 
+*Data and solutions will be posted after the due date*
 *Data and solutions will be posted after the due date*
