@@ -32,6 +32,8 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 10. Causality I
 
+11. Causality II (SCM)
+
 ## Problem sets
 
 **Problem set 01: Review of OLS** *Due - 4/24/2021*
