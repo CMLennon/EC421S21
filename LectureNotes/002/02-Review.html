@@ -869,6 +869,22 @@ lm(y ~ x, data = pop_df) %&gt;% tidy()
 
 Our 95% confidence interval is thus `\(0.514 \pm 1.98 \times 0.0598 = \left[ 0.396,\, 0.632 \right]\)`
 
+---
+
+**Example:**
+
+```r
+lm(y ~ x, data = pop_df) %&gt;% tidy()
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term        estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)    3.22     0.429       7.50 2.85e-11
+*#&gt; 2 x              0.476    0.0735      6.47 3.82e- 9
+```
+
 If we wanted a one-sided test we could access those results by simply dividing our p-values by 2
 
 ---
@@ -927,7 +943,7 @@ We want to test hypotheses posed by officials, politicians, economists, scientis
 - Does increasing police presence **reduce crime**?
 - Does building a giant wall **reduce crime**?
 - Does shutting down a government **adversely affect the economy**?
-- Does legal cannabis **reduce drunk driving** or **reduce opiod use**?
+- Does legal cannabis **reduce drunk driving** or **reduce opioid use**?
 - Do air quality standards **increase health** and/or **reduce jobs**?
 
 ---

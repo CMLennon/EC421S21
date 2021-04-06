@@ -1264,7 +1264,14 @@ lm(y ~ x, data = pop_df) %>% tidy()
 
 --
 
-Our 95% confidence interval is thus $0.514 \pm 1.98 \times 0.0598 = \left[ 0.396,\, 0.632 \right]$
+Our 95% confidence interval is thus $0.476 \pm 1.98 \times 0.0735 = \left[ 0.332,\, 0.620 \right]$
+
+---
+
+**Example:**
+```{R ci r outputp2, echo = T, highlight.output = 5}
+lm(y ~ x, data = pop_df) %>% tidy()
+```
 
 If we wanted a one-sided test we could access those results by simply dividing our p-values by 2
 
@@ -1275,7 +1282,7 @@ layout: true
 
 ---
 
-So we have a confidence interval for $\beta_1$, _i.e._, $\left[ 0.410,\, 0.724 \right]$.
+So we have a confidence interval for $\beta_1$, _i.e._, $\left[ 0.332,\, 0.620 \right]$.
 
 What does it mean?
 
@@ -1349,7 +1356,7 @@ We want to test hypotheses posed by officials, politicians, economists, scientis
 - Does increasing police presence **reduce crime**?
 - Does building a giant wall **reduce crime**?
 - Does shutting down a government **adversely affect the economy**?
-- Does legal cannabis **reduce drunk driving** or **reduce opiod use**?
+- Does legal cannabis **reduce drunk driving** or **reduce opioid use**?
 - Do air quality standards **increase health** and/or **reduce jobs**?
 
 ---
