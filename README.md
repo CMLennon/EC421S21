@@ -18,7 +18,7 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 3. [Review of Key 'Metrics Topics](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/003/03-Review.html) <br> 
 [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/003/03-review.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/002/02-Review.pdf)
 
-4. Heteroskedasticity
+4. [Heteroskedasticity](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/004/Heteroskedasticity.html)
 
 5. Heteroskedasticity II
 
