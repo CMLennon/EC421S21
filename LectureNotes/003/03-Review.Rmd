@@ -1293,7 +1293,7 @@ class: inverse, middle
 ---
 ## Inference *vs.* prediction
 
-So far, we've focused mainly **statistical inference**—using estimators and their distributions properties to try to learn about underlying, unknown population parameters.
+So far, we've focused mainly **statistical inference**—using estimators and their distributions properties to try to learn about underlying, unknown population parameters. In OLS regression, that looks like this -
 
 $$ y\_i = \color{#e64173}{\hat{\beta}\_{0}} + \color{#e64173}{\hat{\beta\_1}} \, x\_{1i} + \color{#e64173}{\hat{\beta\_2}} \, x\_{2i} + \cdots + \color{#e64173}{\hat{\beta}\_{k}} \, x\_{ki} + e\_i $$
 
@@ -1306,7 +1306,9 @@ $$ \color{#e64173}{\hat{y}\_i} = \mathop{\hat{f}}\left( x_1,\, x_2,\, \ldots x_k
 ---
 ## Inference *vs.* prediction
 
-Succinctly
+Succinctly, in stock-standard econometrics...
+
+--
 
 - **Inference:** causality, $\hat{\beta}_k$ (consistent and efficient), standard errors/hypothesis tests for $\hat{\beta}_k$, generally OLS
 
@@ -1315,6 +1317,21 @@ Succinctly
 .footnote[
 .pink[†] Includes forecasting.
 ]
+
+---
+## Inference *vs.* prediction
+
+But I want to broaden this definition - linearity does not enforce causality, the assumptions behind the models do. We can re-frame causality also as a prediction problem all of its own.
+
+--
+
+Prediction is primarily interested in $${\hat{y}\_i} =\mathop{\color{#e64173}{\hat{f}}}\left( x_1,\, x_2,\, \ldots x_k \right) $$
+
+--
+
+Whereas - causality is prediction *with missing data*, specifically $${\hat{y}\_i} =\mathop{\color{#e64173}{\hat{f}}}\left( x_1,\, x_2,\, \ldots x_k |\mathop{\color{#e64173}{x_{trt} = x_{trt} + c}}\right)$$
+
+There are lots of useful methods that get ignored because they are non-linear.
 
 ---
 ## Treatment effects and causality
