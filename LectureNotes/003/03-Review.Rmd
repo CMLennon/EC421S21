@@ -1331,7 +1331,7 @@ Prediction is primarily interested in $${\hat{y}\_i} =\mathop{\color{#e64173}{\h
 
 Whereas - causality is prediction *with missing data*, specifically $${\hat{y}\_i} =\mathop{\color{#e64173}{\hat{f}}}\left( x_1,\, x_2,\, \ldots x_k |\mathop{\color{#e64173}{x_{trt} = x_{trt} + c}}\right)$$
 
-There are lots of useful methods that get ignored because they are non-linear.
+Given a researcher/policymaker chosen $\color{#e64173}c$. There are lots of useful methods that get ignored because they are non-linear.
 
 ---
 ## Treatment effects and causality
