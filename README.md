@@ -34,6 +34,8 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 11. Causality II (SCM)
 
+12. Instrumental Variables (IV) and 2SLS
+
 ## Problem sets
 
 **Problem set 01: Review of OLS** *Due - 4/24/2021*
