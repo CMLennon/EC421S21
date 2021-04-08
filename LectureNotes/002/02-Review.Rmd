@@ -1400,7 +1400,7 @@ H.sub[o]: $\beta_1 = 0$ *vs.* H.sub[a]: $\beta_1 \neq 0$
 
 --
 
- $t_\text{stat} = 7.15$ and $t_\text{0.975, 28} = `r qt(0.975, 28) %>% round(2)`$
+ $t_\text{stat} = 6.4729$ and $t_\text{0.975, 28} = `r qt(0.975, 28) %>% round(2)`$
 --
  which implies *p*-value $< 0.05$
 
