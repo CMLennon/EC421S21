@@ -20,8 +20,9 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 4. [Heteroskedasticity](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/004/Heteroskedasticity.html) <br> [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/004/Heteroskedasticity.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/004/Heteroskedasticity.Rmd)
 
-5. [Heteroskedasticity II](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/005/05-Heteroskedasticity.html) <br> [PDF] | [.Rmd]
-6. Consistency and OLS in Asymptote-land
+5. [Heteroskedasticity II](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/005/05-Heteroskedasticity.html) <br> [PDF] | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/005/05-Heteroskedasticity.Rmd)
+
+7. Consistency and OLS in Asymptote-land
 
 7. Intro to Time Series
 
