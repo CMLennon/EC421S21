@@ -1,6 +1,6 @@
 ---
 title: "Heteroskedasticity"
-subtitle: "EC 421, Set 04"
+subtitle: "EC 421, 004"
 author: "Connor Lennon"
 date: "Spring 2021"
 output:
@@ -1434,7 +1434,7 @@ exclude: true
 
 ```{R, print pdfs, echo = F, eval = F}
 pagedown::chrome_print(
-  input = "/Heteroskedasticity.html",
+  input = "Heteroskedasticity.html",
   timeout = 6000
 )
 ```
