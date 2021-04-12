@@ -151,7 +151,7 @@ Turn in .hi[2 files]<sup>†</sup>
 
 
 .footnote[
-  †: Unless you're using RMarkdown—then we need a PDF or HTML file.
+  †: Unless you're using RMarkdown—then we need a PDF file.
 ]
 
 1. Your write up (_e.g._, Word file).

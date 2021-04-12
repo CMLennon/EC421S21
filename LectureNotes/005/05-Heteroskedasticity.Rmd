@@ -1,5 +1,5 @@
 ---
-title: "Heteroskedasticity, Part II"
+title: "Heteroskedasticity, Living in the Real World"
 subtitle: "EC 421, 005"
 author: "Connor Lennon"
 date: "Spring 2021"
@@ -127,13 +127,13 @@ Heteroskedasticity: Issues and tests
 
 ## Today
 
-- .hi[First assignment] due Saturday (30 Jan.)
+- .hi[First assignment] due Next Week on Saturday (24 April.)
 - Living with heteroskedasticity
 
 ## Upcoming
 
-- .hi[Second assignment] released at the end of this week
-- Midterm <3 weeks away (11 Feb.)
+- .hi[Second assignment] "released" on Friday
+- Midterm ~3 weeks away (May 6th - in class, no late/early exam available)
 
 ---
 
