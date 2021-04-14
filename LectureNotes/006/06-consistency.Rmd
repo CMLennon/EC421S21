@@ -1,6 +1,6 @@
 ---
 title: "Asymptotics and consistency"
-subtitle: "EC 421, Set 6"
+subtitle: "EC 421, 006"
 author: "Connor Lennon"
 date: "Spring 2021"
 output:
@@ -138,7 +138,7 @@ Our second assignment
 
 ## Near-ish future
 
-Midterm in two weeks (Feb. 11.super[th])
+Midterm in two weeks (May 06.super[th])
 ---
 
 # .mono[R] showcase
