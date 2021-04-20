@@ -592,6 +592,7 @@ Again: we assume
 
 1. Our estimation of $h(x)$ gives good predictions
 2. If it does not, we cannot say FGLS is **BLUE**.
+3. In general, because we estimate $h(x)$ rather than know it, FGLS is not unbiased, but it is *consistent*. We'll talk about what that means in our next unit
 
 ---
 layout: true
