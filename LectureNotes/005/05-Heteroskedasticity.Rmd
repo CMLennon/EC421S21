@@ -559,6 +559,39 @@ $$
 4. WLS is generally **infeasible**. *Feasible* GLS (FGLS) offers a solution.
 5. Under its assumptions: WLS is the **best linear unbiased estimator**.
 ---
+
+Given we so rarely know $h(x_i)$, we often wish to approximate it. We can do this with *feasible generalized least squares*. Rather than our normal WLS assumptions, we assume:
+
+$$
+Var(u|x) = \sigma^2e^{\delta_0 + \delta_1x_1 + \dots + \delta_kx_k}
+$$
+
+We can estimate our new, more flexible $h(x)$  with a few clever transformations.
+
+$$
+u^2 = \sigma^2(e^{\delta_0 + \delta_1x_1 + \dots + \delta_kx_k})v
+$$
+Where .hi[v] is assumed independent conditional on x.
+---
+
+Then, we can estimate the following equation using .hi[OLS]
+
+--
+
+$$log(e^2) = \hat{\alpha_0} + \hat{\delta_1}x_1 + \dots + \hat{\delta_k}x_k + e_{wls}$$
+
+--
+
+This allows us to recover $h(x)$ (so long as our assumptions were correct) by using $weights = \frac{1}{e^{\hat{\alpha_0} + \hat{\delta_1}x_1 + \dots + \hat{\delta_k}x_k}}$
+
+--
+
+Again: we assume
+
+1. Our estimation of $h(x)$ gives good predictions
+2. If it does not, we cannot say flgs is **BLUE**.
+
+---
 layout: true
 # Living with heteroskedasticity
 ## Heteroskedasticity-robust standard errors

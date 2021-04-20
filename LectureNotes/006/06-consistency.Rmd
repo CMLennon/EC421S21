@@ -134,7 +134,7 @@ Asymptotics and consistency
 
 ## This week
 
-Our second assignment
+Our second assignment will be assigned
 
 ## Near-ish future
 
@@ -143,13 +143,13 @@ Midterm in two weeks (May 06.super[th])
 
 # .mono[R] showcase
 
-Need speed? .mono[R] allows essentially infinite parallelization.
+Need speed? .mono[R] allows essentially infinite parallelization. This is due to how R is written.
 
-Three popular packages:
+Three major packages:
 
 - [`future`](https://github.com/HenrikBengtsson/future) and [`furrr`](https://github.com/DavisVaughan/furrr)
 
-- `parallel`
+- `parallel` or [`parallelly`](https://github.com/HenrikBengtsson/parallelly)
 
 - `foreach`
 
