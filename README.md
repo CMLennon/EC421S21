@@ -45,3 +45,20 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 **Problem set 02: Heteroskedasticity** *Due - 5/02/2021*
 
 *Data and solutions will be posted after the due date*
+
+## Resources For Self-Learning
+
+### R
+
+- [Getting Started with R](https://education.rstudio.com/learn/)
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [Advanced R by Hadley W.](http://adv-r.had.co.nz/)
+
+### Metrics Books/Resources
+
+- [Introduction to Econometrics (Dougherty-study guide) (free)](https://global.oup.com/uk/orc/busecon/economics/dougherty5e/student/studyguide/)|[text](https://global.oup.com/uk/orc/busecon/economics/dougherty5e)
+- [Masterin' Metrics](http://www.masteringmetrics.com/)
+- [Mostly Harmless Econometrics](https://www.mostlyharmlesseconometrics.com/#:~:text=Mostly%20Harmless%20Econometrics%20shows%20how,to%20get%20standard%20errors%20right)
+- [Wooldridge](https://www.cengage.com/c/introductory-econometrics-a-modern-approach-6e-wooldridge/9781305270107/)
+- [Graduate Level: Hayashi (my favorite metrics book)](https://press.princeton.edu/books/hardcover/9780691010182/econometrics)
+- [Causal Inference: A Machine Learning Perspective (free) (course)](https://www.bradyneal.com/causal-inference-course)| [(free) text](https://www.bradyneal.com/causal-inference-course#course-textbook)
