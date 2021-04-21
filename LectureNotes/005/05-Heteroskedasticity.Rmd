@@ -1319,6 +1319,6 @@ exclude: true
 ```{r, print pdfs, echo = F, eval = F}
 pagedown::chrome_print(
   input = "05-heteroskedasticity.html",
-  timeout = 60
+  timeout = 100
 )
 ```
