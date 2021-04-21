@@ -52,6 +52,7 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 - [Getting Started with R](https://education.rstudio.com/learn/)
 - [R for Data Science](https://r4ds.had.co.nz/)
+- [Yarrr (pirate's guide to R)](https://bookdown.org/ndphillips/YaRrr/)
 - [Advanced R by Hadley W.](http://adv-r.had.co.nz/)
 
 ### Metrics Books/Resources
