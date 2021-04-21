@@ -62,3 +62,8 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 - [Wooldridge](https://www.cengage.com/c/introductory-econometrics-a-modern-approach-6e-wooldridge/9781305270107/)
 - [Graduate Level: Hayashi (my favorite metrics book)](https://press.princeton.edu/books/hardcover/9780691010182/econometrics)
 - [Causal Inference: A Machine Learning Perspective (free) (course)](https://www.bradyneal.com/causal-inference-course)|||[(free) text](https://www.bradyneal.com/causal-inference-course#course-textbook)
+
+### Other Courses at UO of Note
+
+- [Grant Jacobsen's Data Science for Economists](https://github.com/uo-ec607)
+- [Ed Rubin's Machine Learning/Prediction Master's Course](https://github.com/edrubin/EC524W20)
