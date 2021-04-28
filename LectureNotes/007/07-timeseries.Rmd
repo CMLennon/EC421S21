@@ -963,7 +963,7 @@ exclude: true
 
 ```{r, print pdfs, echo = F, eval = F}
 pagedown::chrome_print(
-  input = here("07-time-series.html"),
+  input = "07-timeseries.html",
   timeout = 60
 )
 ```
