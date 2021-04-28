@@ -133,53 +133,8 @@ Asymptotics, probability limits, and consistency
 
 ## Upcoming
 
-- **Assignment** due xxxxxxxxxxx
-- **Midterm** next xxxxxxxxxx
----
-exclude: true
-
-```{r, load-midterm, include = F, eval = F}
-# Load data
-grade_df <- here("grades.csv") %>% read_csv() %>% mutate(ps_avg = 0.5 * ps1 + 0.5 * ps2)
-```
----
-# Midterm
-
-```{r, plot-midterm, echo = F, eval = F}
-# Regression model
-grade_lm <- lm(midterm ~ ps1 + ps2, data = grade_df)
-# Plot
-ggplot(data = grade_df, aes(x = ps_avg, y = midterm)) +
-xlab("Avg. homework score") +
-ylab("Midterm score") +
-geom_point(size = 2.5, alpha = 0.8) +
-geom_smooth(se = F, method = lm) +
-theme_pander(base_size = 20, base_family = "Fira Sans Book")
-```
----
-# Midterm
-
-```{r, plot-midterm1, echo = F, eval = F}
-# Plot
-ggplot(data = grade_df, aes(x = ps1, y = midterm)) +
-xlab("First homework score") +
-ylab("Midterm score") +
-geom_point(size = 2.5, alpha = 0.8) +
-geom_smooth(se = F, method = lm) +
-theme_pander(base_size = 20, base_family = "Fira Sans Book")
-```
----
-# Midterm
-
-```{r, plot-midterm2, echo = F,eval = F}
-# Plot
-ggplot(data = grade_df, aes(x = ps2, y = midterm)) +
-xlab("Second homework score") +
-ylab("Midterm score") +
-geom_point(size = 2.5, alpha = 0.8) +
-geom_smooth(se = F, method = lm) +
-theme_pander(base_size = 20, base_family = "Fira Sans Book")
-```
+- **Assignment** due May 9th
+- **Midterm** next week (!!!)
 ---
 # EC 421
 ## About our class
@@ -216,7 +171,7 @@ We've shown that omitted variables can cause OLS to be biased and inconsistent.
 
 1. What are the two requirements for an omitted variable to cause bias/inconsistency in OLS?
 
-2. Provide an example of a regression that would suffer from omitted variable bias. Explain why it could be biased.
+2. For the regression of Consumption on GDP, give an example of a variable that would cause this regression to suffer from omitted variable bias. Explain why it could be biased.
 
 3. Does leaving out a variable from a regression **always** bias OLS? Explain your answer.
 ---
@@ -233,10 +188,24 @@ $$
 $$
 Because you are such a great friend, you estimated regressions $(3)$ and $(4)$.
 
-The regression in $(3)$ has and R.super[2] of 0.20, and the regression in $(4)$ has and R.super[2] of 0.30. You have 100 observations.
+The regression in $(3)$ has and R.super[2] of 0.19, and the regression in $(4)$ has and R.super[2] of 0.25. You have 100 observations.
 
-1. Calculate the Breusch-Pagan test statistic testing heterosk. in $(1)$.
-2. The critical value for the Breusch-Pagan test is 6. Finish the B-P test (state your hypotheses; determine your conclusion).
+1. Calculate the White test statistic testing heterosk. in $(1)$.
+2. The critical value for the White test is 18. Finish the white test by stating your hypotheses; determine your conclusion.
+---
+# Example questions
+## Application 2
+
+You wrote some code last night that just won't run. You were hoping to examine a scatterplot of education and income.
+
+Your code reads -
+
+```{r mycode, eval = F}
+plot = ggplot(data = df, aes(x = education, y = income) + geom_point())
+```
+
+What did you need to change to get the result you hoped for?
+
 ---
 layout: true
 # Asymptotics and consistency
@@ -994,7 +963,7 @@ exclude: true
 
 ```{r, print pdfs, echo = F, eval = F}
 pagedown::chrome_print(
-  input = "07-time-series.html",
+  input = here("07-time-series.html"),
   timeout = 60
 )
 ```

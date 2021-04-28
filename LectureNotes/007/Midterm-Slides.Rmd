@@ -1,0 +1,53 @@
+---
+title: "MidtermSlides"
+author: "Connor Lennon"
+date: "4/23/2021"
+output: html_document
+---
+
+---
+exclude: true
+
+```{r, load-midterm, include = F, eval = F}
+# Load data
+grade_df <- here("grades.csv") %>% read_csv() %>% mutate(ps_avg = 0.5 * ps1 + 0.5 * ps2)
+```
+---
+# Midterm
+
+```{r, plot-midterm, echo = F, eval = F}
+# Regression model
+grade_lm <- lm(midterm ~ ps1 + ps2, data = grade_df)
+# Plot
+ggplot(data = grade_df, aes(x = ps_avg, y = midterm)) +
+xlab("Avg. homework score") +
+ylab("Midterm score") +
+geom_point(size = 2.5, alpha = 0.8) +
+geom_smooth(se = F, method = lm) +
+theme_pander(base_size = 20, base_family = "Fira Sans Book")
+```
+---
+# Midterm
+
+```{r, plot-midterm1, echo = F, eval = F}
+# Plot
+ggplot(data = grade_df, aes(x = ps1, y = midterm)) +
+xlab("First homework score") +
+ylab("Midterm score") +
+geom_point(size = 2.5, alpha = 0.8) +
+geom_smooth(se = F, method = lm) +
+theme_pander(base_size = 20, base_family = "Fira Sans Book")
+```
+---
+# Midterm
+
+```{r, plot-midterm2, echo = F,eval = F}
+# Plot
+ggplot(data = grade_df, aes(x = ps2, y = midterm)) +
+xlab("Second homework score") +
+ylab("Midterm score") +
+geom_point(size = 2.5, alpha = 0.8) +
+geom_smooth(se = F, method = lm) +
+theme_pander(base_size = 20, base_family = "Fira Sans Book")
+```
+---
