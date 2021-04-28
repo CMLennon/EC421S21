@@ -46,6 +46,12 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 *Data and solutions will be posted after the due date*
 
+## Midterm Review
+
+[Review Questions](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/MidtermReview/MidtermReview.html)
+
+[Review Topics](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/MidtermReview/Midterm_Topics.html)
+
 ## Resources For Self-Learning
 
 ### R
