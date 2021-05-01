@@ -99,7 +99,7 @@ class: clear
 
 ```{r, print pdfs, echo = F, eval = F}
 pagedown::chrome_print(
-  input = "review/midterm-review.html",
+  input = "MidtermReview/MidtermReview.html",
   timeout = 60
 )
 ```
