@@ -1,0 +1,58 @@
+---
+title: "Midterm EC421 - May 06"
+subtitle: "Passcode: metrics!"
+author: "Connor Lennon"
+date: "Spring 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: inverse, middle
+
+```{r Setup, include = F}
+options(htmltools.dir.version = FALSE)
+library(pacman)
+p_load(leaflet, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, gapminder, av, gganimate())
+# Define pink color
+red_pink <- "#e64173"
+# Notes directory
+dir_slides <- "/Users/connor/Desktop/GithubProjects/Econometrics/EC421/Spring2021/LectureNotes/01-intro/"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  # dpi = 300,
+  # cache = T,
+  warning = F,
+  message = F
+)
+```
+
+```{css, echo = F}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+
+# Info Updates
+
+---
+#Information
+
+I will occassionally update this slide (or future slides) with corrections to test material or clarifications
+
+- If you missed it - .hi[Passcode:] .pink[metrics!]
+
+- Good Luck!
+
+- ~ 30 mins to go (assuming start time of 10:15)

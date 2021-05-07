@@ -602,5 +602,5 @@ exclude: true
 
 ```{r, print pdf, echo = F, eval = F}
 # pagedown::chrome_print("001-questions.html")
-pagedown::chrome_print("001-questions.html", output = "001-solutions.pdf")
+pagedown::chrome_print("ps01.html", output = "001-solutions.pdf")
 ```
