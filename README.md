@@ -26,9 +26,9 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 7. [Intro to Time Series](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/007/07-timeseries.html) <br> [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/007/07-timeseries.pdf) | [.Rmd](https://github.com/CMLennon/EC421S21/blob/main/LectureNotes/007/07-timeseries.Rmd)
 
-8. Autocorrelated Disturbances
+8. [Autocorrelated Disturbances](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/008/08-Autocorrelation.html)
 
-9. Nonstationarity
+9. [Nonstationarity](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/009/09-Autocorrelation.html)
 
 10. Causality I
 
