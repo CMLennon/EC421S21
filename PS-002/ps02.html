@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Problem Set 2: Heteroskedasticity</title>
+    <meta charset="utf-8" />
+    <script src="ps02_files/header-attrs-2.7/header-attrs.js"></script>
+    <link href="ps02_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="ps02_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="ps02_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="ps02_files/kePrint-0.0.1/kePrint.js"></script>
+    <link href="ps02_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Problem Set 2: Heteroskedasticity
+## EC 421: Introduction to Econometrics
+### .it.biggest[Solutions]
+
+---
+
+class: clear
+layout: true
+
+---
+
+
+
+.mono.b[DUE] Upload your answer on [Canvas](https://canvas.uoregon.edu/) *before* midnight on Sunday, 09 May 2021.
+
+.mono.b[IMPORTANT] You must submit .b[two files]: &lt;br&gt; .b.mono[1.] your typed responses/answers to the question (in a Word file or something similar) &lt;br&gt; .b.mono[2.] the .mono[R] script you used to generate your answers. Each student must turn in her/his own answers.
+
+If you are using [RMarkdown](https://rmarkdown.rstudio.com/), you can turn in one file, but it must be an .mono[HTML] or .mono[PDF] that includes your responses and R code.
+
+.mono.b[README!] As with the first problem set, the data in this problem set come from the 2018 American Community Survey (ACS), which I downloaded from [IPUMS](https://ipums.org/). The last page has a table that describes each variable in the dataset(s).
+
+.mono.b[OBJECTIVE] This problem set has three purposes: (1) reinforce the topics of heteroskedasticity and statistical inference; (2) build your .mono[R] toolset; (3) start building your intuition about causality within econometrics/regression.
+
+.mono.b[INTEGRITY] If you are suspected of cheating, then you will receive a zero. We may report you to the dean.
+
+## Setup
+
+**Q01.** Load your packages. You'll probably going to need/want `tidyverse` and `here` (among others).
+
+
+
+**Answer:**
+
+
+```r
+# Load packages
+library(pacman)
+p_load(tidyverse, broom, skimr, here)
+```
+
+
+
+**Q02.** Now load the data (it's the same dataset as the first problem set with one new variable:education). I saved the same dataset again as a two different formats: a `.csv` file or an `.rds` file. Use a function that reads `.csv` files or `rds` files---for example, `read.csv()`/`read.rds()` or `read_csv()`/`read_rds` (from the `readr` package in the `tidyverse`).
+
+
+
+**Answer:**
+
+
+```r
+# Load dataset
+ps_df = here("ps-002-data.csv") %&gt;% read_csv()
+
+#### ALTERNATIVELY
+ps_df = here("ps-002-data.rds") %&gt;% read_rds()
+```
+
+---
+
+**Q03.** Check your dataset. Apply the function `summary()` to your dataset. You should have `25` variables. You might also want to check out the `skim()`function from the`skimr` package---it's a really useful function.
+
+
+
+**Answer:**
+
+
+```r
+# Summary of 'ps_df' variables
+summary(ps_df)
+# ORRR Skim the dataset
+skim(ps_df)
+```
+
+*continued on next page...*
+
+
+```
+#&gt;     state               marrno           age          i_urban        i_citizen    
+#&gt;  Length:8000        Min.   :0.000   Min.   :24.0   Min.   :0.000   Min.   :0.000  
+#&gt;  Class :character   1st Qu.:1.000   1st Qu.:34.0   1st Qu.:0.000   1st Qu.:1.000  
+#&gt;  Mode  :character   Median :1.000   Median :46.0   Median :1.000   Median :1.000  
+#&gt;                     Mean   :0.985   Mean   :45.8   Mean   :0.618   Mean   :0.931  
+#&gt;                     3rd Qu.:1.000   3rd Qu.:56.0   3rd Qu.:1.000   3rd Qu.:1.000  
+#&gt;                     Max.   :3.000   Max.   :92.0   Max.   :1.000   Max.   :1.000  
+#&gt;                                                                                   
+#&gt;   i_noenglish     i_only_english  i_drive_to_work    i_asian          i_black      
+#&gt;  Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+#&gt;  1st Qu.:0.0000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:0.0000   1st Qu.:0.0000  
+#&gt;  Median :0.0000   Median :1.000   Median :1.000   Median :0.0000   Median :0.0000  
+#&gt;  Mean   :0.0345   Mean   :0.801   Mean   :0.919   Mean   :0.0621   Mean   :0.0865  
+#&gt;  3rd Qu.:0.0000   3rd Qu.:1.000   3rd Qu.:1.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+#&gt;  Max.   :1.0000   Max.   :1.000   Max.   :1.000   Max.   :1.0000   Max.   :1.0000  
+#&gt;                                                                                    
+#&gt;   i_indigenous       i_white         i_female         i_male      i_grad_college 
+#&gt;  Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.000  
+#&gt;  1st Qu.:0.0000   1st Qu.:1.000   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000  
+#&gt;  Median :0.0000   Median :1.000   Median :0.000   Median :1.000   Median :0.000  
+#&gt;  Mean   :0.0076   Mean   :0.783   Mean   :0.473   Mean   :0.527   Mean   :0.386  
+#&gt;  3rd Qu.:0.0000   3rd Qu.:1.000   3rd Qu.:1.000   3rd Qu.:1.000   3rd Qu.:1.000  
+#&gt;  Max.   :1.0000   Max.   :1.000   Max.   :1.000   Max.   :1.000   Max.   :1.000  
+#&gt;                                                                                  
+#&gt;  i_grad_highschool   i_married     i_married_mult personal_income i_health_insurance
+#&gt;  Min.   :0.000     Min.   :0.000   Min.   :0.00   Min.   : 0.0    Min.   :0.000     
+#&gt;  1st Qu.:1.000     1st Qu.:0.000   1st Qu.:0.00   1st Qu.: 2.6    1st Qu.:1.000     
+#&gt;  Median :1.000     Median :1.000   Median :0.00   Median : 4.5    Median :1.000     
+#&gt;  Mean   :0.924     Mean   :0.609   Mean   :0.18   Mean   : 6.3    Mean   :0.919     
+#&gt;  3rd Qu.:1.000     3rd Qu.:1.000   3rd Qu.:0.00   3rd Qu.: 7.3    3rd Qu.:1.000     
+#&gt;  Max.   :1.000     Max.   :1.000   Max.   :1.00   Max.   :85.7    Max.   :1.000     
+#&gt;                                                                                     
+#&gt;    i_internet     time_depart    time_arrive   time_commuting    education   
+#&gt;  Min.   :0.000   Min.   :  15   Min.   :  19   Min.   :  2.0   Min.   : 0.0  
+#&gt;  1st Qu.:1.000   1st Qu.: 392   1st Qu.: 414   1st Qu.: 14.0   1st Qu.:12.0  
+#&gt;  Median :1.000   Median : 452   Median : 474   Median : 22.0   Median :13.0  
+#&gt;  Mean   :0.945   Mean   : 488   Mean   : 517   Mean   : 29.1   Mean   :13.8  
+#&gt;  3rd Qu.:1.000   3rd Qu.: 512   3rd Qu.: 539   3rd Qu.: 37.0   3rd Qu.:16.0  
+#&gt;  Max.   :1.000   Max.   :1425   Max.   :1439   Max.   :202.0   Max.   :17.0  
+#&gt;  NA's   :30
+```
+
+
+Table: Data summary
+
+|                         |      |
+|:------------------------|:-----|
+|Name                     |ps_df |
+|Number of rows           |8000  |
+|Number of columns        |25    |
+|_______________________  |      |
+|Column type frequency:   |      |
+|character                |1     |
+|numeric                  |24    |
+|________________________ |      |
+|Group variables          |None  |
+
+
+**Variable type: character**
+
+|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
+|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
+|state         |        64|          0.99|   2|   2|     0|       49|          0|
+
+
+**Variable type: numeric**
+
+|skim_variable      | n_missing| complete_rate|   mean|     sd| p0|   p25|   p50|   p75|   p100|hist  |
+|:------------------|---------:|-------------:|------:|------:|--:|-----:|-----:|-----:|------:|:-----|
+|marrno             |         0|             1|   0.98|   0.73|  0|   1.0|   1.0|   1.0|    3.0|▃▇▁▂▁ |
+|age                |         0|             1|  45.83|  13.19| 24|  34.0|  46.0|  56.0|   92.0|▇▇▇▂▁ |
+|i_urban            |         0|             1|   0.62|   0.49|  0|   0.0|   1.0|   1.0|    1.0|▅▁▁▁▇ |
+|i_citizen          |         0|             1|   0.93|   0.25|  0|   1.0|   1.0|   1.0|    1.0|▁▁▁▁▇ |
+|i_noenglish        |         0|             1|   0.03|   0.18|  0|   0.0|   0.0|   0.0|    1.0|▇▁▁▁▁ |
+|i_only_english     |         0|             1|   0.80|   0.40|  0|   1.0|   1.0|   1.0|    1.0|▂▁▁▁▇ |
+|i_drive_to_work    |         0|             1|   0.92|   0.27|  0|   1.0|   1.0|   1.0|    1.0|▁▁▁▁▇ |
+|i_asian            |         0|             1|   0.06|   0.24|  0|   0.0|   0.0|   0.0|    1.0|▇▁▁▁▁ |
+|i_black            |         0|             1|   0.09|   0.28|  0|   0.0|   0.0|   0.0|    1.0|▇▁▁▁▁ |
+|i_indigenous       |         0|             1|   0.01|   0.09|  0|   0.0|   0.0|   0.0|    1.0|▇▁▁▁▁ |
+|i_white            |         0|             1|   0.78|   0.41|  0|   1.0|   1.0|   1.0|    1.0|▂▁▁▁▇ |
+|i_female           |         0|             1|   0.47|   0.50|  0|   0.0|   0.0|   1.0|    1.0|▇▁▁▁▇ |
+|i_male             |         0|             1|   0.53|   0.50|  0|   0.0|   1.0|   1.0|    1.0|▇▁▁▁▇ |
+|i_grad_college     |         0|             1|   0.39|   0.49|  0|   0.0|   0.0|   1.0|    1.0|▇▁▁▁▅ |
+|i_grad_highschool  |         0|             1|   0.92|   0.27|  0|   1.0|   1.0|   1.0|    1.0|▁▁▁▁▇ |
+|i_married          |         0|             1|   0.61|   0.49|  0|   0.0|   1.0|   1.0|    1.0|▅▁▁▁▇ |
+|i_married_mult     |         0|             1|   0.18|   0.38|  0|   0.0|   0.0|   0.0|    1.0|▇▁▁▁▂ |
+|personal_income    |         0|             1|   6.30|   7.25|  0|   2.6|   4.5|   7.3|   85.7|▇▁▁▁▁ |
+|i_health_insurance |         0|             1|   0.92|   0.27|  0|   1.0|   1.0|   1.0|    1.0|▁▁▁▁▇ |
+|i_internet         |        30|             1|   0.95|   0.23|  0|   1.0|   1.0|   1.0|    1.0|▁▁▁▁▇ |
+|time_depart        |         0|             1| 487.65| 198.11| 15| 392.0| 452.0| 512.0| 1425.0|▁▇▁▁▁ |
+|time_arrive        |         0|             1| 516.80| 196.86| 19| 414.0| 474.0| 539.0| 1439.0|▁▇▁▁▁ |
+|time_commuting     |         0|             1|  29.14|  23.98|  2|  14.0|  22.0|  37.0|  202.0|▇▂▁▁▁ |
+|education          |         0|             1|  13.76|   2.69|  0|  12.0|  13.0|  16.0|   17.0|▁▁▁▇▇ |
+
+---
+
+**Q04.** Based upon your answer to **Q03**: What are the mean and median of commute time (`time_commuting`)? What does this tell you about the distribution of the variable?
+
+
+
+**Answer:** The mean and median of commute time are 29.145 and 22, respectively. Because the mean is quite a bit larger than the median it tells us that the right tail of the distribution of commute time is skewed---meaning there are a small number of individuals with very long commutes.
+
+
+
+**Q05.** Based upon your answer to **Q03** What are the minimum, maximum, and mean of the indicator for whether the individual has health insurance (`i_health_insurance`)? What does the mean of of this binary indicator variable (`i_health_insurance`) tell us?
+
+
+
+**Answer:** The minimum, maximum, and mean of `i_health_insurance` are 0, 1, and 0.919, respectively.
+
+The mean of a binary indicator variable tells us the share of individuals whose value equals one. Here: We learn that in the sample, approximately 92% of individuals had some type of health insurance.
+
+
+
+## What's the value of an education?
+
+**Q06.** Suppose we are interested in the "classic" labor regression: the relationship between an individual's education and her income. Plot a scatter plot with income on the y axis and approximate years of education on the x axis.
+
+For the scatterplot, you might try [.mono[geom_point()]](https://ggplot2.tidyverse.org/reference/geom_point.html) from .mono[ggplot2]. Make sure you [label](https://ggplot2.tidyverse.org/reference/labs.html) your axes.
+
+
+
+**Answer:**
+
+
+```r
+ggplot(data = ps_df, aes(x = education, y = personal_income)) +
+geom_point(size = 0.25) + 
+scale_y_continuous("Personal income ($10K)") +
+scale_x_continuous("Years of education") +
+theme_minimal()
+```
+
+&lt;img src="ps02_files/figure-html/answer06-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+**Q07.** Based your plot in **Q06.**, if we regress personal income on education, do you think we could have an issue with heteroskedasticity? Explain/justify your answer.
+
+
+
+**Answer:** We may very well have heteroskedastic disturbances in the described regression: it appears as though the variance of our outcome variable (which depends upon the variance of the disturbance) grows as our explanatory variable grows. There are also certainly levels of education with more variance than others (*e.g.*, 12 years and 16 years).
+
+---
+
+**Q08.** What issues can heteroskedasticity cause? (*Hint:* There are at least two main issues.) Does it bias OLS when estimating coefficients?
+
+
+
+**Answer:** Heteroskedasticity causes our standard errors to be biased (which affects inference---*e.g.*, hypothesis tests, confidence intervals). Heteroskedasticity also makes OLS regression less efficient for estimating coefficients.
+
+On the other hand, heteroskedasticity **does not** bias OLS when estimating linear regression coefficients.
+
+**Q09.** Time for a regression.
+
+Regress *personal income* (`personal_income`) on *education* (`education`) our indicator for *citizenship status* (`i_citizen`) and our indicator for *female* (`i_female`). Report your results---interpreting the intercept and the coefficients and commenting on the coefficients' statistical significance.
+
+*Reminder:* The personal-income variable is measured in tens of thousands (meaning that a value of `3` tells us the household's income is $30,000).
+
+
+
+**Answer:**
+
+
+```r
+# Regression
+est09 = lm(personal_income ~education+ i_female + i_citizen, data = ps_df)
+# Results
+est09 %&gt;% tidy()
+```
+
+```
+#&gt; # A tibble: 4 x 5
+#&gt;   term        estimate std.error statistic   p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1 (Intercept)   -3.42     0.451      -7.60 3.42e- 14
+#&gt; 2 education      0.784    0.0289     27.1  7.84e-155
+#&gt; 3 i_female      -2.89     0.154     -18.8  1.48e- 77
+#&gt; 4 i_citizen      0.323    0.305       1.06 2.91e-  1
+```
+
+We find statistically significant relationships between individuals' incomes and each of our explanatory variables except for citizenship status---both education and our indicator for "female" are significant.
+
+-   The intercept tells us the expected income (-3.4225) for **an immigrant male** with **zero education** (which we do not observe in the actual data).
+-   The coefficient on `education` tells us that a each additional year of education is significantly associated with approximately $784 additional dollars of income (holding all else constant).
+-   The coefficient on `i_female` tells us that women in the sample, on average, make $2,894 less than the men in the sample (holding education and citizen status constant).
+-   The coefficient on `i_citizen` tells us that citizens in the sample, on average, make $323 more than the non-citizens in the sample (holding education and gender constant).
+
+---
+
+**Q10.** Use the residuals from your regression in **Q09.** to conduct a Breusch-Pagan test for heteroskedasticity. Do you find significant evidence of heteroskedasticity? Justify your answer.
+
+*Hints*
+
+1.  You can get the residuals from an `lm` object using the `residuals()` function, *e.g.*, `residuals(my_reg)`.
+2.  You can get the R-squared from an estimated regression (*e.g.*, a regression called `my_reg`) using `summary(my_reg)$r.squared`.
+
+
+
+**Answer:**
+
+
+```r
+# Regression for BP test
+est10 = lm(residuals(est09)^2 ~education+ i_female + i_citizen, data = ps_df)
+# Results
+est10 %&gt;% tidy()
+```
+
+```
+#&gt; # A tibble: 4 x 5
+#&gt;   term        estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)   -64.9      17.4     -3.72  1.97e- 4
+#&gt; 2 education      10.0       1.12     8.94  4.97e-19
+#&gt; 3 i_female      -41.2       5.94    -6.94  4.29e-12
+#&gt; 4 i_citizen      -7.20     11.8     -0.609 5.42e- 1
+```
+
+*continued on next page...*
+
+
+```r
+# BP test statistic
+lm10 = summary(est10)$r.squared * nrow(ps_df)
+# Test against Chi-squared 2
+pchisq(lm10, df = 2, lower.tail = F) %&gt;% round(5)
+```
+
+```
+#&gt; [1] 0
+```
+
+The *p*-value is extremely small---so small that the computer reports zero---so we reject the null hypothesis and conclude that there is statistically significant evidence of heteroskedasticity.
+
+---
+
+**Q11.** Now use your residuals from **Q09**  to conduct a White test for heteroskedasticity. Does your conclusion about heteroskedasticity change at all? Explain why you think this is.
+
+*Hints:* Recall that in R
+
+-   `lm(y ~ I(x^2))` will regress `y` on `x` squared.
+-   `lm(y ~ x1:x2` will regress `y` on the interaction between `x1` and `x2`.
+-   The square of a binary variable is the same binary variable (and you don't want to include the same variable in a regression twice).
+
+
+
+**Answer:**
+
+
+```r
+#slightly modified regression for BP test
+mod_est09 = lm(personal_income ~education+ i_female +i_citizen, data = ps_df)
+# Regression for BP test
+est11 = lm(
+  residuals(mod_est09)^2 ~
+education+ i_female + i_citizen+
+  I(education^2) +
+ education:i_female + i_citizen:education + i_citizen:i_female + i_citizen:i_female:education,
+  data = ps_df
+)
+# Results
+est11 %&gt;% tidy()
+```
+
+```
+#&gt; # A tibble: 9 x 5
+#&gt;   term                         estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;                           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)                     93.2     41.5       2.25  2.48e- 2
+#&gt; 2 education                      -25.2      4.66     -5.39  7.06e- 8
+#&gt; 3 i_female                        38.9     68.1       0.571 5.68e- 1
+#&gt; 4 i_citizen                      -60.5     47.7      -1.27  2.05e- 1
+#&gt; 5 I(education^2)                   1.57     0.182     8.62  8.33e-18
+#&gt; 6 education:i_female              -4.91     5.30     -0.927 3.54e- 1
+#&gt; 7 education:i_citizen              5.32     3.75      1.42  1.56e- 1
+#&gt; 8 i_female:i_citizen             140.      76.7       1.82  6.80e- 2
+#&gt; 9 education:i_female:i_citizen   -11.1      5.85     -1.89  5.88e- 2
+```
+
+```r
+# BP test statistic
+lm11 = summary(est11)$r.squared * nrow(ps_df)
+# Test against Chi-squared 4
+pchisq(lm11, df = 4, lower.tail = F) %&gt;% round(3)
+```
+
+```
+#&gt; [1] 0
+```
+
+The *p*-value is still extremely small---nearly zero (reported as zero), so we reject the null hypothesis and conclude that there is statistically significant evidence of heteroskedasticity. The result did not change because we already found strong evidence of heteroskedasticity, and the White test is just a more flexible test for heteroskedasticity, so this result is expected.
+
+---
+
+**Q12.** Now conduct a Goldfeld-Quandt test for heteroskedasticity. Do you find significant evidence of heteroskedasticity? Explain why this result makes sense.
+
+**Specifics:**
+
+- We are still interested in the same regression (regressing personal income on education and the indicator for female and citizenship status).
+- Sort the dataset on **education**. The [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html) should be helpful for this task.
+- Create you two groups for the Goldfeld-Quandt test by using the first **1,100** and last **1,100** observations (after sorting on education). The `head()` and `tail()` functions can help here.
+- When you create the Goldfeld-Quandt test statistic, put the larger SSE value in the numerator.
+
+
+
+**Answer:**
+
+
+```r
+# Arrange the dataset by commute time
+ps_df = ps_df %&gt;% arrange(education)
+# Create the two subsets (first and last 8,000 observations)
+g1 = head(ps_df, 1100)
+g2 = tail(ps_df, 1100)
+# Run the two regressions
+est12_1 = lm(personal_income ~education+ i_female + i_citizen, data = g1)
+est12_2 = lm(personal_income ~education+ i_female + i_citizen, data = g2)
+# Find the SSE from each regression
+sse1 = sum(residuals(est12_1)^2)
+sse2 = sum(residuals(est12_2)^2)
+# GQ test statistic
+gq = sse2 / sse1
+# p-value
+pf(gq, df1 = 1100, df2 = 1100, lower.tail = F)
+```
+
+```
+#&gt; [1] 2.595e-146
+```
+
+Using the Goldfeld-Quandt test for heteroskedasticity, we again reject the null hypothesis of *homoskedasticity* with a *p*-value of approximately 0.
+
+When we looked at the figure at the beginning of the problem set, it definitely seemed like there was possibly a funnel-like heteroskedasticity. This is the type of heteroskedasticity that the Goldfeld-Quandt test is capable of picking up, so it makes sense that we were able to detect it. 
+
+---
+
+**Q13.** Using the `lm_robust()` function from the `estimatr` package, calculate heteroskedasticity-robust standard errors. How do these heteroskedasticity-robust standard errors compare to the plain OLS standard errors you previously found?
+
+
+
+**Answer:**
+
+
+```r
+# Load estimatr package
+p_load(estimatr)
+# Estimate het-robust standard errors
+est13 = lm_robust(
+  personal_income ~education+ i_female + i_citizen,
+  data = ps_df,
+  se_type = "HC2"
+)
+# Print results
+est13 %&gt;% summary()
+```
+
+*continued on next page...*
+
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm_robust(formula = personal_income ~ education + i_female + 
+#&gt;     i_citizen, data = ps_df, se_type = "HC2")
+#&gt; 
+#&gt; Standard error type:  HC2 
+#&gt; 
+#&gt; Coefficients:
+#&gt;             Estimate Std. Error t value  Pr(&gt;|t|) CI Lower CI Upper   DF
+#&gt; (Intercept)   -3.423     0.4519   -7.57  4.04e-14   -4.308   -2.537 7996
+#&gt; education      0.784     0.0352   22.32 4.48e-107    0.716    0.853 7996
+#&gt; i_female      -2.894     0.1563  -18.51  5.74e-75   -3.201   -2.588 7996
+#&gt; i_citizen      0.323     0.2749    1.17  2.41e-01   -0.216    0.861 7996
+#&gt; 
+#&gt; Multiple R-squared:  0.114 ,	Adjusted R-squared:  0.114 
+#&gt; F-statistic:  210 on 3 and 7996 DF,  p-value: &lt;2e-16
+```
+
+The heteroskedasticity-robust standard errors are slightly slightly larger than the OLS standard errors. The increase is especially "large" for education---increasing by approximately 21%. That said, the statistical significance of the term has not changed meaningfully.
+
+
+
+Hint: `lm_robust(y ~ x, data = some_df, se_type = "HC2")` will calculate heteroskedasticity-robust standard errors.
+
+**Q14.** Why did your coefficients remain the same in **Q13.**---even though your standard errors changed?
+
+
+
+**Answer:** Our coefficients have not changed because we are still using OLS to estimate the coefficients. The thing that has changed is how we calculate the *standard errors* (not the coefficients).
+
+---
+
+**Q15.** *If* you run weighted least squares (WLS), which the following four possibilities would you expect? Explain your answer.
+
+1.  The same coefficients as OLS but different standard errors.
+2.  Different coefficients from OLS but the same standard errors.
+3.  The same coefficients as OLS *and* the same standard errors.
+4.  Different coefficients from OLS *and* different standard errors.
+
+**Note:** You do not need to run WLS.
+
+
+
+**Answer:** With WLS, we would expect our coefficients and standard error to differ from OLS. We expect this because WLS is a different estimator than OLS, which produces different estimates, different residuals, and different standard errors.
+
+
+
+---
+
+**Q16.** As we discussed in class, a misspecified model can cause heteroskedasticity. Let's see if that's the issue here.
+
+Update your original model by adding an interaction between education and the indicator for female. In other words: In this new econometric model, you will regression personal income on an intercept,education, the indicator for female, and the interaction between education and female. Use heteroskedasticity-robust standard errors.
+
+Interpret the coefficient on the interaction between `education` and `i_female` and comment on its statistical significance.
+
+
+
+*continued on next page...*
+
+**Answer:**
+
+
+```r
+# The new model
+est16 = lm_robust(
+  personal_income ~education+ i_female +education:i_female + i_citizen,
+  data = ps_df,
+  se_type = "HC2"
+)
+# The results
+summary(est16)
+```
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm_robust(formula = personal_income ~ education + i_female + 
+#&gt;     education:i_female + i_citizen, data = ps_df, se_type = "HC2")
+#&gt; 
+#&gt; Standard error type:  HC2 
+#&gt; 
+#&gt; Coefficients:
+#&gt;                    Estimate Std. Error t value Pr(&gt;|t|) CI Lower CI Upper   DF
+#&gt; (Intercept)          -4.908     0.6634   -7.40 1.53e-13   -6.208   -3.607 7995
+#&gt; education             0.896     0.0522   17.18 5.53e-65    0.794    0.999 7995
+#&gt; i_female              0.869     0.8496    1.02 3.06e-01   -0.796    2.534 7995
+#&gt; i_citizen             0.296     0.2756    1.08 2.82e-01   -0.244    0.837 7995
+#&gt; education:i_female   -0.272     0.0660   -4.13 3.70e-05   -0.402   -0.143 7995
+#&gt; 
+#&gt; Multiple R-squared:  0.117 ,	Adjusted R-squared:  0.116 
+#&gt; F-statistic:  185 on 4 and 7995 DF,  p-value: &lt;2e-16
+```
+
+In this new model, the interaction between female and education is statistically significant at the 5-percent level with a coefficient of approximately -0.27. This coefficient tests whether the relationship between education and earnings appears to differ for females and non-females (in this sample: non-female means male). 
+
+In more "economics" terms: We are testing whether the returns to education are different for women (relative to rest of the sample—men). The coefficient tells us that the returns to education for females in the sample make is approximately $2,723.04 **less** than males in the sample (for each additional year ofeducation).
+
+
+
+**Q17.** Based upon the model you estimated in **Q16.**, what is the expected personal income for women with 16 years of education? What about a man with 16 years of education?
+
+
+
+**Answer:** The expected income for women with 16 years of education is approximately $147,731. The expected income for men with 16 years of education is approximately $91,608.
+
+---
+
+**Q18.** Back to heteroskedasticity! Use the residuals from **Q16.** (where we attempted to deal with misspecification) to conduct a White test. Did changing our model specification "help"? Explain your answer.
+
+
+
+**Answer:**
+
+
+```r
+# Get residuals from the model in 16
+resid16 = ps_df$personal_income - est16$fitted.values
+# Regression for BP test
+est18 = lm(
+  resid16^2 ~education + i_female + i_citizen +
+ education:i_female +i_citizen:education +i_citizen:i_female +
+  I(education^2) + I(education^2):i_female + 
+   i_citizen:i_female:education,
+  data = ps_df
+)
+# Results
+est18 %&gt;% tidy()
+# BP test statistic
+lm18 = summary(est18)$r.squared * nrow(ps_df)
+# Test against Chi-squared 5
+pchisq(lm18, df = 9, lower.tail = F) %&gt;% round(3)
+```
+
+
+```
+#&gt; # A tibble: 10 x 5
+#&gt;    term                         estimate std.error statistic  p.value
+#&gt;    &lt;chr&gt;                           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 (Intercept)                    132.      42.0       3.14  1.71e- 3
+#&gt;  2 education                      -33.8      5.24     -6.45  1.21e-10
+#&gt;  3 i_female                       -73.6     72.8      -1.01  3.12e- 1
+#&gt;  4 i_citizen                      -37.5     48.3      -0.775 4.38e- 1
+#&gt;  5 I(education^2)                   1.98     0.225     8.80  1.60e-18
+#&gt;  6 education:i_female              19.7      9.06      2.18  2.94e- 2
+#&gt;  7 education:i_citizen              3.62     3.79      0.955 3.40e- 1
+#&gt;  8 i_female:i_citizen              66.1     81.5       0.810 4.18e- 1
+#&gt;  9 i_female:I(education^2)         -1.15     0.379    -3.03  2.44e- 3
+#&gt; 10 education:i_female:i_citizen    -5.79     6.17     -0.938 3.49e- 1
+```
+
+```
+#&gt; [1] 0
+```
+
+Even with this new interaction (our new specification to try to address misspecification), we still have very strong evidence of heteroskedasticity (*i.e.*, highly statistically significant). Thus, it does not seem like the interaction "helped" resolve the heteroskedasticity---though it does seem like an important part of the model (given its statistical significance and economic meaning).
+
+---
+
+**Q19.** Based upon your findings from the preceding questions: Do you think heteroskedasticity is present? If so: Does heteroskedasticity appear to matter in this setting?
+
+Explain your answer/reasoning. **Include a plot of the residuals in your answer.**
+
+
+
+**Answer:**
+
+
+```r
+# Plotting the residuals from our OLS regression against education
+ggplot(
+  data = data.frame(
+  education = ps_df$education,
+    residual = est09$residuals
+  ),
+  aes(x =education, y = residual)
+) +
+geom_point(size = 2.5, alpha = 0.4) +
+xlab("Education") +
+ylab("OLS Residual") +
+theme_minimal()
+```
+
+*continued on next page...*
+
+&lt;img src="ps02_files/figure-html/answer19-out-1.svg" style="display: block; margin: auto;" /&gt;
+
+Heteroskedasticity does appear to be present---it appeared likely in our original plot, it was highly significant in our tests, and the figure above seems to suggest that variance (in the residuals) changes with values of education.
+
+This heteroskedasticity appears to be causing us to over-estimate our precision---especially for the relationship between education and personal income. For example, our `\(t\)` statistic drops from 27.102 to 22.3169 when we use heteroskedasticity-robust standard errors. However, the `\(t\)` statistic of 22.3169 is still highly significant, so adjusting for heteroskedasticity doesn't really change our results/understanding much in this setting.
+
+
+
+**Q20.** In this assignment, we've largely focused on heteroskedasticity. But let's think a bit about the regressions you actually ran. Do you think the regression that we ran could suffer from omitted-variable bias? If you think there is omitted-variable bias, explain why and provide an example of "valid" omitted variable that would cause bias. If you do not think there is omitted-variable bias, justify your answer *using all of the requirements for an omitted variable.*
+
+
+
+**Answer:** It is very likely that there is omitted variable bias here---there are many variables that affect personal income and that interact with education, sex, or their interaction. 
+
+
+
+**[Continues...]**
+---
+
+## Estimate WLS
+
+**Q21.** Often, we as researchers have no idea the form of heteroskedasticity, but we'd really like to run WLS - our answer then is a procedure known as *feasible generalized least squares* or **FGLS**. Let's walk through how to do this. 
+
+Our first step is to set up an estimating equation. Let's regress  `personal_income` (*y*) on `i_citizen`, `education`, `marrno` *(number of marriages)*, `i_female`, and `i_female` interacted with `education`. What is the significance of number of marriages here? How should we explain the causal effect of this variable (ie, does having more marriages cause an individual to get more money)? *Hint: Think about what variables are NOT in the model*
+
+
+
+**Answer:**
+
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = personal_income ~ education + i_citizen + marrno + 
+#&gt;     i_female + i_female:education, data = ps_df)
+#&gt; 
+#&gt; Residuals:
+#&gt;    Min     1Q Median     3Q    Max 
+#&gt; -10.58  -3.14  -1.30   1.05  77.44 
+#&gt; 
+#&gt; Coefficients:
+#&gt;                    Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)         -5.9023     0.5543  -10.65  &lt; 2e-16 ***
+#&gt; education            0.9052     0.0372   24.35  &lt; 2e-16 ***
+#&gt; i_citizen            0.0965     0.3037    0.32     0.75    
+#&gt; marrno               1.0834     0.1048   10.33  &lt; 2e-16 ***
+#&gt; i_female             0.5185     0.8088    0.64     0.52    
+#&gt; education:i_female  -0.2486     0.0575   -4.33  1.5e-05 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 6.77 on 7994 degrees of freedom
+#&gt; Multiple R-squared:  0.128,	Adjusted R-squared:  0.128 
+#&gt; F-statistic:  236 on 5 and 7994 DF,  p-value: &lt;2e-16
+```
+`Marrno` is statistically significant, with a p-value equal to 7.0371\times 10^{-25}.  `Marrno` makes more sense here likely as a proxy for both age and also jobs with long working hours rather than as a direct causal factor of income growth. A person with more marriages (and therefore more divorces) is likely to be either older (so has had more opportunities for promotion), have less time at home, or both.
+
+---
+
+**Q22.** Our next step is to estimate `\(h(x_i)\)`. In our version of FGLS - we assume that `\(\sigma_i^2 = \sigma^2h(x_i)\)`, but unlike our general approach to WLS, we will ALSO assume `\(h(x)\)` is equal to `\(e^{\delta_0 + \delta_1 x_1 \dots \delta_kx_k}\)` - we can find the values for `\(\delta_0\)` and `\(\delta_1\)` by regressing our variables `\(x\)` on the log of the squared residuals &lt;sup&gt;.pink[†]&lt;/sup&gt;. In our case, we are assuming `\(\mathop{h}(x_i) = e^{\delta_0 + \delta_1 education_i + \dots + \delta_5 education_i*female_i}\)`. We need to transform our equation to find something OLS can estimate - a sensible option is to use the log-linear specification - `\(log(h(x_i)) = log(e^{\delta_0 + \delta_1 education_i + \dots + \delta_5 education_i*female_i}) = \delta_0 + \dots\)`
+
+.footnote[.pink[†] There are a LOT of ways to estimate heteroskedasticity using fgls - this is only one of them]
+
+We can estimate the coefficients `\(\delta_0\)` through `\(\delta_5\)` by running a regression of the independent variables, `\(X_1 \dots X_5\)` from the regression in **Q21** on the *logged and squared* `residuals` of our estimates from **Q21** (ie - `log(residuals^2)` in R.) 
+
+Then we need to create a weights variable equal to `\(h(x)\)` for our data by extracting the fitted values of the regression above and **exponentiating them**, ie, `\(e^{fitted.values}\)`. You can do this in R once you have produced your fitted values by running the command - `weight = exp(my_fitted_values)`.
+
+[*Hint:* You can access the fitted values of an `lm` object by using `not_a_real_lm$fitted.values`]
+
+
+
+
+
+
+
+
+**Q23.** Now, all that is left is to estimate *WLS*. We can do this by taking the weights we calculated in **Q22** and include them in a new regression like so - `lm(...,weights = 1/weight)`. Use the same regression parameters you used for **Q21**. Have R report the results for you, and include your findings. Comment on the significance of `i_female` and `marrno`.
+
+
+
+**Answer**
+
+
+```
+#&gt; # A tibble: 6 x 5
+#&gt;   term               estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)         -0.149     0.402     -0.371 7.11e- 1
+#&gt; 2 education            0.453     0.0282    16.1   3.48e-57
+#&gt; 3 i_citizen            0.242     0.253      0.956 3.39e- 1
+#&gt; 4 marrno               0.849     0.0903     9.40  6.96e-21
+#&gt; 5 i_female            -1.17      0.463     -2.52  1.18e- 2
+#&gt; 6 education:i_female  -0.0803    0.0353    -2.27  2.31e- 2
+```
+
+```
+#&gt; # A tibble: 6 x 5
+#&gt;   term              estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 intercept_wls      -0.149     0.402     -0.371 7.11e- 1
+#&gt; 2 education_wls       0.453     0.0282    16.1   3.48e-57
+#&gt; 3 i_citizen_wls       0.242     0.253      0.956 3.39e- 1
+#&gt; 4 marrno_wls          0.849     0.0903     9.40  6.96e-21
+#&gt; 5 i_female_wls       -1.17      0.463     -2.52  1.18e- 2
+#&gt; 6 i_female_educ_wls  -0.0803    0.0353    -2.27  2.31e- 2
+```
+
+It appears as if `i_female` is now significant at the 5% level, with a p-value equal to 0.0118. This means we must adjust our conclusion a bit - there are likely decreased returns to education for women (at least in our sample) but low-education women appear to out-earn their male counterparts.
+
+Even after adjusting the weights of our observations, `marrno`, ie, the number of marriages a person has still seems significant with a p-value equal to 6.9581\times 10^{-21}. It is likely we can include age in our regression and reduce the significance of this effect, but heteroskedasticity appears to have no impact on the significance of the effect of an additional marriage on personal income.
+
+---
+
+**Q24.** Explain why a critical econometrician might not trust these results. Plot your new fitted values against your new residuals. Do you think they're correct to not trust these results?
+
+Lastly - FGLS as an estimator is not *unbiased*, but it is a *consistent* estimator and *asymptotically* more efficient than OLS for `\(\beta\)`. Explain what these three statements mean using your own words.
+
+(*Hint: what do we need for WLS to work properly?*)
+
+
+
+
+```r
+ggplot(
+  data = data.frame(
+  fitted = wls_est$fitted.values,
+    residual = wls_est$residuals
+  ),
+  aes(x =fitted, y = residual)
+) +
+geom_point(size = 2.5, alpha = 0.4) +
+xlab("WLS Fitted Values") +
+ylab("WLS Residual") +
+theme_minimal()
+```
+
+&lt;img src="ps02_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+A critical econometrician might say that - if the functional form of `\(\sigma^2h(x_i)\)` is NOT well-approximated by `\(e^{\delta_0 +  \delta_1 \hat{y}_{fgls}}\)` then we have misspecified our functional form for WLS, and we still will suffer from heteroskedasticity. When we do this, we can induce bias and inefficiency in our estimates. A cursory examination of our WLS residuals plotted against the fitted values appears to imply we did NOT fix our heteroskedasticity.
+
+*Not required for full credit:* FGLS is biased for our standard errors because we estimated `\(\sigma^2_i\)`, but FGLS is efficient *asymptotically*- meaning as our sample size goes to infinity, it will perform "better" than OLS. Specifically - given an infinite sample, we expect coefficients from *fGLS* to have lower standard errors.
+
+FGLS being **biased** means that `\(E(\hat{\beta}_{fgls}) \neq \beta\)`. FGLS being **consistent** means that `\(\lim_{n\rightarrow\infty}\mathop{P}(|\hat{\beta}_{fgls}-\beta|&gt;\varepsilon) = 0\)` for any `\(\varepsilon &gt; 0\)`. IE - as our sample size approaches infinity, the probability our FLGS estimator differs from the true population value by more than some small number `\(\varepsilon\)` is zero.
+
+
+
+
+---
+class: clear
+
+## Description of variables and names
+
+&lt;br&gt;
+
+&lt;table class="table" style="font-size: 6px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[state] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; State abbreviation &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[marrno] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; number of marriages individual has had &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[age] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The individual's age (in years) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_urban] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether home county is 'urban' &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_citizen] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual is a citizen (naturalized or born.) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_noenglish] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual speaks English &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_only_english] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual speaks ONLY English &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_drive_to_work] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual drives to work or takes a personal car &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_asian] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Asian &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_black] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Black &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_indigenous] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified with a group indigenous to North Am. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_white] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as White &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_female] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_male] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Male &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_grad_college] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual graduated college &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_grad_highschool] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual graduated high school &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_married] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual was married at the time of the sample &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_married_mult] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has been married multiple times at the time of the sample &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[personal_income] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Total (annual) personal income (tens of thousands of dollars) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_health_insurance] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has health insurance &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_internet] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has access to the internet &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[time_depart] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The time that the individual typically leaves for work (in minutes since midnight) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[time_arrive] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The time that the individual typically arrives at work (in minutes since midnight) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[time_commuting] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The length of time that the individual typically travels to work (in minutes) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[education] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Number of years in education &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Variables that begin with .mono-small[i\\\_] denote binary/indicator variables (taking on the value of .mono-small[0] or .mono-small[1]).
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "8.5:11",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
