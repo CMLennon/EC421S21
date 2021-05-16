@@ -1,7 +1,7 @@
 ---
-title: "DAGs"
-subtitle: "EC 607, Set 07"
-author: "Edward Rubin"
+title: "Structural Causal Models (SCMs)"
+subtitle: "EC 607, Set 11"
+author: "Connor Lennon"
 date: "Spring 2021"
 output:
   xaringan::moon_reader:
@@ -28,7 +28,7 @@ p_load(
   huxtable, here, magrittr
 )
 # Define pink color
-red_pink <- "#e64173"
+mmmmmmmmred_pink <- "#e64173"
 turquoise <- "#20B2AA"
 orange <- "#FFA500"
 red <- "#fb6107"
@@ -89,15 +89,15 @@ name: schedule
 
 ## Today
 
-Directed Acyclic Graphs (DAGs)
+We're covering more complex causal relationships than we did last time - these are represented by what are known as Directed Acyclic Graphs (DAGs)
 
 ## Upcoming
 
-Matching
+Instrumental Variables
 
 ---
 class: inverse, middle
-# DAGs
+# SCMs
 
 ---
 layout: true
@@ -113,7 +113,11 @@ name: different
 
 More helpful...
 
-A .note[DAG] graphically illustrates the causal relationships and non-causal associations within a network of random variables.
+A .note[DAG] is a collection of .orange[nodes] and .blue[**directed** edges]
+
+--
+
+The graph illustrates and differentiates the causal associations and non-causal associations within a network of "random" variables.
 
 ---
 name: dag-ex

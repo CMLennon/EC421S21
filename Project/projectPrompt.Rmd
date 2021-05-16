@@ -1,0 +1,163 @@
+---
+title: "Project"
+subtitle: "EC 421: Introduction to Econometrics"
+# author: Connor Lennon
+date: "Due *before* midnight on Saturday, 22 May 2021"
+
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    # self_contained: true
+    nature:
+      ratio: '8.5:11'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+layout: true
+class: clear
+---
+
+```{r, setup, include = F}
+# Knitr options
+library(knitr)
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(digits = 4)
+options(width = 90)
+```
+
+## Instructions
+
+.mono.b[DUE:] **One member** of your group must upload your answer on [Canvas](https://canvas.uoregon.edu/) *before* midnight on Tuesday, 22 May 2021. All members of the group must be listed on the submission.
+
+.mono.b[IMPORTANT:] As with your homework, you must submit .b[two files]:
+<br> .b.mono[1.] your typed responses/answers to the question (in a Word file or something similar)
+<br> .b.mono[2.] the .mono[R] script you used to generate your answers. Each student must turn in her/his own answers.
+
+If you are using RMarkdown, you can submit a single file.
+
+.mono.b[README!] The last page has a table that describes each variable in the dataset (`project.csv`). That being said - this data is data you have worked with before! It's the same as the data you worked with in PS-002.
+
+.mono.b[INTEGRITY:] Groups can either have **one or two members**. Only one person needs to submit your final document. If you are suspected of cheating in any way (for example, copying from someone else), then you will receive a zero. We may report you to the dean.
+
+.mono.b[GRADING:] Your grade for this project will be based upon the accuracy of your answers, *and* how well you explain/illustrate your answers. We value short, accurate answers over long, meandering answers. Edit your answers!
+
+.mono.b[EMAIL POLICY:] Do not ask the GEs or the instructor for help coding or for help answering these questions. You may only ask **clarifying** questions. Use Google and the course's materials (lectures, labs, notes, assignment keys).
+
+---
+
+## Prelude
+
+.orange[**This project is more of a choose-your-own-adventure. You will get credit for particularly insightful answers and plots. The first thing you'll need to do is pick some variables you want to include in your analysis**]
+
+.b[00.] Pick a set of at least .b[5 different variables] (feel free to include an interaction, but that interaction does not count towards the 5.) One of these variables should be your outcome variable, and I recommend you choose a continuous variable to be your outcome. You can choose a binary outcome, but interpreting certain results will be more difficult.
+
+## Questions
+
+.b[01.] Summarize and describe the subset you chose from your dataset. Your answer should include (at a minimum):
+
+- Distribution of the data
+- (Rough) frequency of values
+- Maximum/Minimum
+- At least 3 informative plots
+
+Explain your decisions on summarizing the data. What do you learn about potential relationships? Choose summary statistics that will help you analyze this data.
+
+.b[02.] Regress your chosen outcome variable on an intercept and the chosen variables.
+
+.b[03.] Create a scatter plot with the residuals from .b[02] on the y axis and a variable of your choice on the x axis (you'll get better results if this variable is continuous.)
+
+.b[04.] Does the scatter plot from .b[03] suggest that **heteroskedasticity** may be present? Explain your answer.
+
+.b[05.] More generally: Does the scatter plot from .b[03] suggest that there are any issues with **your specification**? Explain.
+
+.b[06.] Explain why the regression in .b[02] could suffer from omitted-variable bias, or if you think it does not, justify your answer.
+
+.b[07.] Give an example of an omitted variable that could cause bias in the regression in .b[02]. If there is not one - choose one of your included variables and answer as if it were left out of your regression.
+
+- Explain how your example variable satisfies both requirements for omitted-variable bias.
+- Describe the direction of the bias this variable would cause (when we estimate the effect of education on income). Explain your answer.
+
+.b[08.] Include a new variable in your regression from .b[02]. Interpret the results.
+
+.b[09.] Do any of your estimates for the effect of your independent variables on outcome change from question .b[02] to question .b[08]? Explain why this change (or lack of change) makes sense. 
+
+.b[10.] So far, we've stuck with pretty simple regressions (*e.g.*, regress `y` on `x1` and `x2`). We now want you to explore the actual complexity of econometric/statistical analyses. First, pick a subset of the data that is interesting to you (*eg. Observations in the south, observations in California, only women, etc.*) Estimate three new models. These models should not match your previous models (in .b[02] and .b[08]), but you do not need to change your outcome variable, and you are not forced to include more or fewer variables (though you should justify your specifications in each case.) Across these three new models, you should include (at least once):
+
+- a log-transformed variable (*i.e.*, use `log`) as either an outcome or as an independent variable
+- an interaction 
+
+.b[11.] How did you choose your specifications in .b[10]? Explain your decision making.
+
+**Continued on Next Page**
+
+---
+
+.b[12.] Which of your new models is "best"—if you must choose one model, which would you choose? Why?
+
+.b[13.] For your "best" model (chosen in .b[12]): Interpret the coefficients and comment on their statistical significance.
+
+.b[14.] Do you *trust* the estimates from your *best model*? Explain why/why not.
+
+.b[15.] Suppose you want to estimate the effect of college graduation on your outcome of choice. How could you use the current data to estimate this effect? Describe any regressions, estimates, figures, and/or caveats you would make.
+
+---
+
+```{r, background variables, echo = F, out.height = "50%"}
+# Load requisite packages
+pacman::p_load(tidyverse, knitr, kableExtra, here)
+# Load data
+acs_sub = here("project.csv") %>% read_csv()
+# Create table of variable descriptions
+var_tbl = data.frame(
+  Variable = names(acs_sub) %>% paste0(".mono-small[", ., "]"),
+  Description = c(
+    "State abbreviation",
+    "number of marriages individual has had",
+    "The individual's age (in years)",
+    "Binary indicator for whether home county is 'urban'",
+    "Binary indicator for whether the individual is a citizen (naturalized or born.)",
+    "Binary indicator for whether the individual speaks English",
+    "Binary indicator for whether the individual speaks ONLY English",
+    "Binary indicator for whether the individual drives to work or takes a personal car",
+    "Binary indicator for whether the individual identified as Asian",
+    "Binary indicator for whether the individual identified as Black",
+    "Binary indicator for whether the individual identified with a group indigenous to North Am.",
+    "Binary indicator for whether the individual identified as White",
+    "Binary indicator for whether the individual identified as Female",
+    "Binary indicator for whether the individual identified as Male",
+    "Binary indicator for whether the individual graduated college",
+    "Binary indicator for whether the individual graduated high school",
+    "Binary indicator for whether the individual was married at the time of the sample",
+    "Binary indicator for whether the individual has been married multiple times at the time of the sample",
+    "Total (annual) personal income (tens of thousands of dollars)",
+    "Binary indicator for whether the individual has health insurance",
+    "Binary indicator for whether the individual has access to the internet",
+    "The time that the individual typically leaves for work (in minutes since midnight)",
+    "The time that the individual typically arrives at work (in minutes since midnight)",
+    "The length of time that the individual typically travels to work (in minutes)",
+    "Number of years in education"
+  )
+)
+
+kable(var_tbl, linesep = "") %>%
+  kable_styling(full_width = F, font_size = 6)
+```
+
+---
+exclude: true
+
+```{r, print pdf, echo = F, eval = F}
+pagedown::chrome_print("projectPrompt.html", output = "projectPrompt.pdf")
+```
