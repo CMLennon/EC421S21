@@ -71,7 +71,7 @@ theme_simple <- theme_bw() + theme(
   legend.position = "none"
 )
 theme_axes_math <- theme_void() + theme(
-  text = element_text(family = "MathJax_Math"),
+  text = element_text(family = "Cambria_Math"),
   axis.title = element_text(size = 22),
   axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
   axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
@@ -301,7 +301,7 @@ ggplot(data = walk_df, aes(x = t, y = x, color = walk)) +
 class: clear
 
 .hi-slate[1,000 100-period random walks]
-```{r, walk1000, echo = F, cache = T}
+```{r, walk1000, echo = F, cache = F}
 # Set seed
 set.seed(1246)
 # Generate data
