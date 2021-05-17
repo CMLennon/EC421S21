@@ -30,7 +30,7 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 9. [Nonstationarity](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/009/09-nonstationarity.html)
 
-10. Causality I
+10. [Causality I](https://rawcdn.githack.com/CMLennon/EC421S21/29f58ab45e1458d20ab658f25db087700dbd8a74/LectureNotes/010/10-causality.html)
 
 11. Causality II (SCM)
 
