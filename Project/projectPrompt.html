@@ -3,7 +3,7 @@
   <head>
     <title>Project</title>
     <meta charset="utf-8" />
-    <script src="projectPrompt_files/header-attrs-2.7/header-attrs.js"></script>
+    <script src="projectPrompt_files/header-attrs-2.8/header-attrs.js"></script>
     <link href="projectPrompt_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="projectPrompt_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <link href="projectPrompt_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
@@ -117,10 +117,6 @@ Explain your decisions on summarizing the data. What do you learn about potentia
    &lt;td style="text-align:left;"&gt; State abbreviation &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[marrno] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; number of marriages individual has had &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; .mono-small[age] &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; The individual's age (in years) &lt;/td&gt;
   &lt;/tr&gt;
@@ -129,36 +125,20 @@ Explain your decisions on summarizing the data. What do you learn about potentia
    &lt;td style="text-align:left;"&gt; Binary indicator for whether home county is 'urban' &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_citizen] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual is a citizen (naturalized or born.) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_noenglish] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual speaks English &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_only_english] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual speaks ONLY English &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; .mono-small[i_drive_to_work] &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual drives to work or takes a personal car &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_asian] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Asian &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_physical_disability] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has a physical disability &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_black] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as Black &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[socioeconomic_index] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Continuous measure of socioeconomic priviledge &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_indigenous] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified with a group indigenous to North Am. &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_white] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual identified as White &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[poverty_pct] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Percentage of poverty line (higher = higher income) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; .mono-small[i_female] &lt;/td&gt;
@@ -189,12 +169,24 @@ Explain your decisions on summarizing the data. What do you learn about potentia
    &lt;td style="text-align:left;"&gt; Total (annual) personal income (tens of thousands of dollars) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[personal_nonwage_income] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Total (annual) personal non-wage income (tens of thousands of dollars) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; .mono-small[i_health_insurance] &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has health insurance &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; .mono-small[i_internet] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual has access to the internet &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_moved_in_last_year] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual moved to a new location &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[i_moved_out_of_state_in_last_year] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual moved to a new state &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[lived_abroad_in_last_year] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Binary indicator for whether the individual moved to the US in the last year &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; .mono-small[time_depart] &lt;/td&gt;
@@ -211,6 +203,14 @@ Explain your decisions on summarizing the data. What do you learn about potentia
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; .mono-small[education] &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Number of years in education &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[ability] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Numeric measure of 'ability' (impact of education separate from socio-economic status) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[weights] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; How likely a person is to be included in a sample &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;

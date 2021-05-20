@@ -118,23 +118,18 @@ Explain your decisions on summarizing the data. What do you learn about potentia
 # Load requisite packages
 pacman::p_load(tidyverse, knitr, kableExtra, here)
 # Load data
-acs_sub = here("project.csv") %>% read_csv()
+acs_sub = here("proj-data.csv") %>% read_csv()
 # Create table of variable descriptions
 var_tbl = data.frame(
   Variable = names(acs_sub) %>% paste0(".mono-small[", ., "]"),
   Description = c(
     "State abbreviation",
-    "number of marriages individual has had",
     "The individual's age (in years)",
     "Binary indicator for whether home county is 'urban'",
-    "Binary indicator for whether the individual is a citizen (naturalized or born.)",
-    "Binary indicator for whether the individual speaks English",
-    "Binary indicator for whether the individual speaks ONLY English",
     "Binary indicator for whether the individual drives to work or takes a personal car",
-    "Binary indicator for whether the individual identified as Asian",
-    "Binary indicator for whether the individual identified as Black",
-    "Binary indicator for whether the individual identified with a group indigenous to North Am.",
-    "Binary indicator for whether the individual identified as White",
+    "Binary indicator for whether the individual has a physical disability",
+    "Continuous measure of socioeconomic priviledge",
+    "Percentage of poverty line (higher = higher income)",
     "Binary indicator for whether the individual identified as Female",
     "Binary indicator for whether the individual identified as Male",
     "Binary indicator for whether the individual graduated college",
@@ -142,12 +137,17 @@ var_tbl = data.frame(
     "Binary indicator for whether the individual was married at the time of the sample",
     "Binary indicator for whether the individual has been married multiple times at the time of the sample",
     "Total (annual) personal income (tens of thousands of dollars)",
+    "Total (annual) personal non-wage income (tens of thousands of dollars)",
     "Binary indicator for whether the individual has health insurance",
-    "Binary indicator for whether the individual has access to the internet",
+    "Binary indicator for whether the individual moved to a new location",
+        "Binary indicator for whether the individual moved to a new state",
+        "Binary indicator for whether the individual moved to the US in the last year",
     "The time that the individual typically leaves for work (in minutes since midnight)",
     "The time that the individual typically arrives at work (in minutes since midnight)",
     "The length of time that the individual typically travels to work (in minutes)",
-    "Number of years in education"
+    "Number of years in education",
+    "Numeric measure of 'ability' (impact of education separate from socio-economic status)",
+    "How likely a person is to be included in a sample"
   )
 )
 
@@ -159,5 +159,5 @@ kable(var_tbl, linesep = "") %>%
 exclude: true
 
 ```{r, print pdf, echo = F, eval = F}
-pagedown::chrome_print("projectPrompt.html", output = "projectPrompt.pdf")
+pagedown::chrome_print("projectPrompt.html", output ="projectPrompt.pdf")
 ```

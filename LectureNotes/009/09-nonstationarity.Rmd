@@ -121,7 +121,7 @@ name: schedule
 
 ## Last Time
 
-Autocorrelation
+Finished autocorrelation lecture
 
 ## Today
 
@@ -129,7 +129,9 @@ Brief introduction to nonstationarity
 
 ## Upcoming
 
-Assignment soon.
+Assignment due soon.
+
+Causality (Yay!)
 ---
 layout: false
 class: inverse, middle
@@ -300,12 +302,12 @@ ggplot(data = walk_df, aes(x = t, y = x, color = walk)) +
 ---
 class: clear
 
-.hi-slate[1,000 100-period random walks]
+.hi-slate[1,500 100-period random walks]
 ```{r, walk1000, echo = F, cache = F}
 # Set seed
 set.seed(1246)
 # Generate data
-walk_df <- lapply(X = 1:1e3, FUN = function(i) {
+walk_df <- lapply(X = 1:1500, FUN = function(i) {
   tibble(x = cumsum(rnorm(1e2)), t = 1:1e2, walk = as.character(i))
 }) %>% bind_rows()
 # Plot
@@ -334,10 +336,10 @@ Back in 1974, Granger and Newbold showed that when they **generated random walks
 ---
 class: clear
 
-.hi-slate[Granger and Newbold simulation example:] _t_ statistic ≈ `r lm(filter(walk_df, walk == 1)$x ~ filter(walk_df, walk == 2)$x) %>% summary %>% coef %>% extract(2,3) %>% round(2)`
+.hi-slate[Granger and Newbold simulation example:] _t_ statistic ≈ `r lm(filter(walk_df, walk == 10)$x ~ filter(walk_df, walk == 12)$x) %>% summary %>% coef %>% extract(2,3) %>% round(2)`
 
 ```{r, gb12, echo = F}
-ggplot(data = walk_df %>% filter(walk %in% c(1:2)), aes(x = t, y = x, color = walk)) +
+ggplot(data = walk_df %>% filter(walk %in% c(10,12)), aes(x = t, y = x, color = walk)) +
   geom_hline(yintercept = 0, color = "grey85", size = 1.25) +
   geom_path() +
   scale_color_viridis(option = "magma", discrete = T, begin = 0.15, end = 0.85) +
@@ -346,10 +348,10 @@ ggplot(data = walk_df %>% filter(walk %in% c(1:2)), aes(x = t, y = x, color = wa
 ---
 class: clear
 
-.hi-slate[Granger and Newbold simulation example:] _t_ statistic ≈ `r lm(filter(walk_df, walk == 3)$x ~ filter(walk_df, walk == 4)$x) %>% summary %>% coef %>% extract(2,3) %>% round(2)`
+.hi-slate[Granger and Newbold simulation example:] _t_ statistic ≈ `r lm(filter(walk_df, walk == 13)$x ~ filter(walk_df, walk == 14)$x) %>% summary %>% coef %>% extract(2,3) %>% round(2)`
 
 ```{r, gb34, echo = F}
-ggplot(data = walk_df %>% filter(walk %in% c(3:4)), aes(x = t, y = x, color = walk)) +
+ggplot(data = walk_df %>% filter(walk %in% c(13:14)), aes(x = t, y = x, color = walk)) +
   geom_hline(yintercept = 0, color = "grey85", size = 1.25) +
   geom_path() +
   scale_color_viridis(option = "magma", discrete = T, begin = 0.15, end = 0.85) +
@@ -358,10 +360,10 @@ ggplot(data = walk_df %>% filter(walk %in% c(3:4)), aes(x = t, y = x, color = wa
 ---
 class: clear
 
-.hi-slate[Granger and Newbold simulation example:] _t_ statistic ≈ `r lm(filter(walk_df, walk == 5)$x ~ filter(walk_df, walk == 6)$x) %>% summary %>% coef %>% extract(2,3) %>% round(2)`
+.hi-slate[Granger and Newbold simulation example:] _t_ statistic ≈ `r lm(filter(walk_df, walk == 15)$x ~ filter(walk_df, walk == 16)$x) %>% summary %>% coef %>% extract(2,3) %>% round(2)`
 
 ```{r, gb56, echo = F}
-ggplot(data = walk_df %>% filter(walk %in% c(5:6)), aes(x = t, y = x, color = walk)) +
+ggplot(data = walk_df %>% filter(walk %in% c(15:16)), aes(x = t, y = x, color = walk)) +
   geom_hline(yintercept = 0, color = "grey85", size = 1.25) +
   geom_path() +
   scale_color_viridis(option = "magma", discrete = T, begin = 0.15, end = 0.85) +
@@ -376,7 +378,7 @@ name: problem
 ## Problem
 
 ```{r, gb_all, echo = F, cache = T}
-walk_pv <- lapply(X = seq(1, 999, by = 2), FUN = function(i) {
+walk_pv <- lapply(X = seq(1, 1499, by = 2), FUN = function(i) {
   lm(filter(walk_df, walk == i)$x ~ filter(walk_df, walk == (i+1))$x) %>% summary() %>% coef() %>% extract(2,4)
 }) %>% unlist()
 ```

@@ -4,7 +4,7 @@
     <title>Causality</title>
     <meta charset="utf-8" />
     <meta name="author" content="Connor Lennon" />
-    <script src="10-causality_files/header-attrs-2.7/header-attrs.js"></script>
+    <script src="10-causality_files/header-attrs-2.8/header-attrs.js"></script>
     <link href="10-causality_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="10-causality_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <link href="10-causality_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
@@ -122,8 +122,8 @@ Occasionally, .hi[*causal*] relationships are simply/easily understood, _e.g._,
 
 --
 
-- What .pink[caused] the forest fire?
-- .pink[How] did this baby get here?
+- What .pink[caused] the wildfire?
+- .pink[How] did this baby get here? 👶
 
 --
 
@@ -131,13 +131,29 @@ Generally, .hi[*causal*] relationships are complex and challenging to answer, _e
 
 --
 
-- What .pink[causes] some countries to grow and others to decline?
-- What .pink[caused] the capital riot?
-- Did lax regulation.pink[cause] Texas's recent energy problems?
-- .pink[How] does the number of police officers affect crime?
-- What is the .pink[effect] of better air quality on test scores?
-- Do longer prison sentences .pink[decrease] crime?
-- How did cannabis legalization .pink[affect] mental health/opioid addiction?
+- What .red[causes] some countries to grow and others to decline?
+- Did pandemic aid payments .red[cause] crypto-coins to increase in price?
+- Did lax regulation .red[cause] Texas's recent energy problems?
+- .red[How] does the number of police officers affect crime?
+- What is the .red[effect] of better air quality on test scores?
+- Do longer/harsher prison sentences .red[decrease] crime?
+- How did cannabis legalization .red[affect] mental health/opioid addiction?
+---
+
+## Exogeneity
+
+Another concept we need to think about is .hi-red[exogeneity]. 
+
+When we start thinking about more complex systems of causality, we'll get into this more
+
+--
+
+but, for now, exogeneity is an .orange[assumption] that some causal effect is .pink[unrelated] to other causal factors.
+
+--
+
+We'll make this definition more concrete soon (and provide examples).
+
 ---
 
 ## Correlation ≠ Causation
@@ -149,7 +165,7 @@ The saying is just pointing out that there are violations of exogeneity.
 
 --
 
-Although correlation is not causation, .hi[causation *requires* correlation].
+Although correlation is not causation, in an OLS model: .hi[causation *requires* correlation].
 
 --
 
@@ -167,10 +183,11 @@ layout: true
 ---
 name: fertilizer
 
-## Example: The causal effect of fertilizer.super[.pink[†]]
+## Example: The causal effect of fertilizer.super[.pink[†]].super[.orange[†]]
 
 .footnote[
-.pink[†] Many of the early statistical and econometric studies involved agricultural field trials.
+.pink[†] Many of the early statistical and econometric studies involved agricultural/ag-product field trials.
+.orange[†]Student's .hi[t] actually comes from a statistician, William Gosset at guinness 🍺
 ]
 
 Suppose we want to know the causal effect of fertilizer on corn yield.
@@ -194,7 +211,7 @@ Suppose we want to know the causal effect of fertilizer on corn yield.
 
 ## Example: The causal effect of fertilizer
 
-Randomized experiments help us maintain *all else equal* (exogeneity).
+Randomized experiments help us maintain *all else equal* (exogeneity) so long as the randomization is .pink[un-associated] with other causal factors.
 
 --
 
@@ -213,7 +230,7 @@ Imagine an RCT where we have two groups:
 
 --
 
-By randomizing plots of land into .hi-slate[treatment] or .hi-slate[control], we will, on average, include all kinds of land (soild, slope, water, *etc.*) in both groups.
+By randomizing plots of land into .hi-slate[treatment] or .hi-slate[control], we will, on average, include all kinds of land (soil, slope, water, *etc.*) in both groups.
 
 --
 
@@ -694,7 +711,7 @@ So our proposed group-difference estimator give us the sum of
 ---
 class: clear, middle
 
-.hi-slate[Next time:] Solving selection bias.
+.hi-slate[Next time:] What if our causal system is more complex than that?
 
 ---
 layout: false

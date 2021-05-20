@@ -17,6 +17,7 @@ class: inverse, middle
 ```{r, setup, include = F}
 # devtools::install_github("dill/emoGG")
 library(pacman)
+devtools::install_github("hadley/emo")
 p_load(
   broom, here, tidyverse,
   emoGG, latex2exp, ggplot2, ggthemes, viridis, extrafont, gridExtra,
@@ -24,8 +25,10 @@ p_load(
   data.table,
   dplyr,
   lubridate,
-  magrittr, knitr, parallel, emoGG
+  magrittr, knitr, parallel, emoGG, emo, extrafont
 )
+
+#extrafont::loadfonts("win")
 # Define pink color
 red_pink <- "#e64173"
 turquoise <- "#20B2AA"
@@ -210,8 +213,8 @@ Occasionally, .hi[*causal*] relationships are simply/easily understood, _e.g._,
 
 --
 
-- What .pink[caused] the forest fire?
-- .pink[How] did this baby get here?
+- What .pink[caused] the wildfire?
+- .pink[How] did this baby get here? `r emo::ji("baby")`
 
 --
 
@@ -219,13 +222,29 @@ Generally, .hi[*causal*] relationships are complex and challenging to answer, _e
 
 --
 
-- What .pink[causes] some countries to grow and others to decline?
-- What .pink[caused] the capital riot?
-- Did lax regulation.pink[cause] Texas's recent energy problems?
-- .pink[How] does the number of police officers affect crime?
-- What is the .pink[effect] of better air quality on test scores?
-- Do longer prison sentences .pink[decrease] crime?
-- How did cannabis legalization .pink[affect] mental health/opioid addiction?
+- What .red[causes] some countries to grow and others to decline?
+- Did pandemic aid payments .red[cause] crypto-coins to increase in price?
+- Did lax regulation .red[cause] Texas's recent energy problems?
+- .red[How] does the number of police officers affect crime?
+- What is the .red[effect] of better air quality on test scores?
+- Do longer/harsher prison sentences .red[decrease] crime?
+- How did cannabis legalization .red[affect] mental health/opioid addiction?
+---
+
+## Exogeneity
+
+Another concept we need to think about is .hi-red[exogeneity]. 
+
+When we start thinking about more complex systems of causality, we'll get into this more
+
+--
+
+but, for now, exogeneity is an .orange[assumption] that some causal effect is .pink[unrelated] to other causal factors.
+
+--
+
+We'll make this definition more concrete soon (and provide examples).
+
 ---
 
 ## Correlation ≠ Causation
@@ -237,7 +256,7 @@ The saying is just pointing out that there are violations of exogeneity.
 
 --
 
-Although correlation is not causation, .hi[causation *requires* correlation].
+Although correlation is not causation, in an OLS model: .hi[causation *requires* correlation].
 
 --
 
@@ -255,10 +274,11 @@ layout: true
 ---
 name: fertilizer
 
-## Example: The causal effect of fertilizer.super[.pink[†]]
+## Example: The causal effect of fertilizer.super[.pink[†]].super[.orange[†]]
 
 .footnote[
-.pink[†] Many of the early statistical and econometric studies involved agricultural field trials.
+.pink[†] Many of the early statistical and econometric studies involved agricultural/ag-product field trials.
+.orange[†]Student's .hi[t] actually comes from a statistician, William Gosset at guinness `r emo::ji('beer')`
 ]
 
 Suppose we want to know the causal effect of fertilizer on corn yield.
@@ -282,7 +302,7 @@ Suppose we want to know the causal effect of fertilizer on corn yield.
 
 ## Example: The causal effect of fertilizer
 
-Randomized experiments help us maintain *all else equal* (exogeneity).
+Randomized experiments help us maintain *all else equal* (exogeneity) so long as the randomization is .pink[un-associated] with other causal factors.
 
 --
 
@@ -301,7 +321,7 @@ Imagine an RCT where we have two groups:
 
 --
 
-By randomizing plots of land into .hi-slate[treatment] or .hi-slate[control], we will, on average, include all kinds of land (soild, slope, water, *etc.*) in both groups.
+By randomizing plots of land into .hi-slate[treatment] or .hi-slate[control], we will, on average, include all kinds of land (soil, slope, water, *etc.*) in both groups.
 
 --
 
@@ -313,7 +333,7 @@ class: clear
 ```{r, fertilizer_plot1, echo = F}
 xd <- 9
 yd <- 6
-set.seed(123)
+set.seed(42)
 fert_df <- expand.grid(x = 1:xd, y = 1:yd) %>%
   mutate(
     q = x + y + 1.25 * rnorm(xd*yd),
@@ -349,13 +369,14 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_1, echo = F}
-set.seed(246)
+set.seed(42)
+subframe = sample_n(fert_df, 1)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-geom_text(aes(label = trt)) +
-geom_emoji(data = sample_n(fert_df, 1), emoji = "1f4a9") +
+#geom_text(aes(label = trt)) +
+geom_emoji(data = subframe,  emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
 theme(legend.position = "none") +
@@ -367,7 +388,7 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_2, echo = F}
-set.seed(246)
+set.seed(42)
 
 subframe  = sample_n(fert_df, 2)
 
@@ -388,12 +409,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_3, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+#geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 3), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -406,12 +427,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_4, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 4), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -424,12 +445,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_5, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 5), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -442,12 +463,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_6, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 6), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -460,12 +481,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_7, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 7), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -478,12 +499,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_8, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 8), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -496,12 +517,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_9, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, 9), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -514,12 +535,12 @@ count: false
 
 .hi-slate[54 equal-sized plots] .hi[of varying quality] .hi-orange[plus randomly assigned treatment]
 ```{r, fertilizer_plot3_10, echo = F}
-set.seed(246)
+set.seed(42)
 ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, round(xd * yd / 2, 0)), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -537,7 +558,7 @@ ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, round(xd * yd / 2, 0)), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -555,7 +576,7 @@ ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = sample_n(fert_df, round(xd * yd / 2, 0)), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -677,7 +698,7 @@ ggplot(data = fert_df,
   aes(x, y)
 ) +
 geom_tile(aes(fill = q), color = "white", size = 0.2) +
-# geom_text(aes(label = trt)) +
+# #geom_text(aes(label = trt)) +
 geom_emoji(data = filter(fert_df, x < xd/3 | y <= yd/3 | (x == xd & y == yd)), emoji = "1f4a9") +
 scale_fill_viridis(option = "magma", direction = -1) +
 theme_void() +
@@ -932,7 +953,7 @@ So our proposed group-difference estimator give us the sum of
 ---
 class: clear, middle
 
-.hi-slate[Next time:] Solving selection bias.
+.hi-slate[Next time:] What if our causal system is more complex than that?
 
 ---
 layout: false

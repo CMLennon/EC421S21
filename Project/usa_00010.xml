@@ -1,0 +1,3808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ipums-ddi-xslt.xsl"?>
+<codeBook ID="ddi2-43dd8f70-c846-0136-ac0c-005056a35405-usa_00010.dat-usa.ipums.org" version="2.5" xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd">
+  <docDscr>
+    <citation>
+      <titlStmt>
+        <titl>Codebook for an IPUMS-USA Data Extract</titl>
+        <subTitl>DDI 2.5 metadata describing the extract file  'usa_00010.dat'</subTitl>
+        <IDNo>ddi2-43dd8f70-c846-0136-ac0c-005056a35405-usa_00010.dat-usa.ipums.org</IDNo>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2021-05-17">May 17, 2021</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact URI="http://pop.umn.edu" affiliation="University of Minnesota">Minnesota Population Center</contact>
+      </distStmt>
+    </citation>
+  </docDscr>
+  <stdyDscr>
+    <citation>
+      <titlStmt>
+        <titl>User Extract usa_00010.dat</titl>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2021-05-17">May 17, 2021</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact URI="http://pop.umn.edu" affiliation="University of Minnesota">Minnesota Population Center</contact>
+      </distStmt>
+      <serStmt>
+        <serName abbr="usa">IPUMS USA</serName>
+        <serInfo>DOI:10.18128/D010.V11.0</serInfo>
+      </serStmt>
+      <verStmt>
+        <version date="2021-05-17"/>
+      </verStmt>
+    </citation>
+    <stdyInfo>
+      <subject>
+        <topcClas vocab="IPUMS">Geographic Variables -- HOUSEHOLD</topcClas>
+        <topcClas vocab="IPUMS">Technical Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Demographic Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Health Insurance Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Education Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Income Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Occupational Standing - SES Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Migration Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Disability Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Place of Work and Travel Time Variables -- PERSON</topcClas>
+      </subject>
+      <sumDscr ID="sdatref-2710">
+        <timePrd date="2019" event="single">2019</timePrd>
+        <nation abbr="us">United States</nation>
+      </sumDscr>
+      <notes><![CDATA[Additional notes on a sample that is part of this study:  2019 ACS
+]]></notes>
+    </stdyInfo>
+    <dataAccs>
+      <useStmt>
+        <confDec required="no"><![CDATA[None]]></confDec>
+        <contact URI="http://usa.ipums.org" affiliation="Minnesota Population Center">IPUMS-USA</contact>
+        <citReq><![CDATA[Publications and research reports based on the IPUMS-USA database must cite it appropriately. The citation should include the following:
+
+Steven Ruggles,  Sarah Flood, Sophia Foster,  Ronald Goeken,  Jose Pacas, Megan Schouweiler and Matthew Sobek. IPUMS USA: Version 11.0  [dataset]. Minneapolis, MN: IPUMS, 2021. https://doi.org/10.18128/D010.V11.0
+
+The licensing agreement for use of IPUMS-USA data requires that users supply us with the title and full citation for any publications, research reports, or educational materials making use of the data or documentation. Please add your citation to the IPUMS bibliography at http://bibliography.ipums.org/.]]></citReq>
+        <conditions><![CDATA[Users of IPUMS-USA data must agree to abide by the conditions of use. A user's license is valid for one year and may be renewed.  Users must agree to the following conditions:
+
+(1) No fees may be charged for use or distribution of the data.
+
+(2) Cite IPUMS appropriately.  For information on proper citation,  refer to the citation requirement section of this DDI document.
+
+(3) Tell us about any work you do using the IPUMS.  Publications, research  reports, or presentations making use of IPUMS-USA should be added to our  Bibliography. Continued funding for the IPUMS depends on our ability to  show our sponsor agencies that researchers are using the data for productive  purposes.
+
+(4) The IPUMS cannot be used for genealogical research
+
+(5) It is difficult to use the IPUMS to study small geographic areas.  In the  IPUMS census samples for years 1940-present, no places having a population  of fewer than 100,000 persons can be identified.
+
+(6) Use it for GOOD -- never for EVIL.
+
+(7) Please notify ipums@umn.edu regarding errors in the data or documentation.]]></conditions>
+        <disclaimer>The user of the data acknowledges that the original collector of the data, the authorized distributor of the data, and the relevant funding agency bear no responsibility for use of the data or for interpretations or inferences based upon such uses.</disclaimer>
+      </useStmt>
+    </dataAccs>
+    <notes><![CDATA[User-provided description:  Revision of (Revision of (Revision of (Project csv)))]]></notes>
+    <notes>This extract is a revision of the user's previous extract, ID 11969587.</notes>
+  </stdyDscr>
+  <fileDscr ID="ExtractData">
+    <fileTxt>
+      <fileName>usa_00010.dat</fileName>
+      <fileCont>Microdata records</fileCont>
+      <fileStrc type="rectangular"/>
+      <fileType charset="ISO-8859-1">ISO-8859-1 data file</fileType>
+      <format>fixed length fields</format>
+      <filePlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</filePlac>
+    </fileTxt>
+  </fileDscr>
+  <dataDscr>
+    <var ID="STATEFIP" dcml="0" files="ExtractData" intrvl="discrete" name="STATEFIP">
+      <location EndPos="2" StartPos="1" width="2"/>
+      <labl>State (FIPS code)</labl>
+      <txt><![CDATA[STATEFIP reports the state in which the household was located, using the Federal Information Processing Standards (FIPS) coding scheme, which orders the states alphabetically.
+
+In the 1980 Urban/Rural sample, STATEFIP identifies state groups that are not available in STATEICP; these state groups (codes 61-68) are only available for that particular sample. 
+
+See "Geographic Coding and Comparability" for more information on the geographic detail available in particular samples.]]></txt>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Alabama</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Alaska</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Arizona</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Arkansas</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>California</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>Colorado</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>Connecticut</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Delaware</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>District of Columbia</labl>
+      </catgry>
+      <catgry>
+        <catValu>12</catValu>
+        <labl>Florida</labl>
+      </catgry>
+      <catgry>
+        <catValu>13</catValu>
+        <labl>Georgia</labl>
+      </catgry>
+      <catgry>
+        <catValu>15</catValu>
+        <labl>Hawaii</labl>
+      </catgry>
+      <catgry>
+        <catValu>16</catValu>
+        <labl>Idaho</labl>
+      </catgry>
+      <catgry>
+        <catValu>17</catValu>
+        <labl>Illinois</labl>
+      </catgry>
+      <catgry>
+        <catValu>18</catValu>
+        <labl>Indiana</labl>
+      </catgry>
+      <catgry>
+        <catValu>19</catValu>
+        <labl>Iowa</labl>
+      </catgry>
+      <catgry>
+        <catValu>20</catValu>
+        <labl>Kansas</labl>
+      </catgry>
+      <catgry>
+        <catValu>21</catValu>
+        <labl>Kentucky</labl>
+      </catgry>
+      <catgry>
+        <catValu>22</catValu>
+        <labl>Louisiana</labl>
+      </catgry>
+      <catgry>
+        <catValu>23</catValu>
+        <labl>Maine</labl>
+      </catgry>
+      <catgry>
+        <catValu>24</catValu>
+        <labl>Maryland</labl>
+      </catgry>
+      <catgry>
+        <catValu>25</catValu>
+        <labl>Massachusetts</labl>
+      </catgry>
+      <catgry>
+        <catValu>26</catValu>
+        <labl>Michigan</labl>
+      </catgry>
+      <catgry>
+        <catValu>27</catValu>
+        <labl>Minnesota</labl>
+      </catgry>
+      <catgry>
+        <catValu>28</catValu>
+        <labl>Mississippi</labl>
+      </catgry>
+      <catgry>
+        <catValu>29</catValu>
+        <labl>Missouri</labl>
+      </catgry>
+      <catgry>
+        <catValu>30</catValu>
+        <labl>Montana</labl>
+      </catgry>
+      <catgry>
+        <catValu>31</catValu>
+        <labl>Nebraska</labl>
+      </catgry>
+      <catgry>
+        <catValu>32</catValu>
+        <labl>Nevada</labl>
+      </catgry>
+      <catgry>
+        <catValu>33</catValu>
+        <labl>New Hampshire</labl>
+      </catgry>
+      <catgry>
+        <catValu>34</catValu>
+        <labl>New Jersey</labl>
+      </catgry>
+      <catgry>
+        <catValu>35</catValu>
+        <labl>New Mexico</labl>
+      </catgry>
+      <catgry>
+        <catValu>36</catValu>
+        <labl>New York</labl>
+      </catgry>
+      <catgry>
+        <catValu>37</catValu>
+        <labl>North Carolina</labl>
+      </catgry>
+      <catgry>
+        <catValu>38</catValu>
+        <labl>North Dakota</labl>
+      </catgry>
+      <catgry>
+        <catValu>39</catValu>
+        <labl>Ohio</labl>
+      </catgry>
+      <catgry>
+        <catValu>40</catValu>
+        <labl>Oklahoma</labl>
+      </catgry>
+      <catgry>
+        <catValu>41</catValu>
+        <labl>Oregon</labl>
+      </catgry>
+      <catgry>
+        <catValu>42</catValu>
+        <labl>Pennsylvania</labl>
+      </catgry>
+      <catgry>
+        <catValu>44</catValu>
+        <labl>Rhode Island</labl>
+      </catgry>
+      <catgry>
+        <catValu>45</catValu>
+        <labl>South Carolina</labl>
+      </catgry>
+      <catgry>
+        <catValu>46</catValu>
+        <labl>South Dakota</labl>
+      </catgry>
+      <catgry>
+        <catValu>47</catValu>
+        <labl>Tennessee</labl>
+      </catgry>
+      <catgry>
+        <catValu>48</catValu>
+        <labl>Texas</labl>
+      </catgry>
+      <catgry>
+        <catValu>49</catValu>
+        <labl>Utah</labl>
+      </catgry>
+      <catgry>
+        <catValu>50</catValu>
+        <labl>Vermont</labl>
+      </catgry>
+      <catgry>
+        <catValu>51</catValu>
+        <labl>Virginia</labl>
+      </catgry>
+      <catgry>
+        <catValu>53</catValu>
+        <labl>Washington</labl>
+      </catgry>
+      <catgry>
+        <catValu>54</catValu>
+        <labl>West Virginia</labl>
+      </catgry>
+      <catgry>
+        <catValu>55</catValu>
+        <labl>Wisconsin</labl>
+      </catgry>
+      <catgry>
+        <catValu>56</catValu>
+        <labl>Wyoming</labl>
+      </catgry>
+      <catgry>
+        <catValu>61</catValu>
+        <labl>Maine-New Hampshire-Vermont</labl>
+      </catgry>
+      <catgry>
+        <catValu>62</catValu>
+        <labl>Massachusetts-Rhode Island</labl>
+      </catgry>
+      <catgry>
+        <catValu>63</catValu>
+        <labl>Minnesota-Iowa-Missouri-Kansas-Nebraska-S.Dakota-N.Dakota</labl>
+      </catgry>
+      <catgry>
+        <catValu>64</catValu>
+        <labl>Maryland-Delaware</labl>
+      </catgry>
+      <catgry>
+        <catValu>65</catValu>
+        <labl>Montana-Idaho-Wyoming</labl>
+      </catgry>
+      <catgry>
+        <catValu>66</catValu>
+        <labl>Utah-Nevada</labl>
+      </catgry>
+      <catgry>
+        <catValu>67</catValu>
+        <labl>Arizona-New Mexico</labl>
+      </catgry>
+      <catgry>
+        <catValu>68</catValu>
+        <labl>Alaska-Hawaii</labl>
+      </catgry>
+      <catgry>
+        <catValu>72</catValu>
+        <labl>Puerto Rico</labl>
+      </catgry>
+      <catgry>
+        <catValu>97</catValu>
+        <labl>Military/Mil. Reservation</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>State not identified</labl>
+      </catgry>
+      <concept vocab="IPUMS">Geographic Variables -- HOUSEHOLD</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="COUNTYFIP" dcml="0" files="ExtractData" intrvl="contin" name="COUNTYFIP">
+      <location EndPos="5" StartPos="3" width="3"/>
+      <labl>County (FIPS code)</labl>
+      <txt><![CDATA[COUNTYFIP identifies the county where the household was enumerated, using the Federal Information Processing Standard (FIPS) coding scheme.
+
+COUNTYFIP codes are state-dependent; they must be combined with state codes (see STATEFIP or STATEICP) to distinguish counties located in different states.
+
+Like STATEFIP, COUNTYFIP facilitates merging IPUMS data with data from other sources that use FIPS codes.
+
+Many county boundaries and some county names have changed over time. IPUMS does not impose a uniform county boundary system on the data, so each county listed for a given year in IPUMS should be assumed to have the boundaries that it had in that year.
+
+FIPS codes were first instituted around the time of the 1970 census, so historical counties that were dissolved before then have no FIPS code. COUNTYICP and COUNTYNHG supply codes for the complete history of U.S. county definitions. These alternative variables both use codes based on the 3-digit FIPS scheme with a fourth digit added to distinguish historical counties.
+
+Counties are not identified in public-use microdata from 1950 onwards, so IPUMS instead identifies counties, where possible, from other low-level geographic identifiers. These include State Economic Areas (SEA) in 1950; county groups in 1970 (CNTYGP97) and 1980 (CNTYGP98); and Public Use Microdata Areas (PUMA) from 1990 onwards, including Super-PUMAs (PUMASUPR) in 2000.
+
+COUNTYFIP identifies a county if and only if:
+
+it was coterminous with a single SEA, county group, or PUMA; or
+
+it contained multiple SEAs, county groups, or PUMAs, none of which extended into other counties.
+Listing of counties identified:
+Identified Counties, 1950-Forward
+For municipios, the Puerto Rican statistical equivalent of U.S. counties, see PRCOUNTA (alphabetic version) and PRCOUNTY (numeric version).]]></txt>
+      <codInstr><![CDATA[CodesCOUNTYFIP is a 3-digit numeric variable that identifies the county where the household was enumerated using the Federal Information Processing Standard (FIPS) coding scheme.
+
+COUNTYFIP codes are state-dependent; they must be combined with state codes (see STATEFIP or STATEICP) to distinguish counties located in different states.
+
+COUNTYFIP codes differ from standard FIPS codes in one case: Dade County, Florida, had FIPS code 025 until its name was changed to Miami-Dade County in 1997, with a new FIPS code of 086. COUNTYFIP assigns a code of 086 to Dade County in all samples to be consistent with the Miami-Dade code in later samples.
+
+COUNTYFIP-Specific Variable Code
+000 = County not identifiable from public-use data (1950-onward)*
+
+*Counties are not identified in public-use microdata from 1950 onwards, so IPUMS instead identifies counties, where possible, from other low-level geographic identifiers.
+
+Listing of counties identified in IPUMS USA samples, including FIPS and ICPSR codes:
+
+Identified Counties, 1950-Forward
+]]></codInstr>
+      <concept vocab="IPUMS">Geographic Variables -- HOUSEHOLD</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PERWT" dcml="2" files="ExtractData" intrvl="contin" name="PERWT">
+      <location EndPos="15" StartPos="6" width="10"/>
+      <labl>Person weight</labl>
+      <txt><![CDATA[PERWT indicates how many persons in the U.S. population are represented by a given person in an IPUMS sample. 
+
+It is generally a good idea to use PERWT when conducting a person-level analysis of any IPUMS sample. The use of PERWT is optional when analyzing one of the "flat" or unweighted IPUMS samples. Flat IPUMS samples include the 1% samples from 1850-1930, all samples from 1960, 1970, and 1980, the 1% unweighted samples from 1990 and 2000, the 10% 2010 sample, and any of the full count 100% census datasets. PERWT must be used to obtain nationally representative statistics for person-level analyses of any sample other than those.
+
+For further explanation of the sample weights, see "Sample Designs" and "Sample Weights". See also HHWT for a corresponding variable at the household level, and SLWT for a weight variable used with sample-line records in 1940 and 1950.]]></txt>
+      <codInstr><![CDATA[CodesPERWT is a 6-digit numeric variable which indicates how many persons in the U.S. population are represented by a given person in an IPUMS sample and has two implied decimals. For example, a PERWT value of 010461 should be interpreted as 104.61. PERWT specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+PERWT Specific Variable Codes]]></codInstr>
+      <concept vocab="IPUMS">Technical Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SEX" dcml="0" files="ExtractData" intrvl="discrete" name="SEX">
+      <location EndPos="16" StartPos="16" width="1"/>
+      <labl>Sex</labl>
+      <txt><![CDATA[SEX reports whether the person was male or female.]]></txt>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Male</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Female</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="AGE" dcml="0" files="ExtractData" intrvl="discrete" name="AGE">
+      <location EndPos="19" StartPos="17" width="3"/>
+      <labl>Age</labl>
+      <txt><![CDATA[AGE reports the person's age in years as of the last birthday.
+
+Please see the Comparability section regarding a known Universe issue with AGE and AGEORIG which effects EMPSTAT and LABFORCE for the 2004 ACS Sample.]]></txt>
+      <catgry>
+        <catValu>000</catValu>
+        <labl>Less than 1 year old</labl>
+      </catgry>
+      <catgry>
+        <catValu>001</catValu>
+        <labl>1</labl>
+      </catgry>
+      <catgry>
+        <catValu>002</catValu>
+        <labl>2</labl>
+      </catgry>
+      <catgry>
+        <catValu>003</catValu>
+        <labl>3</labl>
+      </catgry>
+      <catgry>
+        <catValu>004</catValu>
+        <labl>4</labl>
+      </catgry>
+      <catgry>
+        <catValu>005</catValu>
+        <labl>5</labl>
+      </catgry>
+      <catgry>
+        <catValu>006</catValu>
+        <labl>6</labl>
+      </catgry>
+      <catgry>
+        <catValu>007</catValu>
+        <labl>7</labl>
+      </catgry>
+      <catgry>
+        <catValu>008</catValu>
+        <labl>8</labl>
+      </catgry>
+      <catgry>
+        <catValu>009</catValu>
+        <labl>9</labl>
+      </catgry>
+      <catgry>
+        <catValu>010</catValu>
+        <labl>10</labl>
+      </catgry>
+      <catgry>
+        <catValu>011</catValu>
+        <labl>11</labl>
+      </catgry>
+      <catgry>
+        <catValu>012</catValu>
+        <labl>12</labl>
+      </catgry>
+      <catgry>
+        <catValu>013</catValu>
+        <labl>13</labl>
+      </catgry>
+      <catgry>
+        <catValu>014</catValu>
+        <labl>14</labl>
+      </catgry>
+      <catgry>
+        <catValu>015</catValu>
+        <labl>15</labl>
+      </catgry>
+      <catgry>
+        <catValu>016</catValu>
+        <labl>16</labl>
+      </catgry>
+      <catgry>
+        <catValu>017</catValu>
+        <labl>17</labl>
+      </catgry>
+      <catgry>
+        <catValu>018</catValu>
+        <labl>18</labl>
+      </catgry>
+      <catgry>
+        <catValu>019</catValu>
+        <labl>19</labl>
+      </catgry>
+      <catgry>
+        <catValu>020</catValu>
+        <labl>20</labl>
+      </catgry>
+      <catgry>
+        <catValu>021</catValu>
+        <labl>21</labl>
+      </catgry>
+      <catgry>
+        <catValu>022</catValu>
+        <labl>22</labl>
+      </catgry>
+      <catgry>
+        <catValu>023</catValu>
+        <labl>23</labl>
+      </catgry>
+      <catgry>
+        <catValu>024</catValu>
+        <labl>24</labl>
+      </catgry>
+      <catgry>
+        <catValu>025</catValu>
+        <labl>25</labl>
+      </catgry>
+      <catgry>
+        <catValu>026</catValu>
+        <labl>26</labl>
+      </catgry>
+      <catgry>
+        <catValu>027</catValu>
+        <labl>27</labl>
+      </catgry>
+      <catgry>
+        <catValu>028</catValu>
+        <labl>28</labl>
+      </catgry>
+      <catgry>
+        <catValu>029</catValu>
+        <labl>29</labl>
+      </catgry>
+      <catgry>
+        <catValu>030</catValu>
+        <labl>30</labl>
+      </catgry>
+      <catgry>
+        <catValu>031</catValu>
+        <labl>31</labl>
+      </catgry>
+      <catgry>
+        <catValu>032</catValu>
+        <labl>32</labl>
+      </catgry>
+      <catgry>
+        <catValu>033</catValu>
+        <labl>33</labl>
+      </catgry>
+      <catgry>
+        <catValu>034</catValu>
+        <labl>34</labl>
+      </catgry>
+      <catgry>
+        <catValu>035</catValu>
+        <labl>35</labl>
+      </catgry>
+      <catgry>
+        <catValu>036</catValu>
+        <labl>36</labl>
+      </catgry>
+      <catgry>
+        <catValu>037</catValu>
+        <labl>37</labl>
+      </catgry>
+      <catgry>
+        <catValu>038</catValu>
+        <labl>38</labl>
+      </catgry>
+      <catgry>
+        <catValu>039</catValu>
+        <labl>39</labl>
+      </catgry>
+      <catgry>
+        <catValu>040</catValu>
+        <labl>40</labl>
+      </catgry>
+      <catgry>
+        <catValu>041</catValu>
+        <labl>41</labl>
+      </catgry>
+      <catgry>
+        <catValu>042</catValu>
+        <labl>42</labl>
+      </catgry>
+      <catgry>
+        <catValu>043</catValu>
+        <labl>43</labl>
+      </catgry>
+      <catgry>
+        <catValu>044</catValu>
+        <labl>44</labl>
+      </catgry>
+      <catgry>
+        <catValu>045</catValu>
+        <labl>45</labl>
+      </catgry>
+      <catgry>
+        <catValu>046</catValu>
+        <labl>46</labl>
+      </catgry>
+      <catgry>
+        <catValu>047</catValu>
+        <labl>47</labl>
+      </catgry>
+      <catgry>
+        <catValu>048</catValu>
+        <labl>48</labl>
+      </catgry>
+      <catgry>
+        <catValu>049</catValu>
+        <labl>49</labl>
+      </catgry>
+      <catgry>
+        <catValu>050</catValu>
+        <labl>50</labl>
+      </catgry>
+      <catgry>
+        <catValu>051</catValu>
+        <labl>51</labl>
+      </catgry>
+      <catgry>
+        <catValu>052</catValu>
+        <labl>52</labl>
+      </catgry>
+      <catgry>
+        <catValu>053</catValu>
+        <labl>53</labl>
+      </catgry>
+      <catgry>
+        <catValu>054</catValu>
+        <labl>54</labl>
+      </catgry>
+      <catgry>
+        <catValu>055</catValu>
+        <labl>55</labl>
+      </catgry>
+      <catgry>
+        <catValu>056</catValu>
+        <labl>56</labl>
+      </catgry>
+      <catgry>
+        <catValu>057</catValu>
+        <labl>57</labl>
+      </catgry>
+      <catgry>
+        <catValu>058</catValu>
+        <labl>58</labl>
+      </catgry>
+      <catgry>
+        <catValu>059</catValu>
+        <labl>59</labl>
+      </catgry>
+      <catgry>
+        <catValu>060</catValu>
+        <labl>60</labl>
+      </catgry>
+      <catgry>
+        <catValu>061</catValu>
+        <labl>61</labl>
+      </catgry>
+      <catgry>
+        <catValu>062</catValu>
+        <labl>62</labl>
+      </catgry>
+      <catgry>
+        <catValu>063</catValu>
+        <labl>63</labl>
+      </catgry>
+      <catgry>
+        <catValu>064</catValu>
+        <labl>64</labl>
+      </catgry>
+      <catgry>
+        <catValu>065</catValu>
+        <labl>65</labl>
+      </catgry>
+      <catgry>
+        <catValu>066</catValu>
+        <labl>66</labl>
+      </catgry>
+      <catgry>
+        <catValu>067</catValu>
+        <labl>67</labl>
+      </catgry>
+      <catgry>
+        <catValu>068</catValu>
+        <labl>68</labl>
+      </catgry>
+      <catgry>
+        <catValu>069</catValu>
+        <labl>69</labl>
+      </catgry>
+      <catgry>
+        <catValu>070</catValu>
+        <labl>70</labl>
+      </catgry>
+      <catgry>
+        <catValu>071</catValu>
+        <labl>71</labl>
+      </catgry>
+      <catgry>
+        <catValu>072</catValu>
+        <labl>72</labl>
+      </catgry>
+      <catgry>
+        <catValu>073</catValu>
+        <labl>73</labl>
+      </catgry>
+      <catgry>
+        <catValu>074</catValu>
+        <labl>74</labl>
+      </catgry>
+      <catgry>
+        <catValu>075</catValu>
+        <labl>75</labl>
+      </catgry>
+      <catgry>
+        <catValu>076</catValu>
+        <labl>76</labl>
+      </catgry>
+      <catgry>
+        <catValu>077</catValu>
+        <labl>77</labl>
+      </catgry>
+      <catgry>
+        <catValu>078</catValu>
+        <labl>78</labl>
+      </catgry>
+      <catgry>
+        <catValu>079</catValu>
+        <labl>79</labl>
+      </catgry>
+      <catgry>
+        <catValu>080</catValu>
+        <labl>80</labl>
+      </catgry>
+      <catgry>
+        <catValu>081</catValu>
+        <labl>81</labl>
+      </catgry>
+      <catgry>
+        <catValu>082</catValu>
+        <labl>82</labl>
+      </catgry>
+      <catgry>
+        <catValu>083</catValu>
+        <labl>83</labl>
+      </catgry>
+      <catgry>
+        <catValu>084</catValu>
+        <labl>84</labl>
+      </catgry>
+      <catgry>
+        <catValu>085</catValu>
+        <labl>85</labl>
+      </catgry>
+      <catgry>
+        <catValu>086</catValu>
+        <labl>86</labl>
+      </catgry>
+      <catgry>
+        <catValu>087</catValu>
+        <labl>87</labl>
+      </catgry>
+      <catgry>
+        <catValu>088</catValu>
+        <labl>88</labl>
+      </catgry>
+      <catgry>
+        <catValu>089</catValu>
+        <labl>89</labl>
+      </catgry>
+      <catgry>
+        <catValu>090</catValu>
+        <labl>90 (90+ in 1980 and 1990)</labl>
+      </catgry>
+      <catgry>
+        <catValu>091</catValu>
+        <labl>91</labl>
+      </catgry>
+      <catgry>
+        <catValu>092</catValu>
+        <labl>92</labl>
+      </catgry>
+      <catgry>
+        <catValu>093</catValu>
+        <labl>93</labl>
+      </catgry>
+      <catgry>
+        <catValu>094</catValu>
+        <labl>94</labl>
+      </catgry>
+      <catgry>
+        <catValu>095</catValu>
+        <labl>95</labl>
+      </catgry>
+      <catgry>
+        <catValu>096</catValu>
+        <labl>96</labl>
+      </catgry>
+      <catgry>
+        <catValu>097</catValu>
+        <labl>97</labl>
+      </catgry>
+      <catgry>
+        <catValu>098</catValu>
+        <labl>98</labl>
+      </catgry>
+      <catgry>
+        <catValu>099</catValu>
+        <labl>99</labl>
+      </catgry>
+      <catgry>
+        <catValu>100</catValu>
+        <labl>100 (100+ in 1960-1970)</labl>
+      </catgry>
+      <catgry>
+        <catValu>101</catValu>
+        <labl>101</labl>
+      </catgry>
+      <catgry>
+        <catValu>102</catValu>
+        <labl>102</labl>
+      </catgry>
+      <catgry>
+        <catValu>103</catValu>
+        <labl>103</labl>
+      </catgry>
+      <catgry>
+        <catValu>104</catValu>
+        <labl>104</labl>
+      </catgry>
+      <catgry>
+        <catValu>105</catValu>
+        <labl>105</labl>
+      </catgry>
+      <catgry>
+        <catValu>106</catValu>
+        <labl>106</labl>
+      </catgry>
+      <catgry>
+        <catValu>107</catValu>
+        <labl>107</labl>
+      </catgry>
+      <catgry>
+        <catValu>108</catValu>
+        <labl>108</labl>
+      </catgry>
+      <catgry>
+        <catValu>109</catValu>
+        <labl>109</labl>
+      </catgry>
+      <catgry>
+        <catValu>110</catValu>
+        <labl>110</labl>
+      </catgry>
+      <catgry>
+        <catValu>111</catValu>
+        <labl>111</labl>
+      </catgry>
+      <catgry>
+        <catValu>112</catValu>
+        <labl>112 (112+ in the 1980 internal data)</labl>
+      </catgry>
+      <catgry>
+        <catValu>113</catValu>
+        <labl>113</labl>
+      </catgry>
+      <catgry>
+        <catValu>114</catValu>
+        <labl>114</labl>
+      </catgry>
+      <catgry>
+        <catValu>115</catValu>
+        <labl>115 (115+ in the 1990 internal data)</labl>
+      </catgry>
+      <catgry>
+        <catValu>116</catValu>
+        <labl>116</labl>
+      </catgry>
+      <catgry>
+        <catValu>117</catValu>
+        <labl>117</labl>
+      </catgry>
+      <catgry>
+        <catValu>118</catValu>
+        <labl>118</labl>
+      </catgry>
+      <catgry>
+        <catValu>119</catValu>
+        <labl>119</labl>
+      </catgry>
+      <catgry>
+        <catValu>120</catValu>
+        <labl>120</labl>
+      </catgry>
+      <catgry>
+        <catValu>121</catValu>
+        <labl>121</labl>
+      </catgry>
+      <catgry>
+        <catValu>122</catValu>
+        <labl>122</labl>
+      </catgry>
+      <catgry>
+        <catValu>123</catValu>
+        <labl>123</labl>
+      </catgry>
+      <catgry>
+        <catValu>124</catValu>
+        <labl>124</labl>
+      </catgry>
+      <catgry>
+        <catValu>125</catValu>
+        <labl>125</labl>
+      </catgry>
+      <catgry>
+        <catValu>126</catValu>
+        <labl>126</labl>
+      </catgry>
+      <catgry>
+        <catValu>129</catValu>
+        <labl>129</labl>
+      </catgry>
+      <catgry>
+        <catValu>130</catValu>
+        <labl>130</labl>
+      </catgry>
+      <catgry>
+        <catValu>135</catValu>
+        <labl>135</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MARST" dcml="0" files="ExtractData" intrvl="discrete" name="MARST">
+      <location EndPos="20" StartPos="20" width="1"/>
+      <labl>Marital status</labl>
+      <txt><![CDATA[MARST gives each person's current marital status.]]></txt>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Married, spouse present</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Married, spouse absent</labl>
+      </catgry>
+      <catgry>
+        <catValu>3</catValu>
+        <labl>Separated</labl>
+      </catgry>
+      <catgry>
+        <catValu>4</catValu>
+        <labl>Divorced</labl>
+      </catgry>
+      <catgry>
+        <catValu>5</catValu>
+        <labl>Widowed</labl>
+      </catgry>
+      <catgry>
+        <catValu>6</catValu>
+        <labl>Never married/single</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MARRNO" dcml="0" files="ExtractData" intrvl="discrete" name="MARRNO">
+      <location EndPos="21" StartPos="21" width="1"/>
+      <labl>Times married</labl>
+      <txt><![CDATA[MARRNO indicates whether ever-married persons had been married more than once.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>Not Applicable</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Married once</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Married twice (or more)</labl>
+      </catgry>
+      <catgry>
+        <catValu>3</catValu>
+        <labl>Married thrice (or more)</labl>
+      </catgry>
+      <catgry>
+        <catValu>4</catValu>
+        <labl>Four times</labl>
+      </catgry>
+      <catgry>
+        <catValu>5</catValu>
+        <labl>Five times</labl>
+      </catgry>
+      <catgry>
+        <catValu>6</catValu>
+        <labl>Six times</labl>
+      </catgry>
+      <catgry>
+        <catValu>7</catValu>
+        <labl>Unknown</labl>
+      </catgry>
+      <catgry>
+        <catValu>8</catValu>
+        <labl>Illegible</labl>
+      </catgry>
+      <catgry>
+        <catValu>9</catValu>
+        <labl>Missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FERTYR" dcml="0" files="ExtractData" intrvl="discrete" name="FERTYR">
+      <location EndPos="22" StartPos="22" width="1"/>
+      <labl>Children born within the last year</labl>
+      <txt><![CDATA[Women ages 15 to 50, regardless of marital status, were asked whether they had given birth to any children in the past 12 months. FERTYR reports their "yes" or "no" answer to this question.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>No</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Yes</labl>
+      </catgry>
+      <catgry>
+        <catValu>8</catValu>
+        <labl>Suppressed</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="HCOVANY" dcml="0" files="ExtractData" intrvl="discrete" name="HCOVANY">
+      <location EndPos="23" StartPos="23" width="1"/>
+      <labl>Any health insurance coverage</labl>
+      <txt><![CDATA[HCOVANY indicates whether persons had any health insurance coverage at the time of interview, as measured by employer-provided insurance(HINSEMP), privately purchased insurance (HINSPUR), Medicare (HINSCARE), Medicaid or other governmental insurance (HINSCAID), TRICARE or other military care (HINSTRI), or Veterans Administration-provided insurance (HINSVA).  The Census Bureau does not consider respondents to have coverage if their only coverage is from Indian Health Services (HINSIHS), as IHS policies are not always comprehensive.
+
+For a summary of health insurance variables in the ACS/PRCS, see the IPUMS health insurance page.]]></txt>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>No health insurance coverage</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>With health insurance coverage</labl>
+      </catgry>
+      <concept vocab="IPUMS">Health Insurance Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EDUC" dcml="0" files="ExtractData" intrvl="discrete" name="EDUC">
+      <location EndPos="25" StartPos="24" width="2"/>
+      <labl>Educational attainment [general version]</labl>
+      <txt><![CDATA[EDUC indicates respondents' educational attainment, as measured by the highest year of school or degree completed. Note that completion differs from the highest year of school attendance; for example, respondents who attended 10th grade but did not finish were classified in EDUC as having completed 9th grade. For additional detail on grade attendance, see GRADEATT as well as the detailed version of HIGRADE.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>N/A or no schooling</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Nursery school to grade 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Grade 5, 6, 7, or 8</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Grade 9</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Grade 10</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Grade 11</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>Grade 12</labl>
+      </catgry>
+      <catgry>
+        <catValu>07</catValu>
+        <labl>1 year of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>2 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>3 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>4 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>5+ years of college</labl>
+      </catgry>
+      <concept vocab="IPUMS">Education Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="EDUCD" dcml="0" files="ExtractData" intrvl="discrete" name="EDUCD">
+      <location EndPos="28" StartPos="26" width="3"/>
+      <labl>Educational attainment [detailed version]</labl>
+      <txt><![CDATA[EDUC indicates respondents' educational attainment, as measured by the highest year of school or degree completed. Note that completion differs from the highest year of school attendance; for example, respondents who attended 10th grade but did not finish were classified in EDUC as having completed 9th grade. For additional detail on grade attendance, see GRADEATT as well as the detailed version of HIGRADE.]]></txt>
+      <catgry>
+        <catValu>000</catValu>
+        <labl>N/A or no schooling</labl>
+      </catgry>
+      <catgry>
+        <catValu>001</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>002</catValu>
+        <labl>No schooling completed</labl>
+      </catgry>
+      <catgry>
+        <catValu>010</catValu>
+        <labl>Nursery school to grade 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>011</catValu>
+        <labl>Nursery school, preschool</labl>
+      </catgry>
+      <catgry>
+        <catValu>012</catValu>
+        <labl>Kindergarten</labl>
+      </catgry>
+      <catgry>
+        <catValu>013</catValu>
+        <labl>Grade 1, 2, 3, or 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>014</catValu>
+        <labl>Grade 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>015</catValu>
+        <labl>Grade 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>016</catValu>
+        <labl>Grade 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>017</catValu>
+        <labl>Grade 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>020</catValu>
+        <labl>Grade 5, 6, 7, or 8</labl>
+      </catgry>
+      <catgry>
+        <catValu>021</catValu>
+        <labl>Grade 5 or 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>022</catValu>
+        <labl>Grade 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>023</catValu>
+        <labl>Grade 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>024</catValu>
+        <labl>Grade 7 or 8</labl>
+      </catgry>
+      <catgry>
+        <catValu>025</catValu>
+        <labl>Grade 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>026</catValu>
+        <labl>Grade 8</labl>
+      </catgry>
+      <catgry>
+        <catValu>030</catValu>
+        <labl>Grade 9</labl>
+      </catgry>
+      <catgry>
+        <catValu>040</catValu>
+        <labl>Grade 10</labl>
+      </catgry>
+      <catgry>
+        <catValu>050</catValu>
+        <labl>Grade 11</labl>
+      </catgry>
+      <catgry>
+        <catValu>060</catValu>
+        <labl>Grade 12</labl>
+      </catgry>
+      <catgry>
+        <catValu>061</catValu>
+        <labl>12th grade, no diploma</labl>
+      </catgry>
+      <catgry>
+        <catValu>062</catValu>
+        <labl>High school graduate or GED</labl>
+      </catgry>
+      <catgry>
+        <catValu>063</catValu>
+        <labl>Regular high school diploma</labl>
+      </catgry>
+      <catgry>
+        <catValu>064</catValu>
+        <labl>GED or alternative credential</labl>
+      </catgry>
+      <catgry>
+        <catValu>065</catValu>
+        <labl>Some college, but less than 1 year</labl>
+      </catgry>
+      <catgry>
+        <catValu>070</catValu>
+        <labl>1 year of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>071</catValu>
+        <labl>1 or more years of college credit, no degree</labl>
+      </catgry>
+      <catgry>
+        <catValu>080</catValu>
+        <labl>2 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>081</catValu>
+        <labl>Associate's degree, type not specified</labl>
+      </catgry>
+      <catgry>
+        <catValu>082</catValu>
+        <labl>Associate's degree, occupational program</labl>
+      </catgry>
+      <catgry>
+        <catValu>083</catValu>
+        <labl>Associate's degree, academic program</labl>
+      </catgry>
+      <catgry>
+        <catValu>090</catValu>
+        <labl>3 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>100</catValu>
+        <labl>4 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>101</catValu>
+        <labl>Bachelor's degree</labl>
+      </catgry>
+      <catgry>
+        <catValu>110</catValu>
+        <labl>5+ years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>111</catValu>
+        <labl>6 years of college (6+ in 1960-1970)</labl>
+      </catgry>
+      <catgry>
+        <catValu>112</catValu>
+        <labl>7 years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>113</catValu>
+        <labl>8+ years of college</labl>
+      </catgry>
+      <catgry>
+        <catValu>114</catValu>
+        <labl>Master's degree</labl>
+      </catgry>
+      <catgry>
+        <catValu>115</catValu>
+        <labl>Professional degree beyond a bachelor's degree</labl>
+      </catgry>
+      <catgry>
+        <catValu>116</catValu>
+        <labl>Doctoral degree</labl>
+      </catgry>
+      <catgry>
+        <catValu>999</catValu>
+        <labl>Missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Education Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEGFIELD" dcml="0" files="ExtractData" intrvl="discrete" name="DEGFIELD">
+      <location EndPos="30" StartPos="29" width="2"/>
+      <labl>Field of degree [general version]</labl>
+      <txt><![CDATA[DEGFIELD reports the field in which the person received a Bachelor's degree, if the person holds a Bachelor's degree.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>Agriculture</labl>
+      </catgry>
+      <catgry>
+        <catValu>13</catValu>
+        <labl>Environment and Natural Resources</labl>
+      </catgry>
+      <catgry>
+        <catValu>14</catValu>
+        <labl>Architecture</labl>
+      </catgry>
+      <catgry>
+        <catValu>15</catValu>
+        <labl>Area, Ethnic, and Civilization Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>19</catValu>
+        <labl>Communications</labl>
+      </catgry>
+      <catgry>
+        <catValu>20</catValu>
+        <labl>Communication Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>21</catValu>
+        <labl>Computer and Information Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>22</catValu>
+        <labl>Cosmetology Services and Culinary Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>23</catValu>
+        <labl>Education Administration and Teaching</labl>
+      </catgry>
+      <catgry>
+        <catValu>24</catValu>
+        <labl>Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>25</catValu>
+        <labl>Engineering Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>26</catValu>
+        <labl>Linguistics and Foreign Languages</labl>
+      </catgry>
+      <catgry>
+        <catValu>29</catValu>
+        <labl>Family and Consumer Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>32</catValu>
+        <labl>Law</labl>
+      </catgry>
+      <catgry>
+        <catValu>33</catValu>
+        <labl>English Language, Literature, and Composition</labl>
+      </catgry>
+      <catgry>
+        <catValu>34</catValu>
+        <labl>Liberal Arts and Humanities</labl>
+      </catgry>
+      <catgry>
+        <catValu>35</catValu>
+        <labl>Library Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>36</catValu>
+        <labl>Biology and Life Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>37</catValu>
+        <labl>Mathematics and Statistics</labl>
+      </catgry>
+      <catgry>
+        <catValu>38</catValu>
+        <labl>Military Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>40</catValu>
+        <labl>Interdisciplinary and Multi-Disciplinary Studies (General)</labl>
+      </catgry>
+      <catgry>
+        <catValu>41</catValu>
+        <labl>Physical Fitness, Parks, Recreation, and Leisure</labl>
+      </catgry>
+      <catgry>
+        <catValu>48</catValu>
+        <labl>Philosophy and Religious Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>49</catValu>
+        <labl>Theology and Religious Vocations</labl>
+      </catgry>
+      <catgry>
+        <catValu>50</catValu>
+        <labl>Physical Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>51</catValu>
+        <labl>Nuclear, Industrial Radiology, and Biological Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>52</catValu>
+        <labl>Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>53</catValu>
+        <labl>Criminal Justice and Fire Protection</labl>
+      </catgry>
+      <catgry>
+        <catValu>54</catValu>
+        <labl>Public Affairs, Policy, and Social Work</labl>
+      </catgry>
+      <catgry>
+        <catValu>55</catValu>
+        <labl>Social Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>56</catValu>
+        <labl>Construction Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>57</catValu>
+        <labl>Electrical and Mechanic Repairs and Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>58</catValu>
+        <labl>Precision Production and Industrial Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>59</catValu>
+        <labl>Transportation Sciences and Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>60</catValu>
+        <labl>Fine Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>61</catValu>
+        <labl>Medical and Health Sciences and Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>62</catValu>
+        <labl>Business</labl>
+      </catgry>
+      <catgry>
+        <catValu>64</catValu>
+        <labl>History</labl>
+      </catgry>
+      <concept vocab="IPUMS">Education Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEGFIELDD" dcml="0" files="ExtractData" intrvl="discrete" name="DEGFIELDD">
+      <location EndPos="34" StartPos="31" width="4"/>
+      <labl>Field of degree [detailed version]</labl>
+      <txt><![CDATA[DEGFIELD reports the field in which the person received a Bachelor's degree, if the person holds a Bachelor's degree.]]></txt>
+      <catgry>
+        <catValu>0000</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>1100</catValu>
+        <labl>General Agriculture</labl>
+      </catgry>
+      <catgry>
+        <catValu>1101</catValu>
+        <labl>Agriculture Production and Management</labl>
+      </catgry>
+      <catgry>
+        <catValu>1102</catValu>
+        <labl>Agricultural Economics</labl>
+      </catgry>
+      <catgry>
+        <catValu>1103</catValu>
+        <labl>Animal Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>1104</catValu>
+        <labl>Food Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>1105</catValu>
+        <labl>Plant Science and Agronomy</labl>
+      </catgry>
+      <catgry>
+        <catValu>1106</catValu>
+        <labl>Soil Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>1199</catValu>
+        <labl>Miscellaneous Agriculture</labl>
+      </catgry>
+      <catgry>
+        <catValu>1300</catValu>
+        <labl>Environment and Natural Resources</labl>
+      </catgry>
+      <catgry>
+        <catValu>1301</catValu>
+        <labl>Environmental Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>1302</catValu>
+        <labl>Forestry</labl>
+      </catgry>
+      <catgry>
+        <catValu>1303</catValu>
+        <labl>Natural Resources Management</labl>
+      </catgry>
+      <catgry>
+        <catValu>1401</catValu>
+        <labl>Architecture</labl>
+      </catgry>
+      <catgry>
+        <catValu>1501</catValu>
+        <labl>Area, Ethnic, and Civilization Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>1900</catValu>
+        <labl>Communications</labl>
+      </catgry>
+      <catgry>
+        <catValu>1901</catValu>
+        <labl>Communications</labl>
+      </catgry>
+      <catgry>
+        <catValu>1902</catValu>
+        <labl>Journalism</labl>
+      </catgry>
+      <catgry>
+        <catValu>1903</catValu>
+        <labl>Mass Media</labl>
+      </catgry>
+      <catgry>
+        <catValu>1904</catValu>
+        <labl>Advertising and Public Relations</labl>
+      </catgry>
+      <catgry>
+        <catValu>2001</catValu>
+        <labl>Communication Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>2100</catValu>
+        <labl>Computer and Information Systems</labl>
+      </catgry>
+      <catgry>
+        <catValu>2101</catValu>
+        <labl>Computer Programming and Data Processing</labl>
+      </catgry>
+      <catgry>
+        <catValu>2102</catValu>
+        <labl>Computer Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>2105</catValu>
+        <labl>Information Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>2106</catValu>
+        <labl>Computer Information Management and Security</labl>
+      </catgry>
+      <catgry>
+        <catValu>2107</catValu>
+        <labl>Computer Networking and Telecommunications</labl>
+      </catgry>
+      <catgry>
+        <catValu>2201</catValu>
+        <labl>Cosmetology Services and Culinary Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>2300</catValu>
+        <labl>General Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2301</catValu>
+        <labl>Educational Administration and Supervision</labl>
+      </catgry>
+      <catgry>
+        <catValu>2303</catValu>
+        <labl>School Student Counseling</labl>
+      </catgry>
+      <catgry>
+        <catValu>2304</catValu>
+        <labl>Elementary Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2305</catValu>
+        <labl>Mathematics Teacher Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2306</catValu>
+        <labl>Physical and Health Education Teaching</labl>
+      </catgry>
+      <catgry>
+        <catValu>2307</catValu>
+        <labl>Early Childhood Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2308</catValu>
+        <labl>Science  and Computer Teacher Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2309</catValu>
+        <labl>Secondary Teacher Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2310</catValu>
+        <labl>Special Needs Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2311</catValu>
+        <labl>Social Science or History Teacher Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2312</catValu>
+        <labl>Teacher Education:  Multiple Levels</labl>
+      </catgry>
+      <catgry>
+        <catValu>2313</catValu>
+        <labl>Language and Drama Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2314</catValu>
+        <labl>Art and Music Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2399</catValu>
+        <labl>Miscellaneous Education</labl>
+      </catgry>
+      <catgry>
+        <catValu>2400</catValu>
+        <labl>General Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2401</catValu>
+        <labl>Aerospace Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2402</catValu>
+        <labl>Biological Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2403</catValu>
+        <labl>Architectural Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2404</catValu>
+        <labl>Biomedical Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2405</catValu>
+        <labl>Chemical Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2406</catValu>
+        <labl>Civil Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2407</catValu>
+        <labl>Computer Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2408</catValu>
+        <labl>Electrical Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2409</catValu>
+        <labl>Engineering Mechanics, Physics, and Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>2410</catValu>
+        <labl>Environmental Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2411</catValu>
+        <labl>Geological and Geophysical Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2412</catValu>
+        <labl>Industrial and Manufacturing Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2413</catValu>
+        <labl>Materials Engineering and Materials Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>2414</catValu>
+        <labl>Mechanical Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2415</catValu>
+        <labl>Metallurgical Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2416</catValu>
+        <labl>Mining and Mineral Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2417</catValu>
+        <labl>Naval Architecture and Marine Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2418</catValu>
+        <labl>Nuclear Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2419</catValu>
+        <labl>Petroleum Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2499</catValu>
+        <labl>Miscellaneous Engineering</labl>
+      </catgry>
+      <catgry>
+        <catValu>2500</catValu>
+        <labl>Engineering Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>2501</catValu>
+        <labl>Engineering and Industrial Management</labl>
+      </catgry>
+      <catgry>
+        <catValu>2502</catValu>
+        <labl>Electrical Engineering Technology</labl>
+      </catgry>
+      <catgry>
+        <catValu>2503</catValu>
+        <labl>Industrial Production Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>2504</catValu>
+        <labl>Mechanical Engineering Related Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>2599</catValu>
+        <labl>Miscellaneous Engineering Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>2600</catValu>
+        <labl>Linguistics and Foreign Languages</labl>
+      </catgry>
+      <catgry>
+        <catValu>2601</catValu>
+        <labl>Linguistics and Comparative Language and Literature</labl>
+      </catgry>
+      <catgry>
+        <catValu>2602</catValu>
+        <labl>French, German, Latin and Other Common Foreign Language Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>2603</catValu>
+        <labl>Other Foreign Languages</labl>
+      </catgry>
+      <catgry>
+        <catValu>2901</catValu>
+        <labl>Family and Consumer Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>3200</catValu>
+        <labl>Law</labl>
+      </catgry>
+      <catgry>
+        <catValu>3201</catValu>
+        <labl>Court Reporting</labl>
+      </catgry>
+      <catgry>
+        <catValu>3202</catValu>
+        <labl>Pre-Law and Legal Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>3300</catValu>
+        <labl>English Language, Literature, and Composition</labl>
+      </catgry>
+      <catgry>
+        <catValu>3301</catValu>
+        <labl>English Language and Literature</labl>
+      </catgry>
+      <catgry>
+        <catValu>3302</catValu>
+        <labl>Composition and Speech</labl>
+      </catgry>
+      <catgry>
+        <catValu>3400</catValu>
+        <labl>Liberal Arts and Humanities</labl>
+      </catgry>
+      <catgry>
+        <catValu>3401</catValu>
+        <labl>Liberal Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>3402</catValu>
+        <labl>Humanities</labl>
+      </catgry>
+      <catgry>
+        <catValu>3501</catValu>
+        <labl>Library Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>3600</catValu>
+        <labl>Biology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3601</catValu>
+        <labl>Biochemical Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>3602</catValu>
+        <labl>Botany</labl>
+      </catgry>
+      <catgry>
+        <catValu>3603</catValu>
+        <labl>Molecular Biology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3604</catValu>
+        <labl>Ecology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3605</catValu>
+        <labl>Genetics</labl>
+      </catgry>
+      <catgry>
+        <catValu>3606</catValu>
+        <labl>Microbiology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3607</catValu>
+        <labl>Pharmacology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3608</catValu>
+        <labl>Physiology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3609</catValu>
+        <labl>Zoology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3611</catValu>
+        <labl>Neuroscience</labl>
+      </catgry>
+      <catgry>
+        <catValu>3699</catValu>
+        <labl>Miscellaneous Biology</labl>
+      </catgry>
+      <catgry>
+        <catValu>3700</catValu>
+        <labl>Mathematics</labl>
+      </catgry>
+      <catgry>
+        <catValu>3701</catValu>
+        <labl>Applied Mathematics</labl>
+      </catgry>
+      <catgry>
+        <catValu>3702</catValu>
+        <labl>Statistics and Decision Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>3801</catValu>
+        <labl>Military Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>4000</catValu>
+        <labl>Interdisciplinary and Multi-Disciplinary Studies (General)</labl>
+      </catgry>
+      <catgry>
+        <catValu>4001</catValu>
+        <labl>Intercultural and International Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>4002</catValu>
+        <labl>Nutrition Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>4003</catValu>
+        <labl>Neuroscience</labl>
+      </catgry>
+      <catgry>
+        <catValu>4005</catValu>
+        <labl>Mathematics and Computer Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>4006</catValu>
+        <labl>Cognitive Science and Biopsychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>4007</catValu>
+        <labl>Interdisciplinary Social Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>4008</catValu>
+        <labl>Multi-disciplinary or General Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>4101</catValu>
+        <labl>Physical Fitness, Parks, Recreation, and Leisure</labl>
+      </catgry>
+      <catgry>
+        <catValu>4801</catValu>
+        <labl>Philosophy and Religious Studies</labl>
+      </catgry>
+      <catgry>
+        <catValu>4901</catValu>
+        <labl>Theology and Religious Vocations</labl>
+      </catgry>
+      <catgry>
+        <catValu>5000</catValu>
+        <labl>Physical Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>5001</catValu>
+        <labl>Astronomy and Astrophysics</labl>
+      </catgry>
+      <catgry>
+        <catValu>5002</catValu>
+        <labl>Atmospheric Sciences and Meteorology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5003</catValu>
+        <labl>Chemistry</labl>
+      </catgry>
+      <catgry>
+        <catValu>5004</catValu>
+        <labl>Geology and Earth Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>5005</catValu>
+        <labl>Geosciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>5006</catValu>
+        <labl>Oceanography</labl>
+      </catgry>
+      <catgry>
+        <catValu>5007</catValu>
+        <labl>Physics</labl>
+      </catgry>
+      <catgry>
+        <catValu>5008</catValu>
+        <labl>Materials Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>5098</catValu>
+        <labl>Multi-disciplinary or General Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>5102</catValu>
+        <labl>Nuclear, Industrial Radiology, and Biological Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>5200</catValu>
+        <labl>Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5201</catValu>
+        <labl>Educational Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5202</catValu>
+        <labl>Clinical Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5203</catValu>
+        <labl>Counseling Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5205</catValu>
+        <labl>Industrial and Organizational Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5206</catValu>
+        <labl>Social Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5299</catValu>
+        <labl>Miscellaneous Psychology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5301</catValu>
+        <labl>Criminal Justice and Fire Protection</labl>
+      </catgry>
+      <catgry>
+        <catValu>5400</catValu>
+        <labl>Public Affairs, Policy, and Social Work</labl>
+      </catgry>
+      <catgry>
+        <catValu>5401</catValu>
+        <labl>Public Administration</labl>
+      </catgry>
+      <catgry>
+        <catValu>5402</catValu>
+        <labl>Public Policy</labl>
+      </catgry>
+      <catgry>
+        <catValu>5403</catValu>
+        <labl>Human Services and Community Organization</labl>
+      </catgry>
+      <catgry>
+        <catValu>5404</catValu>
+        <labl>Social Work</labl>
+      </catgry>
+      <catgry>
+        <catValu>5500</catValu>
+        <labl>General Social Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>5501</catValu>
+        <labl>Economics</labl>
+      </catgry>
+      <catgry>
+        <catValu>5502</catValu>
+        <labl>Anthropology and Archeology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5503</catValu>
+        <labl>Criminology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5504</catValu>
+        <labl>Geography</labl>
+      </catgry>
+      <catgry>
+        <catValu>5505</catValu>
+        <labl>International Relations</labl>
+      </catgry>
+      <catgry>
+        <catValu>5506</catValu>
+        <labl>Political Science and Government</labl>
+      </catgry>
+      <catgry>
+        <catValu>5507</catValu>
+        <labl>Sociology</labl>
+      </catgry>
+      <catgry>
+        <catValu>5599</catValu>
+        <labl>Miscellaneous Social Sciences</labl>
+      </catgry>
+      <catgry>
+        <catValu>5601</catValu>
+        <labl>Construction Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>5701</catValu>
+        <labl>Electrical and Mechanic Repairs and Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>5801</catValu>
+        <labl>Precision Production and Industrial Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>5901</catValu>
+        <labl>Transportation Sciences and Technologies</labl>
+      </catgry>
+      <catgry>
+        <catValu>6000</catValu>
+        <labl>Fine Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>6001</catValu>
+        <labl>Drama and Theater Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>6002</catValu>
+        <labl>Music</labl>
+      </catgry>
+      <catgry>
+        <catValu>6003</catValu>
+        <labl>Visual and Performing Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>6004</catValu>
+        <labl>Commercial Art and Graphic Design</labl>
+      </catgry>
+      <catgry>
+        <catValu>6005</catValu>
+        <labl>Film, Video and Photographic Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>6006</catValu>
+        <labl>Art History and Criticism</labl>
+      </catgry>
+      <catgry>
+        <catValu>6007</catValu>
+        <labl>Studio Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>6099</catValu>
+        <labl>Miscellaneous Fine Arts</labl>
+      </catgry>
+      <catgry>
+        <catValu>6100</catValu>
+        <labl>General Medical and Health Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>6102</catValu>
+        <labl>Communication Disorders Sciences and Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>6103</catValu>
+        <labl>Health and Medical Administrative Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>6104</catValu>
+        <labl>Medical Assisting Services</labl>
+      </catgry>
+      <catgry>
+        <catValu>6105</catValu>
+        <labl>Medical Technologies Technicians</labl>
+      </catgry>
+      <catgry>
+        <catValu>6106</catValu>
+        <labl>Health and Medical Preparatory Programs</labl>
+      </catgry>
+      <catgry>
+        <catValu>6107</catValu>
+        <labl>Nursing</labl>
+      </catgry>
+      <catgry>
+        <catValu>6108</catValu>
+        <labl>Pharmacy, Pharmaceutical Sciences, and Administration</labl>
+      </catgry>
+      <catgry>
+        <catValu>6109</catValu>
+        <labl>Treatment Therapy Professions</labl>
+      </catgry>
+      <catgry>
+        <catValu>6110</catValu>
+        <labl>Community and Public Health</labl>
+      </catgry>
+      <catgry>
+        <catValu>6199</catValu>
+        <labl>Miscellaneous Health Medical Professions</labl>
+      </catgry>
+      <catgry>
+        <catValu>6200</catValu>
+        <labl>General Business</labl>
+      </catgry>
+      <catgry>
+        <catValu>6201</catValu>
+        <labl>Accounting</labl>
+      </catgry>
+      <catgry>
+        <catValu>6202</catValu>
+        <labl>Actuarial Science</labl>
+      </catgry>
+      <catgry>
+        <catValu>6203</catValu>
+        <labl>Business Management and Administration</labl>
+      </catgry>
+      <catgry>
+        <catValu>6204</catValu>
+        <labl>Operations, Logistics and E-Commerce</labl>
+      </catgry>
+      <catgry>
+        <catValu>6205</catValu>
+        <labl>Business Economics</labl>
+      </catgry>
+      <catgry>
+        <catValu>6206</catValu>
+        <labl>Marketing and Marketing Research</labl>
+      </catgry>
+      <catgry>
+        <catValu>6207</catValu>
+        <labl>Finance</labl>
+      </catgry>
+      <catgry>
+        <catValu>6209</catValu>
+        <labl>Human Resources and Personnel Management</labl>
+      </catgry>
+      <catgry>
+        <catValu>6210</catValu>
+        <labl>International Business</labl>
+      </catgry>
+      <catgry>
+        <catValu>6211</catValu>
+        <labl>Hospitality Management</labl>
+      </catgry>
+      <catgry>
+        <catValu>6212</catValu>
+        <labl>Management Information Systems and Statistics</labl>
+      </catgry>
+      <catgry>
+        <catValu>6299</catValu>
+        <labl>Miscellaneous Business and Medical Administration</labl>
+      </catgry>
+      <catgry>
+        <catValu>6402</catValu>
+        <labl>History</labl>
+      </catgry>
+      <catgry>
+        <catValu>6403</catValu>
+        <labl>United States History</labl>
+      </catgry>
+      <concept vocab="IPUMS">Education Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="INCTOT" dcml="0" files="ExtractData" intrvl="contin" name="INCTOT">
+      <location EndPos="41" StartPos="35" width="7"/>
+      <labl>Total personal income</labl>
+      <txt><![CDATA[INCTOT reports each respondent's total pre-tax personal income or losses from all sources for the previous year. The censuses collected information on income received from these sources during the previous calendar year; for the ACS and the PRCS, the reference period was the past 12 months. Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation:
+
+Users studying change over time must adjust for inflation. Consumer Price Index adjustment factors for the appropriate years can be found in the CPI99 variable.
+
+The exception is the ACS/PRCS multi-year files, where all dollar amounts have been standardized to dollars as valued in the final year of data included in the file (e.g., 2007 dollars for the 2005-2007 3-year file). Additionally, more detail may be available than exists in the original ACS samples.
+
+User Note: ACS respondents are surveyed throughout the year, and amounts do not reflect calendar year dollars. While the Census Bureau provides an adjustment factor (available in ADJUST), this is an imperfect solution. See the ACS income variables note for further details.
+
+For a more complete discussion of the use of these factors to adjust for inflation, users may wish to see the IPUMS-CPS note on adjusting dollar amount variables for inflation.]]></txt>
+      <codInstr><![CDATA[CodesINCTOT is a 7-digit numeric code reporting each respondent's total pre-tax personal income or losses from all sources for the previous year. INCTOT specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+User Note: Users studying change over time must adjust for inflation (See Description).
+
+INCTOT Specific Variable Codes
+-009995 = -$9,900 (1980)
+-000001 = Net loss (1950)
+0000000 = None
+0000001 = $1 or break even (2000, 2005-onward ACS and PRCS)
+9999999 = N/A
+
+
+* .indent {
+  text-indent: 10px;
+}
+
+
+* .lrgindent {
+  text-indent: 90px;
+}
+
+
+
+	
+		INCTOT
+	
+		Census
+		Bottom Code
+		Top Code
+	
+		1950
+		 Net loss
+		$10,000
+	
+		1960
+		-$9,900
+		$25,000
+	
+		1970
+		-$9,900
+		$50,000
+	
+		1980
+		-$9,990
+		$75,000
+	
+		1990
+		-$19,998
+		&nbsp;$400,000*
+	
+		2000
+		-$20,000
+		$999,998
+	
+		ACS
+		-$19,998
+		-
+	
+		PRCS
+		-$19,998
+		-
+	
+
+
+]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="FTOTINC" dcml="0" files="ExtractData" intrvl="contin" name="FTOTINC">
+      <location EndPos="48" StartPos="42" width="7"/>
+      <labl>Total family income</labl>
+      <txt><![CDATA[FTOTINC reports the total pre-tax money income earned by one's family (as defined by FAMUNIT) from all sources for the previous year. For the census samples, the reference period is the previous calendar year; for the ACS/PRCS, it is the previous 12 months. 
+
+For 1950-1980, the amounts represent the midpoints of $10, $100, or other intervals used by each year's sample, not exact dollar amounts. 1990 gives exact dollar amounts. For the 2000 census, the ACS and the PRCS, FTOTINC is the sum of several income variables, each of which is rounded as follows:
+
+
+  
+    
+      No income 
+      $0  
+    
+    
+      &nbsp;$1 - $7 &nbsp;
+      $4  
+    
+    
+      &nbsp;$8 - $999 &nbsp;
+      rounded to nearest $10  
+    
+    
+	  &nbsp;$1,000 - $49,999 &nbsp;
+	  rounded to nearest $100  
+    
+    
+	  &nbsp;$50,000 or more &nbsp;
+	  rounded to nearest $1000 
+    
+    
+
+]]></txt>
+      <codInstr><![CDATA[CodesFTOTINC is a 7-digit numeric code reporting the total pre-tax money income earned by one's family (as defined by FAMUNIT) from all sources for the previous year. FTOTINC specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+User Note: Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See Description).
+
+FTOTINC Specific Variable Codes
+-000001 = Net loss (1950) 
+0000000 = No income (1950-2000, ACS/PRCS) 
+9999998 = Not ascertained (1950) 
+9999999 = N/A 
+
+
+* .indent {
+  text-indent: 10px;
+}
+
+
+* .lrgindent {
+  text-indent: 90px;
+}
+
+
+
+	
+		FTOTINC
+	
+		Census
+		Bottom Code
+		Top Code
+	
+		1950
+		Net loss
+		$10,000
+	
+		1960
+		-$9,990
+		$25,000
+	
+		1970
+		-$9,990
+		$50,000
+	
+		1980
+		-$9,995
+		$75,000
+	
+		1990
+		&nbsp;By State*
+		&nbsp;By State*
+	
+		2000
+		-$59,999
+		-
+	
+		ACS
+		-
+		-
+	
+		PRCS
+		-
+		-
+	
+
+
+]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="INCWAGE" dcml="0" files="ExtractData" intrvl="contin" name="INCWAGE">
+      <location EndPos="54" StartPos="49" width="6"/>
+      <labl>Wage and salary income</labl>
+      <txt><![CDATA[INCWAGE reports each respondent's total pre-tax wage and salary income - that is, money received as an employee - for the previous year. The censuses collected information on income received from these sources during the previous calendar year; for the ACS and the PRCS, the reference period was the past 12 months. Sources of income in INCWAGE include wages, salaries, commissions, cash bonuses, tips, and other money income received from an employer. Payments-in-kind or reimbursements for business expenses are not included. See the comparability discussion below for further information.
+
+Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See INCTOT for Consumer Price Index adjustment factors). The exception is the ACS/PRCS multi-year files, where all dollar amounts have been standardized to dollars as valued in the final year of data included in the file (e.g., 2007 dollars for the 2005-2007 3-year file). Additionally, more detail may be available than exists in the original ACS samples.
+
+User Note: ACS respondents are surveyed throughout the year, and amounts do not reflect calendar year dollars. While the Census Bureau provides an adjustment factor (available in ADJUST), this is an imperfect solution. See the ACS income variables note for further details.]]></txt>
+      <codInstr><![CDATA[CodesINCWAGE is a 7-digit numeric code reporting each respondent's total pre-tax wage and salary income - that is, money received as an employee - for the previous year. INCWAGE specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+User Note: Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See Description).
+
+INCWAGE Specific Variable Codes
+999999 = N/A
+999998 = Missing
+
+
+* .indent {
+  text-indent: 10px;
+}
+
+
+* .lrgindent {
+  text-indent: 85px;
+}
+
+
+
+	
+		INCWAGE
+	
+		Census
+		Top Code
+	
+		1940
+		$5,001
+	
+		1950
+		$10,000
+	
+		1960
+		$25,000
+	
+		1970
+		$50,000
+	
+		1980
+		$75,000
+	
+		1990
+		&nbsp;$140,000*
+	
+		2000
+		&nbsp;&nbsp;$175,000**
+	
+		ACS (2000-2002) 
+		&nbsp;&nbsp;$200,000**
+	
+		ACS (2003-onward)
+		&nbsp;99.5th Percentile in State**
+	
+		&nbsp;PRCS (2005-onward)
+		&nbsp;99.5th Percentile in State**
+	
+
+
+]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="INCSS" dcml="0" files="ExtractData" intrvl="contin" name="INCSS">
+      <location EndPos="59" StartPos="55" width="5"/>
+      <labl>Social Security income</labl>
+      <txt><![CDATA[INCSS reports how much pre-tax income (if any) the respondent received from Social Security pensions, survivors benefits, or permanent disability insurance, as well as U.S. government Railroad Retirement insurance payments, during the previous year. The censuses collected information on income received from these sources during the previous calendar year; for the ACS and the PRCS, the reference period was the past 12 months. INCSS does not include Medicare reimbursements.
+
+Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See INCTOT for Consumer Price Index adjustment factors).  The exception is the ACS/PRCS multi-year files, where all dollar amounts have been standardized to dollars as valued in the final year of data included in the file (e.g., 2007 dollars for the 2005-2007 3-year file). Additionally, more detail may be available than exists in the original ACS samples.  
+
+User Note: ACS respondents are surveyed throughout the year, and amounts do not reflect calendar year dollars. While the Census Bureau provides an adjustment factor (available in ADJUST), this is an imperfect solution. See the ACS income variables note for further details.]]></txt>
+      <codInstr><![CDATA[CodesINCSS is a 5-digit numeric code reporting how much pre-tax income (if any) was received from Social Security pensions, survivors' benefits, or permanent disability insurance, as well as U.S. government Railroad Retirement insurance payments, during the previous year. INCSS specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+User Note: Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See Description).
+
+INCSS Specific Variable Codes
+99999 = N/A 
+
+
+
+* .indent {
+  text-indent: 10px;
+}
+
+
+* .lrgindent {
+  text-indent: 85px;
+}
+
+
+
+	
+		INCSS
+	
+		Census 
+		Top Code
+	
+		1970
+		-
+	
+		1980
+		$7,755
+	
+		1990
+		&nbsp;$17,000* 
+	
+		2000
+		&nbsp;&nbsp;$18,000**
+	
+		ACS (2000)
+		&nbsp;&nbsp;$18,000**
+	
+		ACS (2001)
+		&nbsp;&nbsp;$19,000**
+	
+		ACS (2002)
+		&nbsp;&nbsp;$19,464** 
+	
+		ACS (2003-2004)
+		&nbsp;99.5th Percentile in State** 
+	
+		ACS (2005-onward)
+		- 
+	
+		&nbsp;PRCS (2005-onward) 
+		- 
+	
+
+
+]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="INCWELFR" dcml="0" files="ExtractData" intrvl="contin" name="INCWELFR">
+      <location EndPos="64" StartPos="60" width="5"/>
+      <labl>Welfare (public assistance) income</labl>
+      <txt><![CDATA[INCWELFR reports how much pre-tax income (if any) the respondent received during the previous year from various public assistance programs commonly referred to as "welfare." Assistance from private charities was not included. The censuses collected information on income received from these sources during the previous calendar year; for the ACS and the PRCS, the reference period was the past 12 months. The following are included within INCWELFR:
+
+federal/state Supplemental Security Income (SSI) payments to elderly (age 65+), blind, or disabled persons with low incomes. (In the 2000 census, the ACS, and the PRCS, SSI payments are specified in INCSUPP only, not in INCWELFR);
+
+Aid to Families with Dependent Children (AFDC); and
+
+General Assistance (GA). (This does not include separate payments for hospital or other medical care.)
+Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See INCTOT for Consumer Price Index adjustment factors).  The exception is the ACS/PRCS multi-year files, where all dollar amounts have been standardized to dollars as valued in the final year of data included in the file (e.g., 2007 dollars for the 2005-2007 3-year file). Additionally, more detail may be available than exists in the original ACS samples.  
+
+User Note: ACS respondents are surveyed throughout the year, and amounts do not reflect calendar year dollars. While the Census Bureau provides an adjustment factor (available in ADJUST), this is an imperfect solution. See the ACS income variables note for further details.]]></txt>
+      <codInstr><![CDATA[CodesINCWELFR is a 5-digit numeric code reporting each respondent's pre-tax income (if any) received during the previous year from various public assistance programs commonly referred to as "welfare". INCWELFR specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+User Note: Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See Description).
+
+INCWELFR Specific Variable Codes
+99999 = N/A 
+
+
+
+* .indent {
+  text-indent: 10px;
+}
+
+
+* .lrgindent {
+  text-indent: 85px;
+}
+
+
+
+	
+		INCWELFR
+	
+		Census
+		Top Code
+	
+		1970
+		-
+	
+		1980
+		$9,995
+	
+		1990
+		&nbsp;$10,000*
+	
+		2000
+		&nbsp;&nbsp;$12,300**
+	
+		ACS (2000)
+		&nbsp;&nbsp;$2,436**
+	
+		ACS (2001)
+		&nbsp;&nbsp;$2,200**
+	
+		ACS (2002)
+		&nbsp;&nbsp;$2,140**
+	
+		ACS (2003-2004)
+		&nbsp;99.5th Percentile in State**
+	
+		ACS (2005-onward)
+		-
+	
+		&nbsp;PRCS (2005-onward)
+		-
+	
+
+
+]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="INCSUPP" dcml="0" files="ExtractData" intrvl="contin" name="INCSUPP">
+      <location EndPos="69" StartPos="65" width="5"/>
+      <labl>Supplementary Security Income</labl>
+      <txt><![CDATA[INCSUPP reports how much pre-tax income (if any) the respondent received from Supplemental Security Income (SSI) during the previous year. The 2000 census collected information on income received from this source during the previous calendar year; for the ACS and the PRCS, the reference period was the past 12 months.
+
+The codes are amounts rounded as follows:
+
+
+  
+    
+      No income 
+      $0  
+    
+    
+      &nbsp;$1 - $7 &nbsp;
+      $4  
+    
+    
+      &nbsp;$8 - $999 &nbsp;
+      rounded to nearest $10  
+    
+    
+	  &nbsp;$1,000 - $49,999 &nbsp;
+	  rounded to nearest $100  
+    
+    
+	  &nbsp;$50,000 or more &nbsp;
+	  rounded to nearest $1000 
+    
+    
+
+]]></txt>
+      <codInstr><![CDATA[CodesINCSUPP is a 5-digit code reporting how much pre-tax income (if any) the respondent received from Supplemental Security Income (SSI) during the previous year. INCSUPP specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+User Note: Amounts are expressed in contemporary dollars, and users studying change over time must adjust for inflation (See Description).
+
+INCSUPP Specific Variable Codes
+99999 = N/A
+
+
+
+* .indent {
+  text-indent: 10px;
+}
+
+
+* .lrgindent {
+  text-indent: 85px;
+}
+
+
+
+	
+		INCSUPP
+	
+		Census
+		Top Code
+	
+		2000
+		$13,800*
+	
+		ACS (2000)
+		$6,684*
+	
+		ACS (2001)
+		$6,724*
+	
+		ACS (2002)
+		$7,000*
+	
+		ACS (2003-2005)
+		&nbsp;99.5th Percentile in State*
+	
+		PRCS (2005)
+		&nbsp;99.5th Percentile in State*
+	
+		ACS (2006-onward)
+		-
+	
+		&nbsp;PRCS (2006-onward)
+		-
+	
+
+
+]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="POVERTY" dcml="0" files="ExtractData" intrvl="contin" name="POVERTY">
+      <location EndPos="72" StartPos="70" width="3"/>
+      <labl>Poverty status</labl>
+      <txt><![CDATA[POVERTY treats respondents who live in families collectively. It expresses each family's total income for the previous year as a percentage of the poverty thresholds established by the Social Security Administration in 1964 and subsequently revised in 1980, adjusted for inflation (see the poverty definition page for more information). POVERTY assigns all members of each family - not each household - the same code. POVERTY is also calculated for most adults living as unrelated individuals. For the 1950-2000 censuses, the reference period for income is the previous calendar year; for the ACS and the PRCS, the reference period is the preceding 12 months from the date of interview.
+
+Whether an individual falls below the official "poverty line" depends not only on total family income, but also on the size of the family, the number of people in the family who are children, and the age of the householder (under/over age 65). POVERTY was created using detailed income and family structure information about each individual and calculating the family income as a percentage of the appropriate official poverty threshold. For example, if a person's family income is $20,000 and the poverty threshold for such a person is $13,861, then the value of POVERTY for that individual is $20,000/$13,861 * 100 percent, or 144. Individuals whose family income is more than five times the appropriate poverty threshold receive a POVERTY value of 501. For more detail on the precise poverty thresholds used for the POVERTY variable, see the poverty definition page.
+
+In POVERTY, the IPUMS evaluates poverty status individually for each distinct family unit in the household, as defined in FAMUNIT. For example, all persons related to the household head receive the same poverty value as the head, while an unrelated person and her child would share their own value distinct from that of the primary family. As mentioned in the FAMUNIT variable description, it is possible for individuals identified as being non-relatives of the head (RELATE) to be included in the primary family (FAMUNIT 1), based on family pointer information. However, because the POVERTY values for primary families in the 2000 Decennial and ACS/PRCS samples are published in the PUMS by the Census Bureau (see User Caution below) and the Census Bureau strictly excludes "non-relatives" (RELATED &gt; 1100) from primary families, some individuals identified as FAMUNIT 1 by IPUMS USA will not have the same POVERTY value as the head of household. These individuals will instead have the single-person poverty calculation assigned to them by the Census Bureau.
+
+The original PUMS samples for years prior to 1990 did not include a poverty variable. Original PUMS samples from 1990 onward included poverty values, but IPUMS poverty values differ from the original PUMS values in a key way. The original PUMS samples treated all households members unrelated to the head as one-person families when assigning poverty values, even if such persons were part of a secondary family (i.e., persons living with their own relatives but not related to the household head). Thus, the original PUMS poverty measures do not account for the presence of children (or any other aspect of family size and composition) in secondary families. For example, in the original 1990 PUMS sample, a woman unrelated to the householder who has a child would receive a poverty value appropriate for a single person with a given income, rather than for a two-person family with a child. Consequently, the original PUMS samples from 1990 onwards tend to underestimate poverty. In the IPUMS, by contrast, the POVERTY value would be based on the threshold fitting the secondary family consisting of both the mother and the child. The IPUMS samples also round to the nearest poverty value, while the original census PUMS samples always round up.
+
+User Caution: The incomes of the highest-earning individuals are "top-coded" in the 2000 census data, the ACS and the PRCS samples (see 2000 income top codes). In the 2000-present period, for individuals in the first family unit of every household (cases where FAMUNIT=1), POVERTY uses the poverty values in the original PUMS samples, which are based on respondents' pre-top-coded income information. The POVERTY value for some of these cases will differ from calculations one could make by hand using the available information in the top-coded income variables. As noted above, the IPUMS calculates POVERTY values for members of secondary families, and these values are based on top-coded income information. (Like the ACS, the IPUMS also uses the income adjustment factor before calculating poverty, although use of this factor is not recommended with IPUMS data. See the ACS income standardization note for more information.) This variable also includes some valid values for group quarters (GQ) residents, even though the stated universe does not include such cases. Users who want to maintain a consistent universe should manually exclude group quarters residents.]]></txt>
+      <codInstr><![CDATA[CodesPOVERTY is a 3-digit numeric code expressing each family's total income for the previous year as a percentage of the poverty thresholds established by the Social Security Administration in 1964 and subsequently revised in 1980, adjusted for inflation (See Poverty Definition Page). POVERTY specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+POVERTY Specific Variable Codes
+000 = N/A 
+001 = 1 percent or less of poverty threshold 
+501 = 501 percent or more of poverty threshold]]></codInstr>
+      <concept vocab="IPUMS">Income Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SEI" dcml="0" files="ExtractData" intrvl="contin" name="SEI">
+      <location EndPos="74" StartPos="73" width="2"/>
+      <labl>Duncan Socioeconomic Index</labl>
+      <txt><![CDATA[SEI is a constructed measure that assigns a Duncan Socioeconomic Index (SEI) score to each occupation using the 1950 occupational classification scheme available in the OCC1950 variable. The SEI is a measure of occupational status based upon the income level and educational attainment associated with each occupation in 1950.  
+
+User caution: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.
+
+Using data from the 1947 National Opinion Research Center (NORC) survey and the 1950 census, Duncan regressed the occupational prestige ratings (i.e., percentage of "excellent" and "good" ratings on the five-point scale used in the 1947 NORC survey) on occupational education (i.e., age-standardized percentage of male occupational incumbents who are high school graduates) and occupational income (i.e., age- standardized percentage of male occupational incumbents whose incomes were $3,500 or more in 1949) for a limited number of occupations. The resulting statistical model was used to generate socioeconomic scores for the entire range of 1950 occupations. The SEI is, therefore, the weighted sum of occupational education and occupational income.
+
+See O. D. Duncan, "A Socioeconomic Index for All Occupations," in A. Reiss et al., Occupations and Social Status (Free Press, 1961). 
+
+The SEI variable is based on OCC1950. Alternative measures of occupational standing that are based on OCC1950 are available in EDSCOR50, ERSCOR50, NPBOSS50, OCCSCORE, and PRESGL. For information on the construction of OCC1950 and occupational standing measures, see "Integrated Occupation and Industry Codes and Occupational Standing Variables in the IPUMS." Users must judge for themselves how socioeconomic or prestige status may have changed relative to the circa-1950 survey results.]]></txt>
+      <codInstr><![CDATA[CodesSEI is a constructed 2-digit numeric variable that assigns a Duncan Socioeconomic Index (SEI) score to each occupation using the 1950 occupational classification scheme available in the OCC1950 variable. The SEI variable is a weighted sum of occupational education and occupational income measures based on OCC1950. See O. D. Duncan, "A Socioeconomic Index for All Occupations," in A. Reiss et al., Occupations and Social Status (Free Press, 1961) for further discussion. For information on the construction of OCC1950 and occupational standing measures, see "Integrated Occupation and Industry Codes and Occupational Standing Variables in the IPUMS". SEI specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+User caution: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.
+
+SEI Specific Variable Codes
+00 = N/A
+96 = 96 (Top Code)]]></codInstr>
+      <concept vocab="IPUMS">Occupational Standing - SES Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="HWSEI" dcml="2" files="ExtractData" intrvl="contin" name="HWSEI">
+      <location EndPos="78" StartPos="75" width="4"/>
+      <labl>Socioeconomic Index, Hauser and Warren</labl>
+      <txt><![CDATA[HWSEI is a constructed variable that assigns a Hauser and Warren Socioeconomic Index (SEI) score to each occupation using the modified version of the 1990 occupational classification scheme available in the OCC1990 variable. The HWSEI variable is a measure of occupational status based upon the earnings and educational attainment associated with each category in the 1990 occupational scheme.  
+
+User Note: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.
+
+Using data from the 1989 General Social Survey (GSS) and the 1990 census, Hauser and Warren regressed the occupational prestige ratings (i.e., the started logit of percentage of 5 or higher ratings on the nine-point scale used in the 1989 GSS) on occupational education (i.e., the started logit of percentage of all occupational incumbents who had completed one or more years of college) and occupational earnings (i.e., the started logit of percentage of all occupational incumbents who earned $14.30 per hour or more in 1989). The resulting statistical model was used to generate socioeconomic scores for the entire rage of 1990 occupations. The HWSEI is, therefore, the weighted sum of occupational education and occupational earnings. 
+
+For more information, see R. M. Hauser and J. R. Warren "Socioeconomic Indexes for Occupations: A Review, Update, and Critique," Sociological Methodology  27 (1997): 177-298; and K. Nakao and J. Treas, "Updating Occupational Prestige and Socioeconomic Scores: How the New Measures Measure Up," Sociological Methodology  24 (1994): 1-72.
+
+Hauser and Warren developed this measure to be applicable to datasets with occupational data coded to the 1990 census occupational scheme. For the purpose of comparability across time, the IPUMS version of HWSEI uses the modified version of the 1990 occupational classification scheme available in OCC1990. Several 1990 occupation categories were aggregated in modified version of the 1990 occupational classification scheme.  In these cases, the socioeconomic index score was calculated as the weighted average of 1990 occupational categories.      
+
+Alternative measures of occupational standing measures that are based on OCC1990 are available in EDSCOR90, ERSCOR90, NPBOSS90, and PRENT. For information on occupational standing measures, see "Integrated Occupation and Industry Codes and Occupational Standing Variables in the IPUMS."]]></txt>
+      <codInstr><![CDATA[CodesHWSEI is a 4-digit numeric variable that assigns a Hauser and Warren Socioeconomic Index (SEI) score to each occupation using the modified version of the 1990 occupational classification scheme available in the OCC1990 variable. The HWSEI variable is a measure of occupational status based upon the earnings and educational attainment associated with each category in the 1990 occupational scheme. HWSEI has two implied decimals. For example, a HWSEI value of 1461 should be interpreted as 14.61.  This division is performed automatically in the extract setup files. HWSEI specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+User Note: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.
+
+HWSEI Specific Variable Codes
+0000 = N/A]]></codInstr>
+      <concept vocab="IPUMS">Occupational Standing - SES Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PRESGL" dcml="1" files="ExtractData" intrvl="contin" name="PRESGL">
+      <location EndPos="81" StartPos="79" width="3"/>
+      <labl>Occupational prestige score, Siegel</labl>
+      <txt><![CDATA[PRESGL is a constructed variable that assigns a Siegel prestige score to each occupation using the occupational classification scheme available in OCC1950 variable.
+
+The PRESGL variable is based on the series of surveys conducted at National Opinion Research Center during the 1960s. In all surveys, respondents were asked to evaluate either "general standing" or "social standing" of occupations. In the 1963 NORC survey (a replication of the 1963 North-Hatt study), respondents were asked to rate occupations with a scale of "excellent," "good," "average," "somewhat below average," and "poor." In the 1964 Hodge-Siegel-Rossi survey and the 1965 supplementary surveys, on a cardboard sheet showing a nine-rung ladder of social standing that ranged from "1" being the lowest social standing to "9" being the highest social standing, respondents were asked to sort cards with occupational titles. Using data from these multiple surveys, Siegel transformed occupational prestige rating data into a common metric.
+
+For more information, see P. M. Siegel, "Prestige in the American Occupational Structure," Ph.D. dissertation, University of Chicago, 1971.
+
+Siegel's original prestige score was based on the 1960 occupational classification scheme, which contained a slightly larger number of categories than the 1950 occupational classification scheme. In the few cases where we had to aggregate 1960 categories to harmonize them with the 1950 scheme, the prestige score was calculated as the weighted average of the 1960 occupational categories (based on the prestige value and number of cases in each 1960 category). There were also two cases where the 1950 scheme had more detail than the 1960 scheme used by Siegel (OCC1950 categories 10-29 and 600-615 were each combined into single 1960 categories). In those cases, we assigned the 1960 prestige score to all of the 1950 categories.
+
+Alternative measures of occupational standing that are based on OCC1950 are available in EDSCOR50, ERSCOR50, NPBOSS50, OCCSCORE, and SEI. For information on the construction of OCC1950 and occupational standing measures, see "Integrated Occupation and Industry Codes and Occupational Standing Variables in the IPUMS."
+
+User Note: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.]]></txt>
+      <codInstr><![CDATA[CodesPRESGL is a constructed 3-digit numeric variable that assigns a Siegel prestige score to each occupation using the occupational classification scheme available in OCC1950 variable. The PRESGL variable is based on a series of surveys conducted by P.M. Siegel at National Opinion Research Center during the 1960s. In all surveys, respondents were asked to evaluate either "general standing" or "social standing" of occupations. PRESGL has one implied decimal. For example, a PRESGL value of 227 should be interpreted as 22.7. This division is performed automatically in the extract setup files. PRESGL specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+User Note: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.
+
+PRESGL Specific Variable Codes
+000 = N/A]]></codInstr>
+      <concept vocab="IPUMS">Occupational Standing - SES Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PRENT" dcml="1" files="ExtractData" intrvl="contin" name="PRENT">
+      <location EndPos="84" StartPos="82" width="3"/>
+      <labl>Occupational prestige score, Nakao and Treas</labl>
+      <txt><![CDATA[PRENT is a constructed variable that assigns a Nakao-Treas prestige score to each occupation using the modified version of the 1990 occupational classification scheme available in the OCC1990 variable. The PRENT variable is based on prestige assessments assigned by Nakao and Treas, using data from the 1989 General Social Survey. Respondents were asked to evaluate "social standing" of occupations in this survey.  More specifically, on a cardboard sheet showing a nine-rung ladder of social standing that ranged from "1" being the lowest social standing to "9" being the highest social standing, respondents were asked to sort cards with occupational titles. Nakao and Treas then converted these data into prestige score using the following formula: 
+
+
+where  Pj is the prestige score of the jth occupation, i is the rank of social standing, and  Xji is the proportion of ratings received by the jth occupation that fell on the ith rung of the ladder. 
+
+Therefore, the prestige score is a weighted average of the ratings received by each occupation, with weights of 0, 12.5, 25.0 ... 100, assigned to the respective rating categories.  Prestige scores can range from 0 to 100.
+
+For example, if 70 percent of respondents ranked occupation title A  as "9," 10 percent as "8," and 20 percent as "7," the prestige score for the occupation title A  is 86.25 or [12.5 × (9-1) × 0.7] + [12.5 × (8-1) × 0.1] + [12.5 × (7-1) × 0.2]  = 86.25.
+
+For more information, see K. Nakao and J. Treas. 1994. "Updating Occupational Prestige and Socioeconomic Scores: How the New Measures Measure Up." Sociological Methodology  24: 1-72. 
+
+Nakao and Treas's work was based on the 1980 occupational classification scheme, which was in most respects identical to the 1990 scheme. The IPUMS version of PRENT uses the modified version of the 1990 occupational classification scheme available in the OCC1990 variable. Several 1990 occupational categories were aggregated for the modified version of the 1990 occupational classification scheme.  In these cases, the prestige score was calculated as the weighted average of 1990 occupational categories.     
+
+Alternative measures of occupational standing that are based on OCC1990 are available in EDSCOR90, ERSCOR90, HWSEI, and NPBOSS90. For information on occupational standing measures, see "Integrated Occupation and Industry Codes and Occupational Standing Variables in the IPUMS."
+
+User caution: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.]]></txt>
+      <codInstr><![CDATA[CodesPRENT is a constructed 3-digit numeric variable that assigns a Nakao-Treas prestige score to each occupation using the modified version of the 1990 occupational classification scheme available in the OCC1990 variable. The PRENT variable is based on prestige assessments assigned by Nakato and Treas, using data from the 1989 General Social Survey. Respondents were asked to evaluate "social standing" of occupations in this survey. PRENT has one implied decimal. For example, a PRENT value of 227 should be interpreted as 22.7.  This division is performed automatically in the extract setup files. PRENT specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below if applicable by Census year (and data sample if specified).
+
+User Note: There is significant debate about the usefulness of composite measures of occupational standing (in the IPUMS, these variables include SEI, HWSEI, NPBOSS50, and NPBOSS90). We strongly urge researchers to read our  user note on this issue and to familiarize themselves with the debates surrounding the use of these variables.
+
+PRENT Specific Variable Codes
+000 = N/A]]></codInstr>
+      <concept vocab="IPUMS">Occupational Standing - SES Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MIGRATE1" dcml="0" files="ExtractData" intrvl="discrete" name="MIGRATE1">
+      <location EndPos="85" StartPos="85" width="1"/>
+      <labl>Migration status, 1 year [general version]</labl>
+      <txt><![CDATA[MIGRATE1 reports whether the person had changed residence since a reference point 1 year ago. Specifically, individuals age 1+ were asked if they had lived in the "same house" (non-movers) or a "different house" (movers) one year earlier. Persons who had moved were to indicate the foreign country or the state, county, and place of their normal residence during the reference year. Migration data were collected only for sample-line persons in 1950. 
+
+The category "Same house" includes all eligible persons who did not move since the reference year, as well as those who had moved but by the enumeration or survey date had returned to their earlier residence. The category "Different house" includes persons who lived in a different house in the reference year. For 1950, movers (those who reported living in a different house in the reference year) are further subdivided according to type of move (e.g., within the county or across state lines). The ACS and the PRCS report only same/different residence and identifies those previously living abroad. 
+
+Therefore, for the ACS/PRCS samples, MIGRATE1 uses information contained in the IPUMS variable MIGPLAC1 and compatible PUMAs of migration and PUMAs of residence to indicate whether movers migrated between states or within the same state (the same levels of detail in the 1950 classification.). For movers who migrated between states, a detailed version of MIGRATE1 indicates whether they moved between contiguous or non-contiguous states. For movers who migrated within the same state, detailed MIGRATE1 indicates whether they moved within or between PUMAs.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Same house</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Moved within state</labl>
+      </catgry>
+      <catgry>
+        <catValu>3</catValu>
+        <labl>Moved between states</labl>
+      </catgry>
+      <catgry>
+        <catValu>4</catValu>
+        <labl>Abroad one year ago</labl>
+      </catgry>
+      <catgry>
+        <catValu>9</catValu>
+        <labl>Unknown</labl>
+      </catgry>
+      <concept vocab="IPUMS">Migration Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MIGRATE1D" dcml="0" files="ExtractData" intrvl="discrete" name="MIGRATE1D">
+      <location EndPos="87" StartPos="86" width="2"/>
+      <labl>Migration status, 1 year [detailed version]</labl>
+      <txt><![CDATA[MIGRATE1 reports whether the person had changed residence since a reference point 1 year ago. Specifically, individuals age 1+ were asked if they had lived in the "same house" (non-movers) or a "different house" (movers) one year earlier. Persons who had moved were to indicate the foreign country or the state, county, and place of their normal residence during the reference year. Migration data were collected only for sample-line persons in 1950. 
+
+The category "Same house" includes all eligible persons who did not move since the reference year, as well as those who had moved but by the enumeration or survey date had returned to their earlier residence. The category "Different house" includes persons who lived in a different house in the reference year. For 1950, movers (those who reported living in a different house in the reference year) are further subdivided according to type of move (e.g., within the county or across state lines). The ACS and the PRCS report only same/different residence and identifies those previously living abroad. 
+
+Therefore, for the ACS/PRCS samples, MIGRATE1 uses information contained in the IPUMS variable MIGPLAC1 and compatible PUMAs of migration and PUMAs of residence to indicate whether movers migrated between states or within the same state (the same levels of detail in the 1950 classification.). For movers who migrated between states, a detailed version of MIGRATE1 indicates whether they moved between contiguous or non-contiguous states. For movers who migrated within the same state, detailed MIGRATE1 indicates whether they moved within or between PUMAs.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Same house</labl>
+      </catgry>
+      <catgry>
+        <catValu>20</catValu>
+        <labl>Same state (migration status within state unknown)</labl>
+      </catgry>
+      <catgry>
+        <catValu>21</catValu>
+        <labl>Different house, moved within county</labl>
+      </catgry>
+      <catgry>
+        <catValu>22</catValu>
+        <labl>Different house, moved within state, between counties</labl>
+      </catgry>
+      <catgry>
+        <catValu>23</catValu>
+        <labl>Different house, moved within state, within PUMA</labl>
+      </catgry>
+      <catgry>
+        <catValu>24</catValu>
+        <labl>Different house, moved within state, between PUMAs</labl>
+      </catgry>
+      <catgry>
+        <catValu>25</catValu>
+        <labl>Different house, unknown within state</labl>
+      </catgry>
+      <catgry>
+        <catValu>30</catValu>
+        <labl>Different state (general)</labl>
+      </catgry>
+      <catgry>
+        <catValu>31</catValu>
+        <labl>Moved between contigious states</labl>
+      </catgry>
+      <catgry>
+        <catValu>32</catValu>
+        <labl>Moved between non-contiguous states</labl>
+      </catgry>
+      <catgry>
+        <catValu>40</catValu>
+        <labl>Abroad one year ago</labl>
+      </catgry>
+      <catgry>
+        <catValu>90</catValu>
+        <labl>Unknown</labl>
+      </catgry>
+      <concept vocab="IPUMS">Migration Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="MIGPLAC1" dcml="0" files="ExtractData" intrvl="discrete" name="MIGPLAC1">
+      <location EndPos="90" StartPos="88" width="3"/>
+      <labl>State or country of residence 1 year ago</labl>
+      <txt><![CDATA[For respondents who lived in a different residence 1 year before the survey date, MIGPLAC1 identifies the U.S. state, outlying territory, or the foreign country where the respondent lived at that time.
+
+MIGPLAC5 provides analogous information for 1940 and 1960-2000 samples, using a 5-year rather than a 1-year reference period.]]></txt>
+      <catgry>
+        <catValu>000</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>001</catValu>
+        <labl>Alabama</labl>
+      </catgry>
+      <catgry>
+        <catValu>002</catValu>
+        <labl>Alaska</labl>
+      </catgry>
+      <catgry>
+        <catValu>004</catValu>
+        <labl>Arizona</labl>
+      </catgry>
+      <catgry>
+        <catValu>005</catValu>
+        <labl>Arkansas</labl>
+      </catgry>
+      <catgry>
+        <catValu>006</catValu>
+        <labl>California</labl>
+      </catgry>
+      <catgry>
+        <catValu>008</catValu>
+        <labl>Colorado</labl>
+      </catgry>
+      <catgry>
+        <catValu>009</catValu>
+        <labl>Connecticut</labl>
+      </catgry>
+      <catgry>
+        <catValu>010</catValu>
+        <labl>Delaware</labl>
+      </catgry>
+      <catgry>
+        <catValu>011</catValu>
+        <labl>District of Columbia</labl>
+      </catgry>
+      <catgry>
+        <catValu>012</catValu>
+        <labl>Florida</labl>
+      </catgry>
+      <catgry>
+        <catValu>013</catValu>
+        <labl>Georgia</labl>
+      </catgry>
+      <catgry>
+        <catValu>015</catValu>
+        <labl>Hawaii</labl>
+      </catgry>
+      <catgry>
+        <catValu>016</catValu>
+        <labl>Idaho</labl>
+      </catgry>
+      <catgry>
+        <catValu>017</catValu>
+        <labl>Illinois</labl>
+      </catgry>
+      <catgry>
+        <catValu>018</catValu>
+        <labl>Indiana</labl>
+      </catgry>
+      <catgry>
+        <catValu>019</catValu>
+        <labl>Iowa</labl>
+      </catgry>
+      <catgry>
+        <catValu>020</catValu>
+        <labl>Kansas</labl>
+      </catgry>
+      <catgry>
+        <catValu>021</catValu>
+        <labl>Kentucky</labl>
+      </catgry>
+      <catgry>
+        <catValu>022</catValu>
+        <labl>Louisiana</labl>
+      </catgry>
+      <catgry>
+        <catValu>023</catValu>
+        <labl>Maine</labl>
+      </catgry>
+      <catgry>
+        <catValu>024</catValu>
+        <labl>Maryland</labl>
+      </catgry>
+      <catgry>
+        <catValu>025</catValu>
+        <labl>Massachusetts</labl>
+      </catgry>
+      <catgry>
+        <catValu>026</catValu>
+        <labl>Michigan</labl>
+      </catgry>
+      <catgry>
+        <catValu>027</catValu>
+        <labl>Minnesota</labl>
+      </catgry>
+      <catgry>
+        <catValu>028</catValu>
+        <labl>Mississippi</labl>
+      </catgry>
+      <catgry>
+        <catValu>029</catValu>
+        <labl>Missouri</labl>
+      </catgry>
+      <catgry>
+        <catValu>030</catValu>
+        <labl>Montana</labl>
+      </catgry>
+      <catgry>
+        <catValu>031</catValu>
+        <labl>Nebraska</labl>
+      </catgry>
+      <catgry>
+        <catValu>032</catValu>
+        <labl>Nevada</labl>
+      </catgry>
+      <catgry>
+        <catValu>033</catValu>
+        <labl>New Hampshire</labl>
+      </catgry>
+      <catgry>
+        <catValu>034</catValu>
+        <labl>New Jersey</labl>
+      </catgry>
+      <catgry>
+        <catValu>035</catValu>
+        <labl>New Mexico</labl>
+      </catgry>
+      <catgry>
+        <catValu>036</catValu>
+        <labl>New York</labl>
+      </catgry>
+      <catgry>
+        <catValu>037</catValu>
+        <labl>North Carolina</labl>
+      </catgry>
+      <catgry>
+        <catValu>038</catValu>
+        <labl>North Dakota</labl>
+      </catgry>
+      <catgry>
+        <catValu>039</catValu>
+        <labl>Ohio</labl>
+      </catgry>
+      <catgry>
+        <catValu>040</catValu>
+        <labl>Oklahoma</labl>
+      </catgry>
+      <catgry>
+        <catValu>041</catValu>
+        <labl>Oregon</labl>
+      </catgry>
+      <catgry>
+        <catValu>042</catValu>
+        <labl>Pennsylvania</labl>
+      </catgry>
+      <catgry>
+        <catValu>044</catValu>
+        <labl>Rhode Island</labl>
+      </catgry>
+      <catgry>
+        <catValu>045</catValu>
+        <labl>South Carolina</labl>
+      </catgry>
+      <catgry>
+        <catValu>046</catValu>
+        <labl>South Dakota</labl>
+      </catgry>
+      <catgry>
+        <catValu>047</catValu>
+        <labl>Tennessee</labl>
+      </catgry>
+      <catgry>
+        <catValu>048</catValu>
+        <labl>Texas</labl>
+      </catgry>
+      <catgry>
+        <catValu>049</catValu>
+        <labl>Utah</labl>
+      </catgry>
+      <catgry>
+        <catValu>050</catValu>
+        <labl>Vermont</labl>
+      </catgry>
+      <catgry>
+        <catValu>051</catValu>
+        <labl>Virginia</labl>
+      </catgry>
+      <catgry>
+        <catValu>053</catValu>
+        <labl>Washington</labl>
+      </catgry>
+      <catgry>
+        <catValu>054</catValu>
+        <labl>West Virginia</labl>
+      </catgry>
+      <catgry>
+        <catValu>055</catValu>
+        <labl>Wisconsin</labl>
+      </catgry>
+      <catgry>
+        <catValu>056</catValu>
+        <labl>Wyoming</labl>
+      </catgry>
+      <catgry>
+        <catValu>099</catValu>
+        <labl>United States, ns</labl>
+      </catgry>
+      <catgry>
+        <catValu>100</catValu>
+        <labl>Samoa, 1950</labl>
+      </catgry>
+      <catgry>
+        <catValu>105</catValu>
+        <labl>Guam</labl>
+      </catgry>
+      <catgry>
+        <catValu>110</catValu>
+        <labl>Puerto Rico</labl>
+      </catgry>
+      <catgry>
+        <catValu>115</catValu>
+        <labl>Virgin Islands</labl>
+      </catgry>
+      <catgry>
+        <catValu>120</catValu>
+        <labl>Other US Possessions</labl>
+      </catgry>
+      <catgry>
+        <catValu>150</catValu>
+        <labl>Canada</labl>
+      </catgry>
+      <catgry>
+        <catValu>151</catValu>
+        <labl>English Canada</labl>
+      </catgry>
+      <catgry>
+        <catValu>152</catValu>
+        <labl>French Canada</labl>
+      </catgry>
+      <catgry>
+        <catValu>160</catValu>
+        <labl>Atlantic Islands</labl>
+      </catgry>
+      <catgry>
+        <catValu>200</catValu>
+        <labl>Mexico</labl>
+      </catgry>
+      <catgry>
+        <catValu>211</catValu>
+        <labl>Belize/British Honduras</labl>
+      </catgry>
+      <catgry>
+        <catValu>212</catValu>
+        <labl>Costa Rica</labl>
+      </catgry>
+      <catgry>
+        <catValu>213</catValu>
+        <labl>El Salvador</labl>
+      </catgry>
+      <catgry>
+        <catValu>214</catValu>
+        <labl>Guatemala</labl>
+      </catgry>
+      <catgry>
+        <catValu>215</catValu>
+        <labl>Honduras</labl>
+      </catgry>
+      <catgry>
+        <catValu>216</catValu>
+        <labl>Nicaragua</labl>
+      </catgry>
+      <catgry>
+        <catValu>217</catValu>
+        <labl>Panama</labl>
+      </catgry>
+      <catgry>
+        <catValu>218</catValu>
+        <labl>Canal Zone</labl>
+      </catgry>
+      <catgry>
+        <catValu>219</catValu>
+        <labl>Central America, nec</labl>
+      </catgry>
+      <catgry>
+        <catValu>250</catValu>
+        <labl>Cuba</labl>
+      </catgry>
+      <catgry>
+        <catValu>261</catValu>
+        <labl>Dominican Republic</labl>
+      </catgry>
+      <catgry>
+        <catValu>262</catValu>
+        <labl>Haiti</labl>
+      </catgry>
+      <catgry>
+        <catValu>263</catValu>
+        <labl>Jamaica</labl>
+      </catgry>
+      <catgry>
+        <catValu>264</catValu>
+        <labl>British West Indies</labl>
+      </catgry>
+      <catgry>
+        <catValu>267</catValu>
+        <labl>Other West Indies</labl>
+      </catgry>
+      <catgry>
+        <catValu>290</catValu>
+        <labl>Other Caribbean and North America</labl>
+      </catgry>
+      <catgry>
+        <catValu>305</catValu>
+        <labl>Argentina</labl>
+      </catgry>
+      <catgry>
+        <catValu>310</catValu>
+        <labl>Bolivia</labl>
+      </catgry>
+      <catgry>
+        <catValu>315</catValu>
+        <labl>Brazil</labl>
+      </catgry>
+      <catgry>
+        <catValu>320</catValu>
+        <labl>Chile</labl>
+      </catgry>
+      <catgry>
+        <catValu>325</catValu>
+        <labl>Colombia</labl>
+      </catgry>
+      <catgry>
+        <catValu>330</catValu>
+        <labl>Ecuador</labl>
+      </catgry>
+      <catgry>
+        <catValu>345</catValu>
+        <labl>Paraguay</labl>
+      </catgry>
+      <catgry>
+        <catValu>350</catValu>
+        <labl>Peru</labl>
+      </catgry>
+      <catgry>
+        <catValu>360</catValu>
+        <labl>Uruguay</labl>
+      </catgry>
+      <catgry>
+        <catValu>365</catValu>
+        <labl>Venezuela</labl>
+      </catgry>
+      <catgry>
+        <catValu>390</catValu>
+        <labl>South America, nec</labl>
+      </catgry>
+      <catgry>
+        <catValu>400</catValu>
+        <labl>Denmark</labl>
+      </catgry>
+      <catgry>
+        <catValu>401</catValu>
+        <labl>Finland</labl>
+      </catgry>
+      <catgry>
+        <catValu>402</catValu>
+        <labl>Iceland</labl>
+      </catgry>
+      <catgry>
+        <catValu>404</catValu>
+        <labl>Norway</labl>
+      </catgry>
+      <catgry>
+        <catValu>405</catValu>
+        <labl>Sweden</labl>
+      </catgry>
+      <catgry>
+        <catValu>410</catValu>
+        <labl>England</labl>
+      </catgry>
+      <catgry>
+        <catValu>411</catValu>
+        <labl>Scotland</labl>
+      </catgry>
+      <catgry>
+        <catValu>412</catValu>
+        <labl>Wales</labl>
+      </catgry>
+      <catgry>
+        <catValu>413</catValu>
+        <labl>United Kingdom (excluding England: 2005ACS)</labl>
+      </catgry>
+      <catgry>
+        <catValu>414</catValu>
+        <labl>Ireland</labl>
+      </catgry>
+      <catgry>
+        <catValu>415</catValu>
+        <labl>Northern Ireland</labl>
+      </catgry>
+      <catgry>
+        <catValu>419</catValu>
+        <labl>Other Northern Europe</labl>
+      </catgry>
+      <catgry>
+        <catValu>420</catValu>
+        <labl>Belgium</labl>
+      </catgry>
+      <catgry>
+        <catValu>421</catValu>
+        <labl>France</labl>
+      </catgry>
+      <catgry>
+        <catValu>422</catValu>
+        <labl>Luxembourg</labl>
+      </catgry>
+      <catgry>
+        <catValu>425</catValu>
+        <labl>Netherlands</labl>
+      </catgry>
+      <catgry>
+        <catValu>426</catValu>
+        <labl>Switzerland</labl>
+      </catgry>
+      <catgry>
+        <catValu>429</catValu>
+        <labl>Other Western Europe</labl>
+      </catgry>
+      <catgry>
+        <catValu>430</catValu>
+        <labl>Albania</labl>
+      </catgry>
+      <catgry>
+        <catValu>433</catValu>
+        <labl>Greece</labl>
+      </catgry>
+      <catgry>
+        <catValu>434</catValu>
+        <labl>Dodecanese Islands</labl>
+      </catgry>
+      <catgry>
+        <catValu>435</catValu>
+        <labl>Italy</labl>
+      </catgry>
+      <catgry>
+        <catValu>436</catValu>
+        <labl>Portugal</labl>
+      </catgry>
+      <catgry>
+        <catValu>437</catValu>
+        <labl>Azores</labl>
+      </catgry>
+      <catgry>
+        <catValu>438</catValu>
+        <labl>Spain</labl>
+      </catgry>
+      <catgry>
+        <catValu>450</catValu>
+        <labl>Austria</labl>
+      </catgry>
+      <catgry>
+        <catValu>451</catValu>
+        <labl>Bulgaria</labl>
+      </catgry>
+      <catgry>
+        <catValu>452</catValu>
+        <labl>Czechoslovakia</labl>
+      </catgry>
+      <catgry>
+        <catValu>453</catValu>
+        <labl>Germany</labl>
+      </catgry>
+      <catgry>
+        <catValu>454</catValu>
+        <labl>Hungary</labl>
+      </catgry>
+      <catgry>
+        <catValu>455</catValu>
+        <labl>Poland</labl>
+      </catgry>
+      <catgry>
+        <catValu>456</catValu>
+        <labl>Romania</labl>
+      </catgry>
+      <catgry>
+        <catValu>457</catValu>
+        <labl>Yugoslavia</labl>
+      </catgry>
+      <catgry>
+        <catValu>458</catValu>
+        <labl>Bosnia and Herzegovinia</labl>
+      </catgry>
+      <catgry>
+        <catValu>459</catValu>
+        <labl>Other Eastern Europe</labl>
+      </catgry>
+      <catgry>
+        <catValu>460</catValu>
+        <labl>Estonia</labl>
+      </catgry>
+      <catgry>
+        <catValu>461</catValu>
+        <labl>Latvia</labl>
+      </catgry>
+      <catgry>
+        <catValu>462</catValu>
+        <labl>Lithuania</labl>
+      </catgry>
+      <catgry>
+        <catValu>463</catValu>
+        <labl>Other Northern or Eastern Europe</labl>
+      </catgry>
+      <catgry>
+        <catValu>465</catValu>
+        <labl>USSR</labl>
+      </catgry>
+      <catgry>
+        <catValu>498</catValu>
+        <labl>Ukraine</labl>
+      </catgry>
+      <catgry>
+        <catValu>499</catValu>
+        <labl>Europe, ns</labl>
+      </catgry>
+      <catgry>
+        <catValu>500</catValu>
+        <labl>China</labl>
+      </catgry>
+      <catgry>
+        <catValu>501</catValu>
+        <labl>Japan</labl>
+      </catgry>
+      <catgry>
+        <catValu>502</catValu>
+        <labl>Korea</labl>
+      </catgry>
+      <catgry>
+        <catValu>503</catValu>
+        <labl>Taiwan</labl>
+      </catgry>
+      <catgry>
+        <catValu>515</catValu>
+        <labl>Philippines</labl>
+      </catgry>
+      <catgry>
+        <catValu>517</catValu>
+        <labl>Thailand</labl>
+      </catgry>
+      <catgry>
+        <catValu>518</catValu>
+        <labl>Vietnam</labl>
+      </catgry>
+      <catgry>
+        <catValu>519</catValu>
+        <labl>Other South East Asia</labl>
+      </catgry>
+      <catgry>
+        <catValu>520</catValu>
+        <labl>Nepal</labl>
+      </catgry>
+      <catgry>
+        <catValu>521</catValu>
+        <labl>India</labl>
+      </catgry>
+      <catgry>
+        <catValu>522</catValu>
+        <labl>Iran</labl>
+      </catgry>
+      <catgry>
+        <catValu>523</catValu>
+        <labl>Iraq</labl>
+      </catgry>
+      <catgry>
+        <catValu>525</catValu>
+        <labl>Pakistan</labl>
+      </catgry>
+      <catgry>
+        <catValu>534</catValu>
+        <labl>Israel/Palestine</labl>
+      </catgry>
+      <catgry>
+        <catValu>535</catValu>
+        <labl>Jordan</labl>
+      </catgry>
+      <catgry>
+        <catValu>537</catValu>
+        <labl>Lebanon</labl>
+      </catgry>
+      <catgry>
+        <catValu>539</catValu>
+        <labl>United Arab Emirates</labl>
+      </catgry>
+      <catgry>
+        <catValu>540</catValu>
+        <labl>Saudi Arabia</labl>
+      </catgry>
+      <catgry>
+        <catValu>541</catValu>
+        <labl>Syria</labl>
+      </catgry>
+      <catgry>
+        <catValu>542</catValu>
+        <labl>Turkey</labl>
+      </catgry>
+      <catgry>
+        <catValu>543</catValu>
+        <labl>Afghanistan</labl>
+      </catgry>
+      <catgry>
+        <catValu>551</catValu>
+        <labl>Other Western Asia</labl>
+      </catgry>
+      <catgry>
+        <catValu>599</catValu>
+        <labl>Asia, nec</labl>
+      </catgry>
+      <catgry>
+        <catValu>600</catValu>
+        <labl>Africa</labl>
+      </catgry>
+      <catgry>
+        <catValu>610</catValu>
+        <labl>Northern Africa</labl>
+      </catgry>
+      <catgry>
+        <catValu>611</catValu>
+        <labl>Egypt</labl>
+      </catgry>
+      <catgry>
+        <catValu>619</catValu>
+        <labl>Nigeria</labl>
+      </catgry>
+      <catgry>
+        <catValu>620</catValu>
+        <labl>Western Africa</labl>
+      </catgry>
+      <catgry>
+        <catValu>621</catValu>
+        <labl>Eastern Africa</labl>
+      </catgry>
+      <catgry>
+        <catValu>622</catValu>
+        <labl>Ethiopia</labl>
+      </catgry>
+      <catgry>
+        <catValu>623</catValu>
+        <labl>Kenya</labl>
+      </catgry>
+      <catgry>
+        <catValu>694</catValu>
+        <labl>South Africa (Union of)</labl>
+      </catgry>
+      <catgry>
+        <catValu>699</catValu>
+        <labl>Africa, nec</labl>
+      </catgry>
+      <catgry>
+        <catValu>701</catValu>
+        <labl>Australia</labl>
+      </catgry>
+      <catgry>
+        <catValu>702</catValu>
+        <labl>New Zealand</labl>
+      </catgry>
+      <catgry>
+        <catValu>710</catValu>
+        <labl>Pacific Islands (Australia and New Zealand Subregions, not specified, Oceania and at Sea: ACS)</labl>
+      </catgry>
+      <catgry>
+        <catValu>900</catValu>
+        <labl>Abroad (unknown) or at sea</labl>
+      </catgry>
+      <catgry>
+        <catValu>997</catValu>
+        <labl>Unknown value</labl>
+      </catgry>
+      <catgry>
+        <catValu>999</catValu>
+        <labl>Missing</labl>
+      </catgry>
+      <concept vocab="IPUMS">Migration Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIFFREM" dcml="0" files="ExtractData" intrvl="discrete" name="DIFFREM">
+      <location EndPos="91" StartPos="91" width="1"/>
+      <labl>Cognitive difficulty</labl>
+      <txt><![CDATA[DIFFREM indicates whether the respondent has cognitive difficulties (such as learning, remembering, concentrating, or making decisions) because of a physical, mental, or emotional condition.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>No cognitive difficulty</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Has cognitive difficulty</labl>
+      </catgry>
+      <concept vocab="IPUMS">Disability Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIFFPHYS" dcml="0" files="ExtractData" intrvl="discrete" name="DIFFPHYS">
+      <location EndPos="92" StartPos="92" width="1"/>
+      <labl>Ambulatory difficulty</labl>
+      <txt><![CDATA[DIFFPHYS indicates whether the respondent has a condition that substantially limits one or more basic physical activities, such as walking, climbing stairs, reaching, lifting, or carrying.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>No ambulatory difficulty</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Has ambulatory difficulty</labl>
+      </catgry>
+      <concept vocab="IPUMS">Disability Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DIFFSENS" dcml="0" files="ExtractData" intrvl="discrete" name="DIFFSENS">
+      <location EndPos="93" StartPos="93" width="1"/>
+      <labl>Vision or hearing difficulty</labl>
+      <txt><![CDATA[DIFFSENS indicates whether the respondent has a long-lasting condition of blindness, deafness, or a severe vision or hearing impairment. "Long-lasting" is not defined in the questionnaire.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>No vision or hearing difficulty</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Has vision or hearing difficulty</labl>
+      </catgry>
+      <concept vocab="IPUMS">Disability Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="TRANWORK" dcml="0" files="ExtractData" intrvl="discrete" name="TRANWORK">
+      <location EndPos="95" StartPos="94" width="2"/>
+      <labl>Means of transportation to work</labl>
+      <txt><![CDATA[TRANWORK reports the respondent's primary means of transportation to work on the most recent day worked (1970), or over the course of the previous week (the 1960 and 1980-2000 censuses, the ACS, and the PRCS). The primary means of transportation was that used on the most days or to cover the greatest distance.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>N/A</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Auto, truck, or van</labl>
+      </catgry>
+      <catgry>
+        <catValu>11</catValu>
+        <labl>Auto</labl>
+      </catgry>
+      <catgry>
+        <catValu>12</catValu>
+        <labl>Driver</labl>
+      </catgry>
+      <catgry>
+        <catValu>13</catValu>
+        <labl>Passenger</labl>
+      </catgry>
+      <catgry>
+        <catValu>14</catValu>
+        <labl>Truck</labl>
+      </catgry>
+      <catgry>
+        <catValu>15</catValu>
+        <labl>Van</labl>
+      </catgry>
+      <catgry>
+        <catValu>20</catValu>
+        <labl>Motorcycle</labl>
+      </catgry>
+      <catgry>
+        <catValu>31</catValu>
+        <labl>Bus</labl>
+      </catgry>
+      <catgry>
+        <catValu>32</catValu>
+        <labl>Bus or trolley bus</labl>
+      </catgry>
+      <catgry>
+        <catValu>33</catValu>
+        <labl>Bus or streetcar</labl>
+      </catgry>
+      <catgry>
+        <catValu>34</catValu>
+        <labl>Light rail, streetcar, or trolley (Carro público in PR)</labl>
+      </catgry>
+      <catgry>
+        <catValu>35</catValu>
+        <labl>Streetcar or trolley car (publico in Puerto Rico, 2000)</labl>
+      </catgry>
+      <catgry>
+        <catValu>36</catValu>
+        <labl>Subway or elevated</labl>
+      </catgry>
+      <catgry>
+        <catValu>37</catValu>
+        <labl>Long-distance train or commuter train</labl>
+      </catgry>
+      <catgry>
+        <catValu>38</catValu>
+        <labl>Taxicab</labl>
+      </catgry>
+      <catgry>
+        <catValu>39</catValu>
+        <labl>Ferryboat</labl>
+      </catgry>
+      <catgry>
+        <catValu>50</catValu>
+        <labl>Bicycle</labl>
+      </catgry>
+      <catgry>
+        <catValu>60</catValu>
+        <labl>Walked only</labl>
+      </catgry>
+      <catgry>
+        <catValu>70</catValu>
+        <labl>Other</labl>
+      </catgry>
+      <catgry>
+        <catValu>80</catValu>
+        <labl>Worked at home</labl>
+      </catgry>
+      <concept vocab="IPUMS">Place of Work and Travel Time Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="TRANTIME" dcml="0" files="ExtractData" intrvl="contin" name="TRANTIME">
+      <location EndPos="98" StartPos="96" width="3"/>
+      <labl>Travel time to work</labl>
+      <txt><![CDATA[TRANTIME reports the total amount of time, in minutes, that it usually took the respondent to get from home to work last week.
+
+In 1980, responses to questions about travel time to work were coded for only half the persons included in the IPUMS. These cases provide accurate proportional distributions but not correct absolute numbers for the general population. For correct absolute numbers, users should select cases coded as 2 in MIGSAMP and multiply by 2 as well as by PERWT.]]></txt>
+      <codInstr><![CDATA[CodesTRANTIME is a 3-digit numeric variable reporting the total amount of time, in minutes, that it usually took the respondent to get from home to work last week. TRANTIME specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+TRANTIME Specific Variable Codes
+000 = N/A 
+
+		
+Top codes:Values Exceeding Top codes, by State: 2003 - onward]]></codInstr>
+      <concept vocab="IPUMS">Place of Work and Travel Time Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DEPARTS" dcml="0" files="ExtractData" intrvl="contin" name="DEPARTS">
+      <location EndPos="102" StartPos="99" width="4"/>
+      <labl>Time of departure for work</labl>
+      <txt><![CDATA[DEPARTS reports the time that the respondent usually left home for work last week. Time is measured using a 24-hour clock, where 12:01 a.m. is coded as 0001 and 11:59 p.m. is coded as 2359.]]></txt>
+      <codInstr><![CDATA[CodesDEPARTS is a 4-digit numeric variable reporting the time that the respondent usually left home for work last week. Time is measured using a 24-hour clock, where 12:01 a.m. is coded as 0001 and 11:59 p.m. is coded as 2359. DEPARTS specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+User Note: In 1990, DEPARTS is reported in exact minutes. In the 2000 Census, the ACS and the PRCS, values represent the midpoint of a range.
+
+DEPARTS Specific Variable Codes
+0000 = N/A]]></codInstr>
+      <concept vocab="IPUMS">Place of Work and Travel Time Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="ARRIVES" dcml="0" files="ExtractData" intrvl="contin" name="ARRIVES">
+      <location EndPos="106" StartPos="103" width="4"/>
+      <labl>Time of arrival at work</labl>
+      <txt><![CDATA[ARRIVES reports the time that the respondent usually arrived at work last week. Time is measured using time intervals based on the 24-hour clock and is coded using the latest time in the interval, such that arrival between 12:01 a.m. and 12:04 a.m. is coded as 0004 and arrival between 11:55 p.m. and 11:59 p.m. is coded as 2359.]]></txt>
+      <codInstr><![CDATA[CodesARRIVES is a 4-digit numeric variable reporting the time that the respondent usually arrived at work last week. Time is measured using time intervals based on the 24-hour clock and is coded using the latest time in the interval, such that arrival between 12:01 a.m. and 12:04 a.m. is coded as 0004 and arrival between 11:55 p.m. and 11:59 p.m. is coded as 2359.  ARRIVES specific variable codes for missing, edited, or unidentified observations, observations not applicable (N/A), observations not in universe (NIU), top and bottom value coding, etc. are provided below by Census year (and data sample if specified).
+
+ARRIVES Specific Variable Codes
+0000 = N/A]]></codInstr>
+      <concept vocab="IPUMS">Place of Work and Travel Time Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+  </dataDscr>
+</codeBook>
