@@ -28,7 +28,7 @@ p_load(
   huxtable, here, magrittr
 )
 # Define pink color
-mmmmmmmmred_pink <- "#e64173"
+red_pink <- "#e64173"
 turquoise <- "#20B2AA"
 orange <- "#FFA500"
 red <- "#fb6107"
@@ -85,7 +85,7 @@ name: schedule
 
 ## Last time
 
-(Bad) Controls
+Rubin-Neyman Causal Model
 
 ## Today
 
@@ -100,6 +100,44 @@ class: inverse, middle
 # SCMs
 
 ---
+
+## Causality is Complicated
+
+Though we'd ideally be able to run .pink[experiments] to identify causal effects, there are a number of ways experiments can fail. Just to name a few -
+
+
+.pull-left[.purple[
+**Pre-administration**
+
+- Where can we 'intervene'?
+- Do we have access to a truly representative sample?
+- Is anyone willing to undertake the treatment/control?
+- How close are we to a laboratory sample?
+]]
+
+.pull-right[.pink[
+**Post-administration**
+
+- Placebo Effect
+- Reverse causality
+- Defiers and Always-Takers
+- Mediators (ie. Is our experiment causing this or causing something else)?
+]]
+
+---
+
+## Causality is Complicated
+
+This means we have to think about 
+
+- experimental setting AND 
+- what causal system we are acting on
+
+--
+
+Therefore it's useful to have a nice way of visualizing and understanding causal systems. Like .hi[DAGs]
+
+---
 layout: true
 # DAGs
 
@@ -111,13 +149,37 @@ name: different
 
 --
 
+Formally, any graph is a collection of .orange[nodes] and edges defined by their connections.
+
+--
+
+.note[DAGs] are special graphs that help us understand causality in much the same way as microeconomic models help us understand markets
+
+---
+##  What's a DAG?
+
+.note[DAG] stands for .b[directed acyclic graph].
+
 More helpful...
 
-A .note[DAG] is a collection of .orange[nodes] and .blue[**directed** edges]
+A .note[DAG] is a graph that features a collection of .orange[nodes] and .blue[**directed** edges]
 
 --
 
 The graph illustrates and differentiates the causal associations and non-causal associations within a network of "random" variables.
+
+---
+name: different3
+##  Why a DAG?
+
+Following a fairly simple set of rules, DAGs allow researchers to visualize complex systems.
+
+It separates -
+
+ - .blue[causal] 'associations'
+ - .pink[noncausal] 'associations' 
+ 
+ in any assumption space without cycles
 
 ---
 name: dag-ex
@@ -209,7 +271,7 @@ ggplot(
 ) +
 geom_point(
   size = 20,
-  color = red_pink
+  color = orange
 ) +
 geom_curve(
   aes(x = xa, y = ya, xend = xb, yend = yb),
@@ -237,7 +299,7 @@ coord_cartesian(
 )
 ```
 
-.b.pink[Nodes] are random variables.
+.b.orange[Nodes] are random variables.
 
 ---
 class: clear
@@ -261,7 +323,7 @@ geom_curve(
   aes(x = xa, y = ya, xend = xb, yend = yb),
   curvature = 0,
   arrow = arrow(length = unit(0.07, "npc")),
-  color = purple,
+  color = blue,
   size = 1.2,
   lineend = "round"
 ) +
@@ -283,13 +345,13 @@ coord_cartesian(
 )
 ```
 
-.b.purple[Edges] depict causal links. Causality flows in the direction of the .b.purple[arrows].
+.b.blue[Edges] depict causal links. Causality flows in the direction of the .b.purple[arrows].
 
 --
 
-- Connections matter!
+- Connections are drawn between nodes that .hi[directly] cause one another
 - Direction matters (for causality).
-- Non-connections also matter! .grey-light[(More on this topic soon.)]
+- Non-connections also (sometimes) matter! .grey-light[(More on this topic soon.)]
 
 ---
 class: clear
@@ -313,7 +375,7 @@ geom_curve(
   aes(x = xa, y = ya, xend = xb, yend = yb),
   curvature = 0,
   arrow = arrow(length = unit(0.07, "npc")),
-  color = slate,
+  color = blue,
   size = 1.2,
   lineend = "round"
 ) +
