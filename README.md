@@ -30,9 +30,9 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 9. [Nonstationarity](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/009/09-nonstationarity.html) <br> [PDF](https://rawcdn.githack.com/CMLennon/EC421S21/0c14a4f1ce0dd80f5577981fc490beb21369dbc3/LectureNotes/009/09-nonstationarity.pdf) | [.Rmd](https://rawcdn.githack.com/CMLennon/EC421S21/0c14a4f1ce0dd80f5577981fc490beb21369dbc3/LectureNotes/009/09-nonstationarity.Rmd)
 
-10. [Causality I](https://rawcdn.githack.com/CMLennon/EC421S21/29f58ab45e1458d20ab658f25db087700dbd8a74/LectureNotes/010/10-causality.html)
+10. [Causality I](https://rawcdn.githack.com/CMLennon/EC421S21/29f58ab45e1458d20ab658f25db087700dbd8a74/LectureNotes/010/10-causality.html) <br>
 
-11. Causality II (SCM)
+11. [Causality II (SCM)](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.html)
 
 12. Instrumental Variables (IV) and 2SLS
 
