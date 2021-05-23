@@ -135,7 +135,270 @@ This means we have to think about
 
 --
 
-Therefore it's useful to have a nice way of visualizing and understanding causal systems. Like .hi[DAGs]
+Therefore it's useful to have a nice way of visualizing and understanding causal systems. Like .hi[DAGs]. 
+
+- It's useful, however, to understand what a 'graph' actually is
+
+---
+
+## Causality is Complicated
+
+We can use the tools of .slate[.b[formal graphs]] to organize our assumptions about the problem space into:
+
+- Variables of interest
+- Direct Causal Effects between them
+- Potential exogeneity concerns
+
+We can then find out...
+
+--
+
+- whether or not the problem we are interested in is .pink[tractable]
+
+--
+
+- If it is tractable, what .orange[variables] do we need to measure and control for to estimate causal effects
+
+--
+
+- How existing experiments might get polluted by poor specification
+
+---
+
+## Causality is Complicated
+
+The graphs we are interested in for causal effects are
+
+--
+
+ - .pink[directed]
+ 
+ - .slate[acyclic]
+ 
+We restrict our problem space to these mostly because it reduces the complexity of the math.
+
+So let's learn about .pink[graphs] `r emo::ji('graph')`
+
+---
+layout: true
+#Graphs
+
+---
+class: inverse, middle
+name: graphs
+
+---
+
+## More formally
+
+In graph theory, a .pink.def[graph] is a collection of .purple.def[nodes] connected by .orange.def[edges].
+
+--
+
+```{r, graph-ex-setup, include = F}
+# The full DAG
+graph_ex = dagify(
+  B ~ A,
+  C ~ A,
+  C ~ B,
+  D ~ C,
+  coords = tibble(
+    name = LETTERS[1:4],
+    x = c(0, 1, 0, 1),
+    y = c(1, 1, 0, 0)
+  )
+)
+# Convert to data.table
+graph_dt = graph_ex %>% fortify() %>% setDT()
+# Shorten segments
+mult = 0.16
+graph_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, graph-ex-undirected, echo = F, fig.height = 2.5, fig.width = 2.5}
+# Plot the full DAG
+ggplot(
+  data = graph_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_curve(
+  curvature = 0,
+  color = orange,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_point(
+  size = 20,
+  color = purple
+) +
+geom_text(
+  data = graph_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = "white",
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = graph_dt[,range(x)] + graph_dt[,range(x) %>% diff()] * c(-0.1, 0.1),
+  ylim = graph_dt[,range(y)] + graph_dt[,range(y) %>% diff()] * c(-0.1, 0.1)
+)
+```
+
+--
+
+- Nodes connected by an edge are called .def[adjacent].
+--
+
+- .def[Paths] run along adjacent nodes, .it[e.g.], $\text{A}-\text{B}-\text{C}$.
+--
+
+- The graph above is .def[undirected], since the edges don't have direction. We can give our graphs more information by defining direction for the edges
+
+---
+name: graphs-directed
+## Directed
+
+.def.purple[Directed graphs] have edges with direction.
+
+```{r, graph-ex-directed, echo = F, fig.height = 3, fig.width = 3}
+# Plot the full DAG
+ggplot(
+  data = graph_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_curve(
+  aes(x = xa, xend = xb, y = ya, yend = yb),
+  arrow = arrow(length = unit(0.07, "npc")),
+  curvature = 0,
+  color = purple,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = purple,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_text(
+  data = graph_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = purple,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = graph_dt[,range(x)] + graph_dt[,range(x) %>% diff()] * c(-0.1, 0.1),
+  ylim = graph_dt[,range(y)] + graph_dt[,range(y) %>% diff()] * c(-0.1, 0.1)
+)
+```
+
+--
+
+- .def[Directed paths] follow edges' directions, *e.g.*, $\text{A}\rightarrow\text{B}\rightarrow\text{C}$.
+
+--
+- Nodes that precede a given node in a directed path are its .def[.blue[.b[ancestors]]].
+
+--
+- The opposite: .def[.b[.pink[descendants]]] come after the node, *e.g.*, $\text{D}=\text{de}(\text{C})$.
+
+---
+name: graphs-cycles
+## Cycles
+
+If a node is its own descendant (*e.g.*, $\text{de}(\text{D})=\text{D}$), your graph has a .pink.def[cycle].
+
+
+```{r, cycle-setup, include = F}
+# The full DAG
+cycle_ex = dagify(
+  B ~ A,
+  C ~ A,
+  C ~ B,
+  D ~ C,
+  B ~ D,
+  coords = tibble(
+    name = LETTERS[1:4],
+    x = c(0, 1, 0, 1),
+    y = c(1, 1, 0, 0)
+  )
+)
+# Convert to data.table
+cycle_dt = cycle_ex %>% fortify() %>% setDT()
+# Add indicators for paths
+cycle_dt[, `:=`(
+  cycle = (name == "B" & to == "C") | (name == "D" & to == "B") | (name == "C" & to == "D")
+)]
+# Shorten segments
+mult = 0.16
+cycle_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, graph-ex-cycle, echo = F, fig.height = 3, fig.width = 3}
+# Plot the full DAG
+ggplot(
+  data = cycle_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_curve(
+  aes(x = xa, xend = xb, y = ya, yend = yb, color = cycle),
+  arrow = arrow(length = unit(0.07, "npc")),
+  curvature = 0,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = purple,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_text(
+  data = cycle_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = purple,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = cycle_dt[,range(x)] + cycle_dt[,range(x) %>% diff()] * c(-0.1, 0.1),
+  ylim = cycle_dt[,range(y)] + cycle_dt[,range(y) %>% diff()] * c(-0.1, 0.1)
+) +
+scale_color_manual(values = c(purple, red_pink))
+```
+
+--
+
+If your directed graph does not have any cycles, then you have a <br> .def.orange[directed acyclic graph] (.def.orange[DAG]).
+
 
 ---
 layout: true
@@ -570,225 +833,8 @@ There are two pathways from .b.slate[D] to .b.slate[Y].
 
 To shut down this pathway creating a non-causal association, we must .b.grey-light[condition on .b[W]]. Sound familiar?
 
----
-layout: true
-# Graphs
-
----
-class: inverse, middle
-name: graphs
-
----
-
-## More formally
-
-In graph theory, a .pink.def[graph] is a collection of .purple.def[nodes] connected by .orange.def[edges].
-
---
-
-```{r, graph-ex-setup, include = F}
-# The full DAG
-graph_ex = dagify(
-  B ~ A,
-  C ~ A,
-  C ~ B,
-  D ~ C,
-  coords = tibble(
-    name = LETTERS[1:4],
-    x = c(0, 1, 0, 1),
-    y = c(1, 1, 0, 0)
-  )
-)
-# Convert to data.table
-graph_dt = graph_ex %>% fortify() %>% setDT()
-# Shorten segments
-mult = 0.16
-graph_dt[, `:=`(
-  xa = x + (xend-x) * (mult),
-  ya = y + (yend-y) * (mult),
-  xb = x + (xend-x) * (1-mult),
-  yb = y + (yend-y) * (1-mult)
-)]
-```
-
-```{r, graph-ex-undirected, echo = F, fig.height = 3, fig.width = 3}
-# Plot the full DAG
-ggplot(
-  data = graph_dt,
-  aes(x = x, y = y, xend = xend, yend = yend)
-) +
-geom_curve(
-  curvature = 0,
-  color = orange,
-  size = 1.2,
-  lineend = "round"
-) +
-geom_point(
-  size = 20,
-  color = purple
-) +
-geom_text(
-  data = graph_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
-  aes(x = x, y = y, label = name),
-  family = "Fira Sans Medium",
-  size = 8,
-  color = "white",
-  fontface = "bold"
-) +
-theme_void() +
-theme(
-  legend.position = "none",
-) +
-coord_cartesian(
-  xlim = graph_dt[,range(x)] + graph_dt[,range(x) %>% diff()] * c(-0.1, 0.1),
-  ylim = graph_dt[,range(y)] + graph_dt[,range(y) %>% diff()] * c(-0.1, 0.1)
-)
-```
-
---
-
-- Nodes connected by an edge are called .def[adjacent].
---
-
-- .def[Paths] run along adjacent nodes, .it[e.g.], $\text{A}-\text{B}-\text{C}$.
---
-
-- The graph above is .def[undirected], since the edges don't have direction. 
-
----
-name: graphs-directed
-## Directed
-
-.def.purple[Directed graphs] have edges with direction.
-
-```{r, graph-ex-directed, echo = F, fig.height = 3, fig.width = 3}
-# Plot the full DAG
-ggplot(
-  data = graph_dt,
-  aes(x = x, y = y, xend = xend, yend = yend)
-) +
-geom_curve(
-  aes(x = xa, xend = xb, y = ya, yend = yb),
-  arrow = arrow(length = unit(0.07, "npc")),
-  curvature = 0,
-  color = purple,
-  size = 1.2,
-  lineend = "round"
-) +
-geom_point(
-  size = 20,
-  fill = "white",
-  color = purple,
-  shape = 21,
-  stroke = 0.6
-) +
-geom_text(
-  data = graph_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
-  aes(x = x, y = y, label = name),
-  family = "Fira Sans Medium",
-  size = 8,
-  color = purple,
-  fontface = "bold"
-) +
-theme_void() +
-theme(
-  legend.position = "none",
-) +
-coord_cartesian(
-  xlim = graph_dt[,range(x)] + graph_dt[,range(x) %>% diff()] * c(-0.1, 0.1),
-  ylim = graph_dt[,range(y)] + graph_dt[,range(y) %>% diff()] * c(-0.1, 0.1)
-)
-```
-
---
-
-- .def[Directed paths] follow edges' directions, *e.g.*, $\text{A}\rightarrow\text{B}\rightarrow\text{C}$.
-
---
-- Nodes that precede a given node in a directed path are its .def[ancestors].
-
---
-- The opposite: .def[descendants] come after the node, *e.g.*, $\text{D}=\text{de}(\text{C})$.
-
----
-name: graphs-cycles
-## Cycles
-
-If a node is its own descendant (*e.g.*, $\text{de}(\text{D})=\text{D}$), your graph has a .pink.def[cycle].
 
 
-```{r, cycle-setup, include = F}
-# The full DAG
-cycle_ex = dagify(
-  B ~ A,
-  C ~ A,
-  C ~ B,
-  D ~ C,
-  B ~ D,
-  coords = tibble(
-    name = LETTERS[1:4],
-    x = c(0, 1, 0, 1),
-    y = c(1, 1, 0, 0)
-  )
-)
-# Convert to data.table
-cycle_dt = cycle_ex %>% fortify() %>% setDT()
-# Add indicators for paths
-cycle_dt[, `:=`(
-  cycle = (name == "B" & to == "C") | (name == "D" & to == "B") | (name == "C" & to == "D")
-)]
-# Shorten segments
-mult = 0.16
-cycle_dt[, `:=`(
-  xa = x + (xend-x) * (mult),
-  ya = y + (yend-y) * (mult),
-  xb = x + (xend-x) * (1-mult),
-  yb = y + (yend-y) * (1-mult)
-)]
-```
-
-```{r, graph-ex-cycle, echo = F, fig.height = 3, fig.width = 3}
-# Plot the full DAG
-ggplot(
-  data = cycle_dt,
-  aes(x = x, y = y, xend = xend, yend = yend)
-) +
-geom_curve(
-  aes(x = xa, xend = xb, y = ya, yend = yb, color = cycle),
-  arrow = arrow(length = unit(0.07, "npc")),
-  curvature = 0,
-  size = 1.2,
-  lineend = "round"
-) +
-geom_point(
-  size = 20,
-  fill = "white",
-  color = purple,
-  shape = 21,
-  stroke = 0.6
-) +
-geom_text(
-  data = cycle_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
-  aes(x = x, y = y, label = name),
-  family = "Fira Sans Medium",
-  size = 8,
-  color = purple,
-  fontface = "bold"
-) +
-theme_void() +
-theme(
-  legend.position = "none",
-) +
-coord_cartesian(
-  xlim = cycle_dt[,range(x)] + cycle_dt[,range(x) %>% diff()] * c(-0.1, 0.1),
-  ylim = cycle_dt[,range(y)] + cycle_dt[,range(y) %>% diff()] * c(-0.1, 0.1)
-) +
-scale_color_manual(values = c(purple, red_pink))
-```
-
---
-
-If your directed graph does not have any cycles, then you have a <br> .def.orange[directed acyclic graph] (.def.orange[DAG]).
 
 ---
 layout: true
@@ -805,30 +851,19 @@ Many developments in .it[causal graphical models] came from work in probabilisti
 
 --
 
-Recall what you know about joint probabilities:
-
-$$
-\begin{align}
-  &\color{#FFA500}{2} &P(x_1,x_2) &= P(x_1) P(x_2|x_1)
-  \\[0.2em]
-  &\color{#FFA500}{3} &P(x_1,x_2,x_3) &= P(x_1) P(x_2,x_3|x_1) = P(x_1) P(x_2|x_1) P(x_3|x_2,x_1)
-  \\[0.2em]
-  &\color{#FFA500}{\vdots} 
-  \\[0.2em]
-  &\color{#FFA500}{n} &P(x_1,x_2,\dots,x_n) &= P(x_1)\prod_{i=2}^{n} P(x_i|x_{i-1},\ldots,x_1)
-\end{align}
-$$
+Using bayes rule, we can decompose any joint probability distribution into a product of conditional distributions 
 
 --
 
-This final product can include *a lot* of terms.
-<br>.ex[E.g.,] even when $x_i$ are binary, $P(x_4 | x_3,x_2,x_1)$ requires $2^3=8$ parameters.
+I won't require you guys to learn the formal math behind Dags, though it is totally doable.
+
+If you go to the end of the lecture, there will be an extensive section covering the theory/proofs.
 
 ---
 name: local-markov
 ## Thinking locally
 
-DAGs help us think through simplifying $P(x_k | x_{k-1},x_{k-2},\ldots,x_1)$.
+DAGs help us think through how we can break down complex causal systems of many variables - simplifying $P(x_k | x_{k-1},x_{k-2},\ldots,x_1)$.
 
 --
 
@@ -884,7 +919,7 @@ This intuitive approach *is* the .def.purple[Local Markov Assumption]
 > Given its parents in the DAG, a node $X$ is independent of all of its non-descendants.
 --
 
-.col-left[
+.more-left[
 .ex[Ex.] Consider the DAG to the right:
 
 With the Local Markov Assumption,
@@ -896,64 +931,18 @@ Conditional on its parent $(\text{C})$,
 $\text{D}$ is independent of $\text{A}$ and $\text{B}$.
 ]
 
-.col-right[
+.less-right[
 ```{r, graph-prob-2, echo = F, fig.height = 3, fig.width = 3}
 ex_graph
 ```
 ]
 
 ---
-name: dags-factor
-## Local Markov and factorization
-
-The Local Markov Assumption is equiv. to .def.purple[Bayesian Network Factorization]
-> For prob. dist. $P$ and DAG $G$, $P$ factorizes according to $G$ if 
-$$
-\begin{align}
-  P(x_1,\ldots,x_n) = \prod_{i} P(x_i|\text{pa}_i)
-\end{align}
-$$
-where $\text{pa}_i$ refers to $x_i$'s parents in $G$.
-Bayesian network factorization is also called *the chain rule for Bayesian networks* and *Markov compatibility*.
-
----
-name: factorization
-## Factorize!
-
-You can now (more easily) factorize the DAG/dist. below! .grey-vlight[(You're welcome.)]
-
-
-.col-left[
-```{r, graph-factorize, echo = F, fig.height = 3, fig.width = 3}
-ex_graph
-```
-]
-
---
-
-
-.col-right[
-.b.slate[Factorization via B.N. chain rule]
-
-$$
-\begin{align}
-  &P(\text{A},\text{B},\text{C},\text{D}) 
-  \\[0.4em]
-  &\quad = \prod_{i} P(x_i|\text{pa}_i)
-  \\[0.4em]
-  &\quad = P(\text{A}) P(\text{B}|\text{A}) P(\text{C}|\text{A},\text{B}) P(\text{D}|\text{C})
-\end{align}
-$$
-
-]
-
-
----
 ## Independence
 
 What have we learned so far? .grey-vlight[(Why should you care about this stuff?)]
 
-Local Markov and Bayesian Network Factorization tell us abound .attn[independencies] within a probability distribution implied by the given DAG.
+Local Markov tells us abound .attn[independencies] within a probability distribution implied by the given DAG.
 
 You're now able to say something about which variables are .pink.it[independent].
 
@@ -984,7 +973,7 @@ With the minimality assumption, we can learn both .pink[dependence] and .orange[
 name: dags-causlity
 ## Causality
 
-We need one last assumption move DAGs from .it[statical] to .it[causal] models.
+We need one last assumption move DAGs from .it[statistical] to .it[causal] models.
 
 --
 
@@ -1164,14 +1153,12 @@ coord_cartesian(
 
 .b.purple[Intuition:]
 --
- $\text{A}$ "is a cause of" $\text{B}$: there is clear (causal) dependence..super.pink[†]
-
-.footnote[
-.pink[†] I'm not a huge fan of the "is a cause of" wording, but it appears to be (unfortunately) common in this literature. IMO, $``\text{A}$ causes (or affects) $\text{B"}$ would be clearer (and more grammatical), but no one asked me. One argument for "a cause of" (vs. "causes") is it emphasizes that events often have multiple causes.]
+ $\text{A}$ "is a cause of" $\text{B}$: there is clear (causal) dependence.
 --
 .b.pink[Proof:]
 --
- By the [Strict Causal Edges Assumption](#dags-causlity), every parent (here, $\text{A}$) is a direct cause of each of its children $\left(\text{B}\right)$. $\checkmark$
+
+By the [Strict Causal Edges Assumption](#dags-causlity), every parent (here, $\text{A}$) is a direct cause of each of its children $\left(\text{B}\right)$. $\checkmark$
 ---
 name: blocks-chains
 .note[Building block 3:] .b.slate[Chains]
@@ -1397,35 +1384,6 @@ gg_chain_condition
 We've .def.purple[blocked] the path of association between $\text{A}$ and $\text{C}$.
 
 Conditioning blocks the flow of association .b[in chains]. ("Good" control!)
-
----
-.note[Building block 3:] .b.slate[Chains with conditions]
-
-```{r, bb3-plot-6, echo = F, fig.height = 1.5, fig.width = 5}
-# Plot the DAG
-gg_chain_condition
-```
-
-.b.pink[Proof:] We want to show $\text{A}$ and $\text{C}$ are independent conditional on $\text{B}$,
-<br>*i.e.*, $P(\text{A},\text{C}|\text{B})=P(\text{A}|\text{B})P(\text{C}|\text{B})$.
-
---
-
-Start with BN factorization: $P(\text{A},\text{B},\text{C})$
---
- $= P(\text{A})P(\text{B}|\text{A})P(\text{C}|\text{B})$.
-
---
-
-Now apply Bayes' rule for the LHS of our goal: $P(\text{A},\text{C}|\text{B}) = \frac{P(\text{A},\text{B},\text{C})}{P(\text{B})}$.
-
---
-
-And substitute our factorization into the Bayes' rule expression:
-
-$P(\text{A},\text{C}|\text{B}) = \dfrac{P(\text{A})P(\text{B}|\text{A})\color{#e64173}{P(\text{C}|\text{B})}}{P(\text{B})}$
---
- $=P(\text{A}|\text{B})\color{#e64173}{P(\text{C}|\text{B})}$ $\checkmark$ .grey-light[(Bayes rule again)]
 
 ---
 .note[Building block 3:] .b.slate[Chains]
@@ -1776,27 +1734,6 @@ When we shutdown (hold constant) this common cause $(\text{B})$,
 
 .note[Also:] Think about Local Markov. Or think about OVB.
 
----
-.note[Building block 4:] .b.slate[Blocked forks]
-
-```{r, bb4-plot-5, echo = F, fig.height = 2.5, fig.width = 5}
-# Plot it
-gg_fork_block
-```
-
-.b.pink[Proof:] We want to show $P(\text{A},\text{C}|\text{B})=P(\text{A}|\text{B})P(\text{C}|\text{B})$.
-
---
-
-.note[Step 1:] Bayesian net. factorization: $P(\text{A},\text{B},\text{C})=P(\text{B})\color{#e64173}{P(\text{A}|\text{B})P(\text{C}|\text{B})}$
-
---
-
-.note[Step 2:] Bayes' rule: $P(\text{A},\text{C}|\text{B})=\frac{P(\text{A},\text{B},\text{C})}{P(\text{B})}$
-
---
-
-.note[Step 3:] Combine .note[2] & .note[1]: $P(\text{A},\text{C}|\text{B})=\frac{P(\text{A},\text{B},\text{C})}{P(\text{B})} = \color{#e64173}{P(\text{A}|\text{B})P(\text{C}|\text{B})}$ $\checkmark$
 
 ---
 .note[Building block 4:] .b.slate[Forks]
@@ -1886,7 +1823,7 @@ gg_collider
 
  An .def.purple[immorality] occurs when two nodes share a child without being otherwise connected..super.pink[†] $\text{A} \rightarrow \text{B} \leftarrow \text{C}$
 
-.footnote[.pink[†] I'm not making this up.]
+.footnote[.pink[†] Yes, this is a stupid term, and I hate it. I way prefer just using 'collider']
 
 --
 
@@ -1974,29 +1911,7 @@ gg_collider_blocked
 - $\text{A}$ and $\text{C}$ do not share any common causes.
 
 ---
-.note[Building block 5:] .b.slate[Immoralities]
 
-```{r, bb5-plot-4, echo = F, fig.height = 2.5, fig.width = 5}
-gg_collider_blocked
-```
-
-.b.pink[Proof:] Start with .it[marginalizing] dist. of $\text{A}$ and $\text{C}$. Then BNF.
-
-$P(\text{A},\text{C}) = \sum_{\text{B}} P(\text{A},\text{B}, \text{C})$
-
---
-
-$\color{#FFFFFF}{P(\text{A},\text{C})} = \sum_{\text{B}} P(\text{A})P(\text{C})P(\text{B}|\text{A},\text{C})$
-
---
-
-$\color{#FFFFFF}{P(\text{A},\text{C})} = P(\text{A})P(\text{C}) \color{#FFA500}{\left(\sum_{\text{B}} P(\text{B}|\text{A},\text{C}) = 1\right)}$
-
---
-
-$\color{#FFFFFF}{P(\text{A},\text{C})} = P(\text{A})P(\text{C})$ $\quad\color{#e64173}{\checkmark}$ .pink[(] $\color{#e64173}{\text{A} \ci \text{C}}$ .pink[without conditioning)] 
-
----
 .note[Building block 5:] .b.slate[Immoralities with conditions]
 
 ```{r, bb5-plot-5, echo = F, fig.height = 2.5, fig.width = 5}
@@ -2193,51 +2108,69 @@ This spurious relationship is often called .def.purple[collider bias].
 
 ---
 
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
+.ex[Example] Obesity, Mortality Factors and Cardiovascular Disease.
+
+Define $\text{O}$ as .it[obesity],
+--
+ $\text{A}$ as .it[age of patient],
+--
+ and $\text{M}$ as .it[mortality].
 
 --
 
-.qa[Q] How does this example relate to collider bias?
---
-<br>
-.qa[A] Write out the DAG (+ think about selection into your sample)!
-
----
-
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
-
-Define $\text{M}$ as .it[mobility],
---
- $\text{R}$ as .it[respiratory health],
---
- and $\text{H}$ as .it[hospitalized].
-
---
-
-Suppose for the moment respiratory health and mobility 
+Suppose for the moment obesity and age
 1. are .b[independent of each other] 
-2. each .b[cause hospitalization] (when they are too low)
+2. each .b[cause cardiovascular disease] and cvd $\uparrow\text{M}$
 
 --
 
-```{r, ex-collider-bias-1, echo = F, fig.height = 2.5, fig.width = 5}
+```{r, ex-collider-bias-1, echo = F, include = F}
+collider_curve = tibble(
+  x = c(-1, -.2, 1),
+  y = c(-0.7, 0, -0.7)
+) %>% spline(n = 101) %>% as.data.table()
+
+bb5_dt2 = dagify(
+  B ~ A,
+  B ~ C,
+  D ~ B,
+  D ~ C,
+  coords = tibble(
+    name = LETTERS[1:4],
+    x = c(-1, 0, 1, 0),
+    y = c(-0.7, 0, -.7, .4)
+  )
+) %>% fortify() %>% setDT()
+
+bb5_dt2[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r dagdiag_collex, echo = F, fig.height = 2.9, fig.width = 5}
+
 ggplot(
-  data = bb5_dt %>% dplyr::mutate(
+  data = bb5_dt2 %>% dplyr::mutate(
     name = fcase(
-      name == "A", "M",
-      name == "B", "H",
-      name == "C", "R",
+      name == "A", "O",
+      name == "B", "C",
+      name == "C", "A",
+      name == "D", "M",
       default = NA
     ),
     to = fcase(
-      to == "A", "M",
-      to == "B", "H",
-      to == "C", "R",
+      to == "A", "O",
+      to == "B", "C",
+      to == "C", "A",
+      to == "D", "M",
       default = NA
     )
   ),
   aes(x = x, y = y)
-) +
+)  +
 # geom_line(
 #   data = collider_curve[1:median(1:.N),],
 #   color = "grey80",
@@ -2287,32 +2220,30 @@ The implied DAG.
 
 ---
 
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
+.ex[Example] Obesity, Cardiovascular Disease and Mortality.
 
-Define $\text{M}$ as .it[mobility], $\text{R}$ as .it[respiratory health], and $\text{H}$ as .it[hospitalized].
+Define $\text{O}$ as .it[obesity], $\text{A}$ as Age, $\text{C}$ as .it[Cardiovascular Disease], and $\text{M}$ as .it[Mortality].
 
-Suppose for the moment respiratory health and mobility 
-1. are .b[independent of each other] 
-2. each .b[cause hospitalization] (when they are too low)
-
-```{r, ex-collider-bias-1b, echo = F, fig.height = 2.5, fig.width = 5}
+```{r, ex-collider-bias-1b, echo = F, fig.height = 2.9, fig.width = 5}
 ggplot(
-  data = bb5_dt %>% dplyr::mutate(
+  data = bb5_dt2 %>% dplyr::mutate(
     name = fcase(
-      name == "A", "M",
-      name == "B", "H",
-      name == "C", "R",
+      name == "A", "O",
+      name == "B", "C",
+      name == "C", "A",
+      name == "D", "M",
       default = NA
     ),
     to = fcase(
-      to == "A", "M",
-      to == "B", "H",
-      to == "C", "R",
+      to == "A", "O",
+      to == "B", "C",
+      to == "C", "A",
+      to == "D", "M",
       default = NA
     )
   ),
   aes(x = x, y = y)
-) +
+)  +
 geom_line(
   data = collider_curve[1:median(1:.N),],
   color = "grey80",
@@ -2358,31 +2289,29 @@ coord_cartesian(
 )
 ```
 
-If we .b.pink[do not condition on hospitalization], $\text{M}\rightarrow \text{H} \leftarrow \text{R}$ is .b.grey[blocked].
+If we .b.pink[do not condition on Cardiovascular Disease], $\text{S}\rightarrow \text{H} \leftarrow \text{A}$ is .b.grey[blocked], but $\text{O}\rightarrow \text{C} \rightarrow \text{M}$ is not
 
 ---
 
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
+.ex[Example] Obesity, Cardiovascular Disease and Mortality.
 
-Define $\text{M}$ as .it[mobility], $\text{R}$ as .it[respiratory health], and $\text{H}$ as .it[hospitalized].
+Define $\text{O}$ as .it[obesity], $\text{A}$ as Age, $\text{C}$ as .it[Cardiovascular Disease], and $\text{M}$ as .it[Mortality].
 
-Suppose for the moment respiratory health and mobility 
-1. are .b[independent of each other] 
-2. each .b[cause hospitalization] (when they are too low)
-
-```{r, ex-collider-bias-2, echo = F, fig.height = 2.5, fig.width = 5}
+```{r, ex-collider-bias-2, echo = F, fig.height = 2.9, fig.width = 5}
 ggplot(
-  data = bb5_dt %>% dplyr::mutate(
+  data = bb5_dt2 %>% dplyr::mutate(
     name = fcase(
-      name == "A", "M",
-      name == "B", "H",
-      name == "C", "R",
+      name == "A", "O",
+      name == "B", "C",
+      name == "C", "A",
+      name == "D", "M",
       default = NA
     ),
     to = fcase(
-      to == "A", "M",
-      to == "B", "H",
-      to == "C", "R",
+      to == "A", "O",
+      to == "B", "C",
+      to == "C", "A",
+      to == "D", "M",
       default = NA
     )
   ),
@@ -2412,7 +2341,7 @@ geom_text(
   aes(x = x, y = y, label = name),
   family = "Fira Sans Medium",
   size = 8,
-  color = c(purple, purple, "white"),
+  color = c(purple, purple, "white", "white", "white"),
   fontface = "bold"
 ) +
 theme_void() +
@@ -2427,7 +2356,7 @@ scale_color_manual(values = c(purple, "grey80")) +
 scale_fill_manual(values = c("white", "grey80"))
 ```
 
-Our data .b.grey[conditions on hospitalization], which .b.orange[opens] $\text{M}\rightarrow \text{H} \leftarrow \text{R}$.
+Our data .b.grey[conditions on cardiovascular disease], which .b.orange[opens] $\text{O}\rightarrow \text{C} \leftarrow \text{A}$.
 
 ---
 class: clear, middle
@@ -2435,35 +2364,37 @@ class: clear, middle
 You can also see this example graphically...
 
 ---
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
+.ex[Example] Obesity, Cardiovascular Disease and Mortality.
 
 ```{r, ex-collider-gen, include = F}
 # Set seed and sample size
 set.seed(12345)
 n = 100
-# Generate M and R independently
+# Generate O and A independently
 cb_dt = data.table(
-  M = runif(n),
-  R = runif(n)
+  O = runif(n),
+  A = runif(n)
 )
-# Determine hospitalization
+# Determine cardiovascular disease and mortality
 cb_dt[, `:=`(
-  H = M + R < 1
+  C = 1*(O + A > 1))]
+cb_dt[, `:=`(
+  M = runif(n)/6 + 2*C/3 + A/6
 )]
 # Population relationship
 p1 = ggplot(
   data = cb_dt,
-  aes(x = M, y = R)
+  aes(x = O, y = M)
 ) +
 geom_point(
   color = slate,
   size = 2.5,
   alpha = 0.8
-) +
-scale_y_continuous("Respiratory helath (R)") +
-scale_x_continuous("Mobility (M)") +
+)+
+scale_y_continuous("Mortality Likelihood (M)") +
+scale_x_continuous("Obesity (O)") +
 theme_minimal(
-  base_family = "Fira Sans Book",
+  base_family = "Fira Sans",
   base_size = 14
 ) +
 theme(
@@ -2475,22 +2406,22 @@ coord_cartesian(ylim = c(0,1), xlim = c(0,1))
 # Adding hospitalization
 p2 = ggplot(
   data = cb_dt,
-  aes(x = M, y = R)
+  aes(x = O, y = M)
 ) +
 geom_point(
-  aes(color = H),
+  aes(color = as.factor(C)),
   size = 2.5,
   alpha = 0.8
 ) +
-scale_y_continuous("Respiratory helath (R)") +
-scale_x_continuous("Mobility (M)") +
+scale_y_continuous("Mortality Likelihood (M)") +
+scale_x_continuous("Obesity (O)") +
 scale_color_manual(
-  "Hospitalized (H)",
+  "Caridovascular Disease",
   values = c(purple, orange),
   labels = c("No", "Yes")
 ) +
 theme_minimal(
-  base_family = "Fira Sans Book",
+  base_family = "Fira Sans",
   base_size = 14
 ) +
 theme(
@@ -2501,18 +2432,18 @@ theme(
 coord_cartesian(ylim = c(0,1), xlim = c(0,1))
 # Conditioning on hospitalization
 p3 = ggplot(
-  data = cb_dt[H==T],
-  aes(x = M, y = R)
+  data = cb_dt[C==1],
+  aes(x = O, y = M)
 ) +
 geom_point(
   color = orange,
   size = 2.5,
   alpha = 0.8
 ) +
-scale_y_continuous("Respiratory helath (R)") +
-scale_x_continuous("Mobility (M)") +
+scale_y_continuous("Mortality Likelihood (M)") +
+scale_x_continuous("Obesity (O)") +
 theme_minimal(
-  base_family = "Fira Sans Book",
+  base_family = "Fira Sans",
   base_size = 14
 ) +
 theme(
@@ -2525,8 +2456,6 @@ coord_cartesian(ylim = c(0,1), xlim = c(0,1))
 aligned = align_patches(p1, p2, p3)
 ```
 
-Let $\color{#314f4f}{M\sim \text{Uniform}(0,1)}$; $\color{#e64173}{R\sim \text{Uniform}(0,1)}$; $\color{#FFA500}{H=\mathbb{I}\{M+R<1\}}$.
-
 --
 
 ```{r, ex-collider-plot1, echo = F, fig.height = 4.5, fig.width = 7.5}
@@ -2535,99 +2464,53 @@ aligned[[1]]
 
 --
 
-.note[Without conditioning:] No relationship between mobility and resp. health.
+.note[Without conditioning:] Positive relationship between obesity  and mortality.
 
 ---
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
-
-$\color{#314f4f}{M\sim \text{Uniform}(0,1)}$; $\color{#e64173}{R\sim \text{Uniform}(0,1)}$; $\color{#FFA500}{H=\mathbb{I}\{M+R<1\}}$.
+.ex[Example] Obesity, Cardiovascular Disease and Mortality.
 
 ```{r, ex-collider-plot2, echo = F, fig.height = 4.5, fig.width = 7.5}
 aligned[[2]]
 ```
 
-.note[Recall:] Our sample excludes non-hospitalized individuals.
+.note[Recall:] Our sample excludes individuals without cv-disease.
 
 ---
-.ex[Example] Data from hospitalized patients: Mobility and respiratory health.
-
-$\color{#314f4f}{M\sim \text{Uniform}(0,1)}$; $\color{#e64173}{R\sim \text{Uniform}(0,1)}$; $\color{#FFA500}{H=\mathbb{I}\{M+R<1\}}$.
+.ex[Example] Obesity, Cardiovascular Disease and Mortality.
 
 ```{r, ex-collider-plot3, echo = F, fig.height = 4.5, fig.width = 7.5}
 aligned[[3]]
 ```
 
-.note[Conditioning on] $\text{H}$.note[:] Mobility and respiratory health are associated.
+.note[Conditioning on] $\text{C}$.note[:] Obesity now only increases mortality through Age and there are disproportionately large numbers of young obese patients with cvd.
 
+---
+
+Across the general population...
+
+--
+
+```{r}
+lm(data = cb_dt, M ~ O) %>% tidy() %>% filter(term == 'O')
+```
+--
+
+Only on patients with CVD...
+
+```{r}
+lm(data = cb_dt %>% filter(C == 1), M ~ O) %>% tidy()%>% filter(term == 'O')
+```
 
 ---
 class: clear, middle
 
-I like this example because it reminds us that .b.it[conditioning] occurs both .b[explicitly] (*e.g.*, "controlling for") and .b[implicitly] (*e.g.*, sample inclusion).
+I like this example because it reminds us that .b.it[conditioning] occurs both .b[explicitly] (*e.g.*, "controlling for") and .b[implicitly] (*e.g.*, sample inclusion/exclusion).
 
-This example of collider bias in hospitalization data comes from David L. Sackett's 1978 paper .it[[Bias in Analytic Research](https://www.jameslindlibrary.org/wp-data/uploads/2014/06/Sackett-1979-whole-article.pdf)]. 
-
-Sackett called it .def.slate[admission rate bias].
+This example of collider bias in hospitalization data comes from V. Viallon & M. Dufournet's 2016 paper .it[[Can collider bias fully explain the obesity paradox?](https://arxiv.org/abs/1612.06547)]. 
 
 .note[More generally:] You'll hear this called .def.slate[selection bias] or .def.slate[Berkson's paradox].
 
----
-layout: false
-# DAGs
-## Blocked paths
 
-Let's formally define a blocked path (blocking is important).
-
---
-
-A path between $\text{X}$ and $\text{Y}$ is .def.purple[blocked] by conditioning on a set of variables $\text{Z}$ (possibly empty) if either of the following statements is true:
-
-1. On the path, there is a .b.pink[chain] $\left(\dots \rightarrow \text{W} \rightarrow \dots\right)$ or a .b.pink[fork] $\left(\dots \leftarrow \text{W} \rightarrow \dots\right)$, and we condition on $\text{W}$ $\left(\text{W}\in \text{Z}\right)$.
-
-1. On the path, there is a .b.orange[collider] $\left(\dots \rightarrow \text{W} \leftarrow \dots\right)$, and we .it[do not] condition on $\text{W}$ $\left(\text{W}\not\in \text{Z}\right)$ or any of its .b.orange[descendants] $\left(\text{de}(\text{W})\not\subseteq \text{Z}\right)$.
-
---
-
-Association flows along unblocked paths.
-
----
-name: d-sep
-# DAGs
-## d-separation and d-connected(-ness)
-
-Finally, we'll define whether nodes are .note[separated] or .note[connected] in DAGs.
-
---
-
-.b.purple[Separation:] Nodes $\text{X}$ and $\text{Y}$ are .def.purple[d-separated] by a set of nodes $\text{Z}$ if .purple[all paths] between $\text{X}$ and $\text{Y}$ .purple[are blocked] by $\text{Z}$.
-
---
-
-Notation for d-separation: $\color{#6A5ACD}{\text{X} \ci_{G} \text{Y} \vert \text{Z}}$
-
---
-
-.b.pink[Connection:] If there is at least .pink[one path] between $\text{X}$ and $\text{Y}$ that is .pink[unblocked], then $\text{X}$ and $\text{Y}$ are .def.pink[d-connected].
-
----
-# DAGs
-## d-separation and causality
-
-.purple[d-separation] tells us that two nodes are .purple[not associated].
-
---
-
-To measure the .pink[causal effect] of $\text{X}$ on $\text{Y}$:
-<br>We must eliminate .pink[non-causal association].
-
---
-
-Putting these ideas together, here is our .def.orange[criterion to isolate causal effects]:
-> If we remove all edges flowing .b[out] of $\text{X}$ (its .pink[causal effects]),
-<br>then $\text{X}$ and $\text{Y}$ should be .purple[d-separated].
---
-
-This criterion ensures that we've closed the .def.slate[backdoor paths] that generate non-causal associations between $\text{X}$ and $\text{Y}$.
 
 ---
 layout: false
@@ -2984,6 +2867,166 @@ But they still exist—they're just "outside of the model."
 
 ---
 layout: false
+class: inverse, middle
+name: exp
+# Experiments in SCM
+
+---
+#Experiments
+
+So - how do we think about a randomized experiment with a SCM?
+
+- Recall, an experiment induces random noise in a variable that is unrelated to other causal factors
+
+We can think about an experiment .pink[deleting] the edges out of the experiment. Let's return to our fertilizer example.
+
+--
+
+If we induce random noise in fertilizer - we know that no effect that .purple[causes] fertilizer placement is related to the random placement
+
+--
+
+But if our experiment works, then things .orange[caused] by fertilizer should still be impacted
+
+---
+#Experiments
+
+.note[Fertilizer on Yield: pre-experiment]
+
+```{r, ex-2-setup-prexp, include = F}
+# The full DAG
+ex2 = dagify(
+  Y ~ Fe,
+  Fe ~ Pr,
+  Y ~ LQ,
+  Fe ~ LQ,
+  coords = tibble(
+    name = c("Y", "Pr", "LQ", "Fe"),
+    x = c(1, 3, 2, 2),
+    y = c(2, 2, 1, 2)
+  )
+)
+# Convert to data.table
+ex2 %<>% fortify() %T>% setDT()
+# Shorten segments
+mult = 0.15
+ex2[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, ex-2-fig-prexp, echo = F, fig.height = 3, fig.width = 6}
+# Plot the full DAG
+ggplot(
+  data = ex2,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = purple,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = purple,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = . %>% .[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = purple,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(ex2[,min(x)]*0.95, ex2[,max(x)]*1.05),
+  ylim = c(ex2[,min(y)]*0.8, ex2[,max(y)]*1.1)
+)
+```
+---
+#Experiments
+
+.note[Fertilizer on Yield: post-experiment]
+
+```{r, ex-2-setup-pste, include = F}
+# The full DAG
+ex2 = dagify(
+  Y ~ Fe,
+  Y ~ LQ,
+  coords = tibble(
+    name = c("Y", "LQ", "Fe"),
+    x = c(1, 2, 2),
+    y = c(2, 1, 2)
+  )
+)
+# Convert to data.table
+ex2 %<>% fortify() %T>% setDT()
+
+#add Pr back in
+ex2 = rbind(ex2, list('Pr', 3, 2, NA, NA, NA, NA, FALSE))
+# Shorten segments
+mult = 0.15
+ex2[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, ex-2-fig-pstexp, echo = F, fig.height = 3, fig.width = 6}
+# Plot the full DAG
+ggplot(
+  data = ex2,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = purple,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = purple,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = . %>% .[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = purple,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(ex2[,min(x)]*0.95, ex2[,max(x)]*1.05),
+  ylim = c(ex2[,min(y)]*0.8, ex2[,max(y)]*1.1)
+)
+```
+---
+layout: false
 name: limits
 # DAGs
 ## Limitations
@@ -3011,32 +3054,9 @@ $$
 \end{align}
 $$
 
----
-class: clear, middle
+--
 
-.b.slate[Some of Judea Pearl's thoughts] ([source]((http://causality.cs.ucla.edu/blog/index.php/2014/10/27/are-economists-smarter-than-epidemiologists-comments-on-imbenss-recent-paper/))
-
-> So, what is it about epidemiologists that drives them to seek the light of new tools, while economists (at least those in Imbens’s camp) seek comfort in partial blindness, while missing out on the causal revolution? Can economists do in their heads what epidemiologists observe in their graphs? Can they, for instance, identify the testable implications of their own assumptions? Can they decide whether the IV assumptions (i.e., exogeneity and exclusion) are satisfied in their own models of reality? Of course the can’t; such decisions are intractable to the graph-less mind. (I have challenged them repeatedly to these tasks, to the sound of a pin-drop silence)
----
-class: clear, middle
-
-.b.slate[Pearl, continued] ([source]((http://causality.cs.ucla.edu/blog/index.php/2014/10/27/are-economists-smarter-than-epidemiologists-comments-on-imbenss-recent-paper/))
-
-> Or, are problems in economics different from those in epidemiology? I have examined the structure of typical problems in the two fields, the number of variables involved, the types of data available, and the nature of the research questions. The problems are strikingly similar.
-> I have only one explanation for the difference: Culture.
-> The arrow-phobic culture started twenty years ago, when Imbens and Rubin (1995) decided that graphs “can easily lull the researcher into a false sense of confidence in the resulting causal conclusions,” and Paul Rosenbaum (1995) echoed with “No basis is given for believing” […] “that a certain mathematical operation, namely this wiping out of equations and fixing of variables, predicts a certain physical reality”
----
-class: clear, middle
-
-.b.slate[Guido Imbens's response] ([source]((http://causality.cs.ucla.edu/blog/index.php/2014/10/27/are-economists-smarter-than-epidemiologists-comments-on-imbenss-recent-paper/))
-
-> ... Judea and others using graphical models have developed a very interesting set of tools that researchers in many areas have found useful for their research. Other researchers, including myself, have found the potential outcome framework for causality associated with the work by Rubin... more useful for their work. In my view that difference of opinion does not reflect “economists being scared of graphs”, or “educational deficiencies” as Judea claims, merely legitimate heterogeneity in views arising from differences in preferences and problems. The “educational deficiencies” claim, and similarly the comment about my “vow” to avoid causal graphs is particularly ironic given that in the past Judea has presented, at my request, his work on causal graphs to participants in a graduate seminar I taught at Harvard University.
----
-class: clear, middle, center
-
-.enormous[🤷]
-<br>
-.note[Suggestion:] Be nice to people and be intellectually honest.
+- .def[Functional Form:] All of the existing tools are functionally indifferent - but functional forms are useful (as we've seen.)
 
 ---
 name: sources
@@ -3056,7 +3076,7 @@ I found the [Sackett (1978)](https://catalogofbias.org/biases/collider-bias/) ex
 exclude: false
 # Table of contents
 
-.col-left[
+.less-left[
 .small[
 #### Admin
 - [Today and upcoming](#admin)
@@ -3074,7 +3094,7 @@ exclude: false
 
 ]
 ]
-.col-right[
+.more-right[
 .small[
 #### DAGs continued
 - [Origins](#dag-origins)
@@ -3093,9 +3113,248 @@ exclude: false
 ]
 
 ---
+
+## Math and Probability
+
+- Let's quickly review some probability concepts (we'll need them for this section)
+
+---
+# Theory 
+
+## Brief Probability Review
+
+We can decompose any joint probability into a conditional probability and it's product
+
+.slate[a.)] $\mathop{P}(A \cap B) = \mathop{P}(A|B)\mathop{P}(B)$
+
+--
+
+We can decompose any conditional probability into the ratio of the joint probability and the probability of it's ratio like so
+
+.slate[b.)] $\mathop{P}(A|B) = \frac{\mathop{P}(A \cap B)}{\mathop{P}(B)}$
+
+--
+
+We can substitute  .slate[a] into .slate[b] and get .pink[bayes rule] - ditching the intersection notation
+
+$\mathop{P}(B|A) = \frac{\mathop{P}(A|B)\mathop{P}(B)}{\mathop{P}(A)}$
+
+
+---
+# Theory
+
+## Product Rule
+
+The important piece of this however is the .pink[product rule.]
+
+By using our definitions from before, we can decompose larger and larger joint probability distributions, like so -
+
+$$
+\begin{align}
+  &\color{#FFA500}{2} &P(x_1,x_2) &= P(x_1) P(x_2|x_1)
+  \\[0.2em]
+  &\color{#FFA500}{3} &P(x_1,x_2,x_3) &= P(x_1) P(x_2,x_3|x_1) = P(x_1) P(x_2|x_1) P(x_3|x_2,x_1)
+  \\[0.2em]
+  &\color{#FFA500}{\vdots} 
+  \\[0.2em]
+  &\color{#FFA500}{n} &P(x_1,x_2,\dots,x_n) &= P(x_1)\prod_{i=2}^{n} P(x_i|x_{i-1},\ldots,x_1)
+\end{align}
+$$
+
+--
+
+This final product can include *a lot* of terms.
+<br>.ex[E.g.,] even when $x_i$ are binary, $P(x_4 | x_3,x_2,x_1)$ requires $2^3=8$ parameters.
+
+---
+#Theory
+
+## Local Markov
+
+This intuitive approach *is* the .def.purple[Local Markov Assumption]
+> Given its parents in the DAG, a node $X$ is independent of all of its non-descendants.
+--
+
+.more-left[
+.ex[Ex.] Consider the DAG to the right:
+
+With the Local Markov Assumption,
+<br>
+$P(\text{D}|\text{A},\text{B},\text{C})$ simplifies to $P(\text{D}|\text{C})$.
+
+Conditional on its parent $(\text{C})$,
+<br>
+$\text{D}$ is independent of $\text{A}$ and $\text{B}$.
+]
+
+.less-right[
+```{r, graph-prob-2b, echo = F, fig.height = 3, fig.width = 3}
+ex_graph
+```
+]
+
+---
+name: dags-factor
+## Local Markov and factorization
+
+The Local Markov Assumption is equiv. to .def.purple[Bayesian Network Factorization]
+> For prob. dist. $P$ and DAG $G$, $P$ factorizes according to $G$ if 
+$$
+\begin{align}
+  P(x_1,\ldots,x_n) = \prod_{i} P(x_i|\text{pa}_i)
+\end{align}
+$$
+where $\text{pa}_i$ refers to $x_i$'s parents in $G$.
+Bayesian network factorization is also called *the chain rule for Bayesian networks* and *Markov compatibility*.
+
+---
+# Theory
+## Factorize!
+
+You can now (more easily) factorize a causal system!
+
+- Let's think about this graph...
+
+.left-col[
+```{r, graph-factorizeb, echo = F, fig.height = 3, fig.width = 3}
+ex_graph
+```
+]
+
+---
+# Theory
+## Factorize!
+
+You can now (more easily) factorize a causal system!
+
+- Let's think about this graph...
+
+.right-col[
+.b.slate[Factorization via B.N. chain rule]
+
+$$
+\begin{align}
+  &P(\text{A},\text{B},\text{C},\text{D}) 
+  \\[0.4em]
+  &\quad = \prod_{i} P(x_i|\text{pa}_i)
+  \\[0.4em]
+  &\quad = P(\text{A}) P(\text{B}|\text{A}) P(\text{C}|\text{A},\text{B}) P(\text{D}|\text{C})
+\end{align}
+$$
+]
+
+---
+layout: false
+# Theory
+## Blocked paths
+
+Let's formally define a blocked path (blocking is important).
+
+--
+
+A path between $\text{X}$ and $\text{Y}$ is .def.purple[blocked] by conditioning on variables $\text{Z}$ (potentially no variables) if either of the following statements is true:
+
+1. On the path $\text{X} \rightarrow \dots \text{Y}$, there is either a .b.pink[chain] or a .b.orange[fork], and we condition on some element $\text{w}$ in that chain, ie $\text{w}$ is in $\text{Z}$.
+
+2. On the path, there is a .b.purple[collider] $\left(\dots \rightarrow \text{W} \leftarrow \dots\right)$, and we .it[do not] condition on it or any of its .b.orange[descendants] $\left(\text{de}(W)\right)$.
+
+--
+
+Association flows along unblocked paths.
+
+---
+name: d-sep-theory
+# Theory
+## d-separation and d-connected(-ness)
+
+Finally, we'll define whether nodes are .note[separated] or .note[connected] in DAGs.
+
+--
+
+.b.purple[Separation:] Nodes $\text{X}$ and $\text{Y}$ are .def.purple[d-separated] by a set of nodes $\text{Z}$ if .purple[all paths] between $\text{X}$ and $\text{Y}$ .purple[are blocked] by $\text{Z}$.
+
+--
+
+.b.pink[Connection:] If there is at least .pink[one path] between $\text{X}$ and $\text{Y}$ that is .pink[unblocked], then $\text{X}$ and $\text{Y}$ are .def.pink[d-connected].
+
+---
+# Theory
+## d-separation and causality
+
+.purple[d-separation] tells us that two nodes are .purple[not associated].
+
+--
+
+To measure the .pink[causal effect] of $\text{X}$ on $\text{Y}$:
+<br>We must eliminate .pink[non-causal association].
+
+--
+
+Putting these ideas together, here is our .def.orange[criterion to isolate causal effects]:
+> If we remove all edges flowing .b[out] of $\text{X}$ (its .pink[causal effects]),
+<br>then $\text{X}$ and $\text{Y}$ should be .purple[d-separated].
+--
+
+This criterion ensures that we've closed the .def.slate[backdoor paths] that generate non-causal associations between $\text{X}$ and $\text{Y}$.
+
+---
+# Theory
+.note[Building block 3:] .b.slate[Chains with conditions]
+
+```{r, bb3-plot-6, echo = F, fig.height = 1.5, fig.width = 5}
+# Plot the DAG
+gg_chain_condition
+```
+
+.b.pink[Proof:] We want to show $\text{A}$ and $\text{C}$ are independent conditional on $\text{B}$,
+<br>*i.e.*, $P(\text{A},\text{C}|\text{B})=P(\text{A}|\text{B})P(\text{C}|\text{B})$.
+
+--
+
+Start with BN factorization: $P(\text{A},\text{B},\text{C})$
+--
+ $= P(\text{A})P(\text{B}|\text{A})P(\text{C}|\text{B})$.
+
+--
+
+Now apply Bayes' rule for the LHS of our goal: $P(\text{A},\text{C}|\text{B}) = \frac{P(\text{A},\text{B},\text{C})}{P(\text{B})}$.
+
+--
+
+And substitute our factorization into the Bayes' rule expression:
+
+$P(\text{A},\text{C}|\text{B}) = \dfrac{P(\text{A})P(\text{B}|\text{A})\color{#e64173}{P(\text{C}|\text{B})}}{P(\text{B})}$
+--
+ $=P(\text{A}|\text{B})\color{#e64173}{P(\text{C}|\text{B})}$ $\checkmark$ .grey-light[(Bayes rule again)]
+ 
+ ---
+.note[Building block 4:] .b.slate[Blocked forks]
+
+```{r, bb4-plot-5, echo = F, fig.height = 2.5, fig.width = 5}
+# Plot it
+gg_fork_block
+```
+
+.b.pink[Proof:] We want to show $P(\text{A},\text{C}|\text{B})=P(\text{A}|\text{B})P(\text{C}|\text{B})$.
+
+--
+
+.note[Step 1:] Bayesian net. factorization: $P(\text{A},\text{B},\text{C})=P(\text{B})\color{#e64173}{P(\text{A}|\text{B})P(\text{C}|\text{B})}$
+
+--
+
+.note[Step 2:] Bayes' rule: $P(\text{A},\text{C}|\text{B})=\frac{P(\text{A},\text{B},\text{C})}{P(\text{B})}$
+
+--
+
+.note[Step 3:] Combine .note[2] & .note[1]: $P(\text{A},\text{C}|\text{B})=\frac{P(\text{A},\text{B},\text{C})}{P(\text{B})} = \color{#e64173}{P(\text{A}|\text{B})P(\text{C}|\text{B})}$ $\checkmark$
+
+
+---
+
 exclude: true
 
 ```{r, generate pdfs, include = F, eval = F}
-pagedown::chrome_print("12-ml.html", output = "12-ml.pdf")
-pagedown::chrome_print("12-ml.html", output = "12-ml-nopause.pdf")
+pagedown::chrome_print("SCM.html", output = "SCM.pdf")
+pagedown::chrome_print("SCM.html", output = "SCMl-nopause.pdf")
 ```
