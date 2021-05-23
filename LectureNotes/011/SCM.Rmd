@@ -1,6 +1,6 @@
 ---
 title: "Structural Causal Models (SCMs)"
-subtitle: "EC 607, Set 11"
+subtitle: "EC 421, Set 11"
 author: "Connor Lennon"
 date: "Spring 2021"
 output:
