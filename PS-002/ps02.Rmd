@@ -205,7 +205,7 @@ est10 %>% tidy()
 ```{r, answer10b}
 # BP test statistic
 lm10 = summary(est10)$r.squared * nrow(ps_df)
-# Test against Chi-squared 2
+# Test against Chi-squared 3
 pchisq(lm10, df = 3, lower.tail = F) %>% round(5)
 ```
 
