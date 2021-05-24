@@ -373,7 +373,7 @@ In more "economics" terms: We are testing whether the returns to education are d
 
 
 
-**Answer:** The expected income for women with 16 years of education is approximately `r sum(est16$coefficients * c(1,16,1,16)) %>% magrittr::multiply_by(1e4) %>% scales::dollar(1)`. The expected income for men with 16 years of education is approximately `r sum(est16$coefficients * c(1,16,0,0)) %>% magrittr::multiply_by(1e4) %>% scales::dollar(1)`.
+**Answer:** The expected income for women with 16 years of education is approximately `r sum(est16$coefficients * c(1,16,1,0,16)) %>% magrittr::multiply_by(1e4) %>% scales::dollar(1)`. The expected income for men with 16 years of education is approximately `r sum(est16$coefficients * c(1,16,0,0,0)) %>% magrittr::multiply_by(1e4) %>% scales::dollar(1)`.
 
 ---
 
