@@ -7,6 +7,8 @@
 *.tar
 *.zip
 *.Rproj
+*.dta
+*.txt
 
 PS-003/
 PS-004/
