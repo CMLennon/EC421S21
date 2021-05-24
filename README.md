@@ -43,8 +43,7 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 [PDF](https://raw.githack.com/CMLennon/EC421S21/main/PS-001/ps01.pdf) | [Data](https://raw.githack.com/CMLennon/EC421S21/main/PS-001/ps-001-data.csv) | [Solutions](https://raw.githack.com/CMLennon/EC421S21/main/PS-001/001-solutions.pdf)
 
 **Problem set 02: Heteroskedasticity** *Due - 5/02/2021*
-
-*Data and solutions will be posted after the due date*
+[Solutions](https://raw.githack.com/CMLennon/EC421S21/main/PS-002/ps02.html)
 
 ## Midterm Review
 
