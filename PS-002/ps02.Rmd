@@ -233,15 +233,15 @@ est11 = lm(
   residuals(mod_est09)^2 ~
 education+ i_female + i_citizen+
   I(education^2) +
- education:i_female + i_citizen:education + i_citizen:i_female + i_citizen:i_female:education,
+ education:i_female + i_citizen:education + i_citizen:i_female,
   data = ps_df
 )
 # Results
 est11 %>% tidy()
 # BP test statistic
 lm11 = summary(est11)$r.squared * nrow(ps_df)
-# Test against Chi-squared 4
-pchisq(lm11, df = 4, lower.tail = F) %>% round(3)
+# Test against Chi-squared 7
+pchisq(lm11, df = 7, lower.tail = F) %>% round(3)
 ```
 
 The *p*-value is still extremely small---nearly zero (reported as zero), so we reject the null hypothesis and conclude that there is statistically significant evidence of heteroskedasticity. The result did not change because we already found strong evidence of heteroskedasticity, and the White test is just a more flexible test for heteroskedasticity, so this result is expected.

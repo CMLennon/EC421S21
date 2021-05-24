@@ -350,7 +350,7 @@ est11 = lm(
   residuals(mod_est09)^2 ~
 education+ i_female + i_citizen+
   I(education^2) +
- education:i_female + i_citizen:education + i_citizen:i_female + i_citizen:i_female:education,
+ education:i_female + i_citizen:education + i_citizen:i_female,
   data = ps_df
 )
 # Results
@@ -358,25 +358,24 @@ est11 %&gt;% tidy()
 ```
 
 ```
-#&gt; # A tibble: 9 x 5
-#&gt;   term                         estimate std.error statistic  p.value
-#&gt;   &lt;chr&gt;                           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1 (Intercept)                     93.2     41.5       2.25  2.48e- 2
-#&gt; 2 education                      -25.2      4.66     -5.39  7.06e- 8
-#&gt; 3 i_female                        38.9     68.1       0.571 5.68e- 1
-#&gt; 4 i_citizen                      -60.5     47.7      -1.27  2.05e- 1
-#&gt; 5 I(education^2)                   1.57     0.182     8.62  8.33e-18
-#&gt; 6 education:i_female              -4.91     5.30     -0.927 3.54e- 1
-#&gt; 7 education:i_citizen              5.32     3.75      1.42  1.56e- 1
-#&gt; 8 i_female:i_citizen             140.      76.7       1.82  6.80e- 2
-#&gt; 9 education:i_female:i_citizen   -11.1      5.85     -1.89  5.88e- 2
+#&gt; # A tibble: 8 x 5
+#&gt;   term                estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)            53.7     35.9      1.50   1.34e- 1
+#&gt; 2 education             -21.6      4.28    -5.06   4.29e- 7
+#&gt; 3 i_female              148.      35.8      4.14   3.45e- 5
+#&gt; 4 i_citizen             -10.0     39.6     -0.253  8.01e- 1
+#&gt; 5 I(education^2)          1.56     0.182    8.59   1.05e-17
+#&gt; 6 education:i_female    -13.9      2.29    -6.08   1.26e- 9
+#&gt; 7 education:i_citizen     1.08     3.01     0.358  7.20e- 1
+#&gt; 8 i_female:i_citizen      2.17    23.8      0.0910 9.28e- 1
 ```
 
 ```r
 # BP test statistic
 lm11 = summary(est11)$r.squared * nrow(ps_df)
-# Test against Chi-squared 4
-pchisq(lm11, df = 4, lower.tail = F) %&gt;% round(3)
+# Test against Chi-squared 7
+pchisq(lm11, df = 7, lower.tail = F) %&gt;% round(3)
 ```
 
 ```
