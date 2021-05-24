@@ -206,7 +206,7 @@ est10 %>% tidy()
 # BP test statistic
 lm10 = summary(est10)$r.squared * nrow(ps_df)
 # Test against Chi-squared 2
-pchisq(lm10, df = 2, lower.tail = F) %>% round(5)
+pchisq(lm10, df = 3, lower.tail = F) %>% round(5)
 ```
 
 The *p*-value is extremely small---so small that the computer reports zero---so we reject the null hypothesis and conclude that there is statistically significant evidence of heteroskedasticity.

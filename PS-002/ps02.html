@@ -318,7 +318,7 @@ est10 %&gt;% tidy()
 # BP test statistic
 lm10 = summary(est10)$r.squared * nrow(ps_df)
 # Test against Chi-squared 2
-pchisq(lm10, df = 2, lower.tail = F) %&gt;% round(5)
+pchisq(lm10, df = 3, lower.tail = F) %&gt;% round(5)
 ```
 
 ```
