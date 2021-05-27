@@ -34,7 +34,7 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 11. [Causality II (SCM)](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.html)
 
-12. Instrumental Variables (IV) and 2SLS
+12. [Instrumental Variables (IV) and 2SLS](https://rawcdn.githack.com/CMLennon/EC421S21/e6c5ada6f6a365ee54a1459c2d71f95fb0844edb/LectureNotes/12/IV.html)
 
 ## Problem sets
 
