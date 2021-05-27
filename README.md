@@ -43,7 +43,16 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 [PDF](https://raw.githack.com/CMLennon/EC421S21/main/PS-001/ps01.pdf) | [Data](https://raw.githack.com/CMLennon/EC421S21/main/PS-001/ps-001-data.csv) | [Solutions](https://raw.githack.com/CMLennon/EC421S21/main/PS-001/001-solutions.pdf)
 
 **Problem set 02: Heteroskedasticity** *Due - 5/02/2021*
+
 [Solutions](https://raw.githack.com/CMLennon/EC421S21/main/PS-002/ps02.html)
+
+**Problem set 03: Time Series and Autocorrelation** *Due - 5/25/2021*
+
+**Solutions for this assignment and assignment 4 will only be posted on canvas**
+
+**Problem set 04: Causality** *Due - 6/07/2021*
+
+**Solutions for this assignment and assignment 3 will only be posted on canvas**
 
 ## Midterm Review
 

@@ -9,8 +9,9 @@
 *.Rproj
 *.dta
 *.txt
+*.dbf
+*.shp
 
-PS-003/
 PS-004/
 .Rproj.user
 LectureNotes/003/03-Review_cache

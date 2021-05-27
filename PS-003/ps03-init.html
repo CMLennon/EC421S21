@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Problem Set 3</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="EC 421: Introduction to Econometrics" />
+    <script src="ps03-init_files/header-attrs-2.8/header-attrs.js"></script>
+    <link href="ps03-init_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="ps03-init_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="ps03-init_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="ps03-init_files/kePrint-0.0.1/kePrint.js"></script>
+    <link href="ps03-init_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Problem Set 3
+## Time Series and Autocorrelation
+### <strong>EC 421:</strong> Introduction to Econometrics
+### <br>Due <em>before</em> midnight (11:59pm) on Sunday, 23 May 2021
+
+---
+
+class: clear
+layout: true
+
+---
+
+
+
+
+
+.mono[DUE] Your solutions to this problem set are due *before* midnight on Sunday, 23 May 2021. Your files must be uploaded to [Canvas](https://canvas.uoregon.edu/)—including (1) your responses/answers to the question and (2) the .mono[R] script you used to generate your answers. Each student must turn in her/his own answers.
+
+.mono[OBJECTIVE] This problem set has three purposes: (1) reinforce the econometrics topics we reviewed in class; (2) build your .mono[R] toolset; (3) start building your intuition about causality and time series within econometrics.
+
+## Problem 1: Time Series
+
+Imagine that we are interested in estimating the effect of monthly propane prices on monthly natural gas prices. Propane is often used in rural areas where natural gas is difficult to pipe - and so often times energy demand between more remote vs. less remote regions leads to these variables to covary. Let's investigate this phenomenon. 
+
+The dataset `ps03_data.csv` contains these prices and also the price of oil—the monthly average oil price (the price in dollars per barrel of *Brent Crude oil*, as measured by the [US EIA](https://www.eia.gov/dnav/pet/hist/RBRTED.htm)) and the monthly average price of natural gas (dollars per million BTUs for natural gas at the *Henry Hub*, recorded by the [US EIA](https://www.eia.gov/dnav/ng/hist/rngwhhdm.htm)) and the price of propane(dollars per gallon for propane, recorded by the [US EIA](https://www.eia.gov/dnav/pet/hist/eer_epllpa_pf4_y44mb_dpgM.htm))
+
+The table on the last page describes the variables in this dataset.
+
+**1a.** First, we consider the possibility that `\(P_t^\text{Gas}\)` (the price of natural gas in month `\(t\)`) only depends upon a constant `\(\beta_0\)`, `\(P_t^\text{Propane}\)` (the price of propane in month `\(t\)`), and a random disturbance `\(u_t\)`.
+
+`$$P_t^\text{Gas} = \beta_0 + \beta_1 P_t^\text{Propane} + u_t \tag{1a}$$`
+
+If model `\((1\text{a})\)` is the true model, should we expect OLS to be consistent for `\(\beta_1\)`? **Explain.**
+
+&lt;noscript&gt;
+
+**ANSWER** The model in (1a) is a *static time-series* model—there are no lags of the explanatory or dependent variables. OLS provides consistent estimates for the `\(\beta_j\)` in static time-series models.
+
+*Note:* We're ignoring nonstationarity.
+
+&lt;/noscript&gt;
+
+**1b.** Read `ps03_data.csv` and estimate model `\((1\text{a})\)` with OLS. Interpret your estimate for `\(\beta_1\)` and comment on its statistical significance.
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**]
+
+```r
+# Load packages
+library(pacman)
+p_load(tidyverse, broom, here)
+# Load data
+price_df &lt;- read_csv("ps03_data.csv")
+# Estimate model 1a with OLS
+ols_1a &lt;- lm(price_gas ~ price_prop, data = price_df)
+# Results
+tidy(ols_1a)
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term        estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)     1.04     0.379      2.75 6.60e- 3
+#&gt; 2 price_prop      1.66     0.203      8.16 5.09e-14
+```
+
+Our estimate for `\(\beta_1\)` is approximately 1.656, and it is statistically significant at the 5-percent level. *Interpretation:* Holding all else constant, if the price of propane increases by 1 dollar, we expect the price of natural gas to increase by 1.656 in that same period.
+
+&lt;/noscript&gt;
+
+**1c.** In (1b), you should have found that the coefficient on `\(P_t^\text{Propane}\)` is statistically significant. Does this finding also mean that the price of propane explains a lot of the variation in the price of natural gas?
+
+*Hint:* What is the R.super[2]? (In .mono[R], you can find R.super[2] using `summary()` applied to a model you estimated with `lm()`.)
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] Our model in (1a) has an R.super[2] of approximately 0.267, which suggests that the price of propane explains a fairly small amount of the variation in the price of natural gas, despite the fact that the correlation between the two variables is statistically significant. Statistical significance does not tell us whether the variable explains a substantial amount of variation.
+
+&lt;/noscript&gt;
+
+**1d.** The model that we estimated in (1a) is a static model—meaning it does not allow previous periods' prices to affect the current price of natural gas. Suppose we think believe that the previous two months' propane prices also affect the price of natural gas,along with current period oil *i.e.*,
+
+`$$P_t^\text{Gas} = \beta_0 + \beta_1 P_t^\text{Oil} +\beta_2 P_{t}^\text{Propane} + \beta_3 P_{t-1}^\text{Propane} + \beta_4 P_{t-2}^\text{Propane} + u_t \tag{1d}$$`
+
+Estimate this model and compare your new estimate for `\(\beta_2\)` to your previous estimate ( `\(\beta_1\)` from model 1a).
+
+*Hint:* Use the function `lag(x, n)` from the `dplyr` package to take the `n`.sup[th] lag of variable `x`.
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**]
+
+```r
+# Estimate model 1a with OLS
+ols_1d &lt;- lm(
+  price_gas ~ price_oil + price_prop + lag(price_prop, 1) + lag(price_prop, 2),
+  data = price_df
+)
+# Results
+tidy(ols_1d)
+```
+
+```
+#&gt; # A tibble: 5 x 5
+#&gt;   term               estimate std.error statistic p.value
+#&gt;   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 (Intercept)          1.18       0.422     2.80  0.00571
+#&gt; 2 price_oil           -0.0970     0.448    -0.217 0.829  
+#&gt; 3 price_prop           2.49       1.02      2.46  0.0150 
+#&gt; 4 lag(price_prop, 1)   1.56       1.36      1.15  0.252  
+#&gt; 5 lag(price_prop, 2)  -2.36       0.937    -2.52  0.0126
+```
+After controlling for the the first and second lags of the price of propane, our estimate for `\(\beta_1\)` is now approximately 2.494 (we previously estimated 1.656). The point estimate is now a bit larger (but no longer statistically significant).
+
+&lt;/noscript&gt;
+
+**1e.** Interpret your estimated coefficients for `\(\beta_1\)` and `\(\beta_3\)`. Are they statistically significant?
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] Our estimates for `\(\beta_1\)` and `\(\beta_3\)` are -0.097 and 1.564, respectively. *Interpretation:* `\(\hat{\beta}_1\)` implies that when the contemporaneous price of oil is increased by 1 dollar, the price of natural gas increases by approximately `r `round(ols_1d$coefficients[2],3)`. `\(\hat{\beta}_3\)` suggests that when last months' propane price increased by one dollar, we expect this month's price for natural gas to increase by approximately 1.564 (holding all else constant). Neither estimate is statistically significant at the 5-percent level.
+
+&lt;/noscript&gt;
+
+**1f.** Has the amount of variation that we can explain increased very much? Compare the R.super[2] values for model (1a) and (1d). Also consider the *adjusted* R.super[2].
+
+**continued on next page**
+
+&lt;noscript&gt;
+
+
+**ANSWER** Nope—we still are not explaining much variation in the price of natural gas. The R.super[2] has actually decreased slightly (it's now 0.296), as has adjusted R.super[2] (now 0.28).
+
+At first, the fact that R.super[2] actually decreased between models when we added more variables may seem a bit weird given what you know about R.super[2], but, REMEMBER, when we include lags in a model we actually throw away a few observations in the first few time periods (because we never see `\(x_{t=-1}\)`), which means the two values for R.super[2] are not technically comparable since they are run on marginally different datasets.
+
+&lt;/noscript&gt;
+
+---
+class: clear
+
+**1g.** Formally test model `\((1\text{a})\)` vs. model `\((1\text{d})\)` using an `\(F\)` test.
+
+*Hint:* You can test one model against another model in .mono[R] using the `waldtest()` function from the `lmtest` package. For example,
+
+
+```r
+# OLS model of y on x and two lags
+est_model &lt;- lm(y ~ x + z + lag(x) + lag(x, 2), data = example_df)
+# Jointly test the coefficients on lag(x) and lag(x, 2)
+waldtest(est_model, c("z", "lag(x, 2)"), test = "F")
+```
+calculates an `\(F\)` test for the coefficients on `lag(x)` and `lag(x, 2)` in the model `est_model`.
+
+**Note:** For some reason, `lag(x, n)` needs to have a space between the comma (`,`) and `n` when you use `waldtest` to test lags.
+
+&lt;noscript&gt;
+
+
+**ANSWER** The test via `waldtest`...
+
+```r
+# Load 'lmtest'
+p_load(lmtest)
+# F test
+waldtest(ols_1d, c("price_oil", "lag(price_prop, 1)"))
+```
+
+```
+#&gt; Wald test
+#&gt; 
+#&gt; Model 1: price_gas ~ price_oil + price_prop + lag(price_prop, 1) + lag(price_prop, 
+#&gt;     2)
+#&gt; Model 2: price_gas ~ price_prop + lag(price_prop, 2)
+#&gt;   Res.Df Df    F Pr(&gt;F)
+#&gt; 1    178               
+#&gt; 2    180 -2 0.68   0.51
+```
+The `\(F\)` test comparing the two models fails to reject the null hypothesis at the 5% level with a *p*-value of approximately 0.5084. In this test, H.sub[o] is `\(\beta_2=0\)` and `\(\beta_3=0\)` (for model (1d)). Thus, we fail to find statistically significant evidence that the price of oil contemporaneously affects the current price of natural gas, and lagged price of propane also has no significant effect on the price of gas (after controlling for the current price of propane and the twice-lagged price of propane).
+
+&lt;/noscript&gt;
+
+**1h.** If model `\((1\text{d})\)` is the true model, should we expect OLS to be consistent for `\(\beta_1\)`? **Explain.**
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] The model in (1d) only includes lags of the explanatory variable, which means we can expect OLS to be consistent for `\(\beta_1\)` (even if `\(u_t\)` is autocorrelated).
+
+&lt;/noscript&gt;
+
+**1i.** Suppose we now think that the actual model includes the current price of propane *and* the previous two months' prices of propane and the previous month of natural gas prices, *i.e.*,
+
+`$$P_t^\text{Gas} = \beta_0 + \beta_1 P_t^\text{Propane} + \beta_2 P_{t-1}^\text{Propane} + \beta_3 P_{t-2}^\text{Propane} + \beta_3 P_{t-1}^\text{Gas} + u_t \tag{1i}$$`
+
+Estimate this model. Interpret the coefficients on `\(\beta_1\)` and `\(\beta_3\)`. How has your estimate on `\(\beta_1\)` changed?
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**]
+
+```r
+# Estimate model 1a with OLS
+ols_1i &lt;- lm(
+  price_gas ~ price_prop + lag(price_prop, 1) + lag(price_prop,2)+ lag(price_gas, 1),
+  data = price_df
+)
+# Results
+tidy(ols_1i)
+```
+
+```
+#&gt; # A tibble: 5 x 5
+#&gt;   term               estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)           0.206    0.176       1.17 2.43e- 1
+#&gt; 2 price_prop            3.12     0.410       7.61 1.50e-12
+#&gt; 3 lag(price_prop, 1)   -1.64     0.624      -2.63 9.37e- 3
+#&gt; 4 lag(price_prop, 2)   -1.33     0.414      -3.21 1.58e- 3
+#&gt; 5 lag(price_gas, 1)     0.878    0.0332     26.5  1.19e-63
+```
+Our estimate for `\(\beta_1\)` is now approximately 3.118, which is statistically significant at the 5-percent level. This value is almost exactly what we estimated in (1d). The interpretation of this effect is that we expect a 1-dollar increase in the current month's price of propane to increase the the price of natural gas in the current month by approximately 3.118—holding all else constant.
+
+Our estimate for `\(\beta_3\)` is approximately -1.329, which is also statistically significant at the 5-percent level. The interpretation of this effect is that we expect a 1-dollar increase in the previous month's price of natural gas to increase the the price of natural gas in the current month by approximately -1.329—holding all else constant.
+
+&lt;/noscript&gt;
+
+**1j.** Compare the R.super[2] from model `\((1\text{i})\)` to the R.super[2]s of the previous models. Explain what happened.
+
+&lt;noscript&gt;
+
+**ANSWER** The R.super[2] in the current model (1i) is now approximately 0.8574, which is **much** higher than the R.super[2] values we saw in the previous two models. It appears as though the price of natural gas is very strongly correlated with the previous month's price of natural gas: once we control for one lag of the price of natural, we are able to account for a substantial amount of the variation in the price of natural gas.
+
+&lt;/noscript&gt;
+
+**1k.** If we assume `\(u_t\)` in `\((1\text{i})\)` **A** follows our assumption of *contemporaneous exogeneity* and **B** is not autocorrelated, should we expect OLS to produce consistent estimates for the `\(\beta\)`s in this model? **Explain.**
+
+&lt;noscript&gt;
+
+**ANSWER** Yes. OLS is consistent for models with lagged dependent variables as long as the disturbances follow our assumptions of contemporaneous exogeneity and no autocorrelation.
+
+&lt;/noscript&gt;
+
+---
+class: clear
+
+
+
+**2a.** After starting to estimate these time-series models, you remember that autocorrelation affects OLS. For each of the three models above (1a, 1d, and 1i), explain how autocorrelation will affect OLS.
+
+*Hint:* It will affect two of the models the same way and one of them differently.
+
+&lt;noscript&gt;
+
+**ANSWER** For models (1a) and (1d), autocorrelated disturbances will cause OLS to be inefficient with biased standard errors, but OLS will still be unbiased and consistent for the coefficients in (1a) and (1d).
+
+In models like (1i), autocorrelation causes a violation of our contemporaneous exogeneity assumption, which causes OLS to be biased and inconsistent for estimating the coefficients in the model.
+
+&lt;/noscript&gt;
+
+**2b.** Add the residuals from your estimate of model `\((1\text{i})\)` to your dataset.
+
+**Important:** Don't forget that you will need to tell .mono[R] that you have a missing observation (since we have a lag in our model).
+
+
+```r
+# Add residuals from our estimated model in 1i to dataset 'price_df'
+price_df$e_1i &lt;- c(NA, NA, residuals(ols_1i))
+```
+
+Here, I'm adding a new column to the dataset `price_df` for the residuals from the model I saved as `ols_1i`. The first observation is missing, because our model `ols_1i` includes a two lags.
+
+&lt;noscript&gt;
+
+**ANSWER** Done in hint.
+
+&lt;/noscript&gt;
+
+
+**2c.** Construct two plots with the residuals from `\((1\text{i})\)`: .hi[1] plot the residuals against the time variable (`t_month`) and .hi[2] plot the residuals against their lag. Do you see any evidence of autocorrelation? What would autocorrelation look like?
+
+I strongly encourage you to use `ggplot2` for these graphs.
+
+&lt;noscript&gt;
+
+**ANSWER** First, let's plot the residuals over time. Then, we'll plot the residuals against their lags.
+
+```r
+# Load 'ggplot2' and 'ggthemes' packages
+p_load(ggplot2, ggthemes)
+# Plot 1: Residuals over time
+ggplot(data = price_df, aes(x = t_month, y = e_1i)) +
+geom_path(size = 0.3) +
+geom_point() +
+xlab("Time") + ylab("Residual (1i)") +
+theme_pander()
+```
+
+&lt;img src="ps03-init_files/figure-html/key 2c-1.svg" style="display: block; margin: auto;" /&gt;
+
+```r
+# Plot 2: Residuals against their lags
+ggplot(data = price_df, aes(x = lag(e_1i), y = e_1i)) +
+geom_point() +
+xlab("Lagged residual (1i)") + ylab("Residual (1i)") +
+theme_pander()
+```
+
+&lt;img src="ps03-init_files/figure-html/key 2c-2.svg" style="display: block; margin: auto;" /&gt;
+Neither figure really bears strong evidence of autocorrelation. In the first figure, we would expect to see larger residuals followed by other large residuals. We might see a little of this trend, but it isn't obvious. In the second figure, autocorrelation would look show up with residuals forming some sort of line. No line emerges.
+
+&lt;/noscript&gt;
+
+
+**2d.** Add the residuals from the model in `\((1\text{d})\)` to your dataset. See below (we have to keep track of missing observations due to lags).
+
+
+```r
+# Residuals from the model in 1a
+price_df$e_1a &lt;- residuals(ols_1a)
+# Residuals from the model in 1d
+price_df$e_1d &lt;- c(NA, NA, residuals(ols_1d))
+```
+
+&lt;noscript&gt;
+
+**ANSWER** Done in hint.
+
+&lt;/noscript&gt;
+
+**2e.** Repeat the plots from above—.hi[1] plot the residuals against the time variable (`t_month`) and .hi[2] plot the residuals against their lag, *i.e.*, for the residuals from `\((1\text{d})\)`. You should end up with two graphs for this part. Interpret your graphs and comment on whether you think there may be some autocorrelation for this model.
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] First, let's examine the residuals from model (1a)
+
+&lt;/noscript&gt;
+
+&lt;noscript&gt;
+
+let's consider the residuals from (1d)
+
+```r
+# Plot 1d 1: Residuals over time
+ggplot(data = price_df, aes(x = t_month, y = e_1d)) +
+geom_path(size = 0.3) +
+geom_point() +
+xlab("Time") + ylab("Residual (1d)") +
+theme_pander()
+```
+
+&lt;img src="ps03-init_files/figure-html/key 2e 1d-1.svg" style="display: block; margin: auto;" /&gt;
+
+```r
+# Plot 1d 2: Residuals against their lags
+ggplot(data = price_df, aes(x = lag(e_1d), y = e_1d)) +
+geom_point() +
+xlab("Lagged residual (1d)") + ylab("Residual (1d)") +
+theme_pander()
+```
+
+&lt;img src="ps03-init_files/figure-html/key 2e 1d-2.svg" style="display: block; margin: auto;" /&gt;
+All of these figures are strongly suggestive of autocorrelation in our residuals—specifically of positive autocorrelation, as one period's residual tends to be very similar to the residuals in the previous and next periods. We also see strong linear relationships when plotting residuals against their lags.
+
+&lt;/noscript&gt;
+
+**2f.** Why do you think the residuals from `\((1\text{d})\)` appear to have autocorrelation, while the residuals in `\((1\text{i})\)` show much less evidence of autocorrelation?
+
+*Hint:* Think back to our discussion of the ways we can work/live with autocorrelation.
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] Model misspecification can cause autocorrelation in the disturbance if an omitted variable is, itself, autocorrelated. In this case, if the current price of natural gas depends strongly on the previous period's price of natural gas, then if we fail to control/include the previous period's price of natural gas (as we do in (1a) and (1d)), then the previous period's price of natural gas shows up in the disturbance/residual, which is likely causing at least some of the autocorrelation.
+
+&lt;/noscript&gt;
+
+**2g.** Following the steps for the Breusch-Godfrey test that we discussed in class, test the residuals from the model in `\((1\text{i})\)` for second-order autocorrelation.
+
+*Hint:* You can use the `waldtest()` from the `lmtest` package, as shown in the lecture slides.
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] Because (1i) includes a lagged outcome variable, we use the **Breusch-Godfrey** test. We already completed the **first step** (estimating the model with OLS) and the **second step** (recording the residuals).
+
+The **third step** involves regressing the residuals on the original explanatory variables and lags of the residuals (here: 2 lags).
+
+```r
+# Regress residuals on explanatory variables and two lags of residuals
+bg_2g &lt;- lm(
+  e_1i ~ price_prop + lag(price_prop, 1) + lag(price_prop,2) + lag(price_gas, 1) + lag(e_1i, 1) + lag(e_1i, 2),
+  data = price_df
+)
+# F test
+waldtest(bg_2g, c("lag(e_1i, 1)", "lag(e_1i, 2)"))
+```
+
+```
+#&gt; Wald test
+#&gt; 
+#&gt; Model 1: e_1i ~ price_prop + lag(price_prop, 1) + lag(price_prop, 2) + 
+#&gt;     lag(price_gas, 1) + lag(e_1i, 1) + lag(e_1i, 2)
+#&gt; Model 2: e_1i ~ price_prop + lag(price_prop, 1) + lag(price_prop, 2) + 
+#&gt;     lag(price_gas, 1)
+#&gt;   Res.Df Df    F Pr(&gt;F)
+#&gt; 1    174               
+#&gt; 2    176 -2 0.72   0.49
+```
+The **fourth step** invovles an `\(F\)` test for the two lags. The `\(F\)` test above has a *p*-value of approximately 0.49, which means we fail to reject H.sub[o] as the 5-percent level.
+
+In the **fifth step**, we make our conclusion. Here, H.sub[o] is "no autocorrelation". Thus, we fail to reject "no autocorrelation"—meaning we did not find statistically significant evidence of autocorrelation for model (1i).
+
+&lt;/noscript&gt;
+
+**2h.** If we assume `\(u_t\)` is **not** autocorrelated, then can we trust OLS to be consistent for its estimates of the coefficients in model `\((1\text{i})\)`? **Explain.**
+
+&lt;noscript&gt;
+
+.pink[
+**ANSWER**] Because model (1i) has a lagged outcome variable, we can trust OLS to consistently estimate the coefficients in (1i) *if* there is not autocorrelation in the disturbances `\(u_t\)` (as long as there are no other violations of our assumptions).
+
+&lt;/noscript&gt;
+
+---
+class: clear
+
+### Description of variables and names
+&lt;br&gt;
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[month_year] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The observation's month and year (.mono-small[character]) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[price_gas] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The average (Henry Hub) price of natural gas, $ per 1MM BTU (.mono-small[numeric]) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[price_oil] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The average (Brent Crude) price of oil, $ per barrel &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[price_prop] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The average Retail/Resale price of propane, $ per gallon (.mono-small[numeric]) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[month] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Month of Observation (.mono-small[numeric]) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[year] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Year of Observation (.mono-small[numeric]) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[t_month] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Time, measured by months in the dataset (.mono-small[numeric]) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; .mono-small[t] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Time, approximately by fractions of years (.mono-small[numeric]) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "8.5:11",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
