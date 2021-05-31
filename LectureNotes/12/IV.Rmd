@@ -18,13 +18,14 @@ class: inverse, middle
 # devtools::install_github("dill/emoGG")
 library(pacman)
 p_load(
-  broom, here, tidyverse,
-  emoGG, latex2exp, ggplot2, ggthemes, ggforce, viridis, extrafont, gridExtra,
-  wooldridge,
-  kableExtra, snakecase,
-  data.table, dplyr, estimatr,
-  lubridate,
-  magrittr, knitr, parallel
+  broom, tidyverse,
+  ggplot2, ggthemes, ggforce, ggridges, ggdag, dagitty, cowplot, patchwork, scales,
+  latex2exp, viridis, extrafont, grid, gridExtra, plotly, ggformula,
+  kableExtra, DT, 
+  data.table, dplyr, snakecase, janitor,
+  lubridate, knitr, future, furrr, parallel,
+  MASS, estimatr, FNN, parsnip, caret, glmnet,
+  huxtable, here, magrittr
 )
 # Define pink color
 red_pink <- "#e64173"
@@ -37,6 +38,7 @@ grey_light <- "grey70"
 grey_mid <- "grey50"
 grey_dark <- "grey20"
 purple <- "#6A5ACD"
+slate <- "#314f4f"
 # Dark slate grey: #314f4f
 # Knitr options
 opts_chunk$set(
@@ -179,7 +181,7 @@ layout: true
 ---
 name: causality_review
 
-In our last lecture, we returned to the concept of .hi[causality].
+In our last few weeks, we returned more robustly to the concept of .hi[causality].
 
 --
 
@@ -282,7 +284,168 @@ $$
 $$
 ---
 
-.hi-slate[Practical problem:] Selection bias is also difficult to observe
+What about using .def[SCM] or .def[DAG]?
+
+--
+
+We learned that a SCM is a DAG with a collection of random variable .orange[nodes] and causal effect .purple[edges].
+
+--
+
+We also learned that an 'experiment' in a SCM is a .hi[mutilation] of the graph... 
+
+- delete all incoming causal edges to our 'intervened on' node.
+
+We can think of this like our 'omitted variable bias' dag.
+
+---
+
+.ex[Example] Selection Bias
+
+```{r, dag-ex-setup, echo = F, include = F}
+# The full DAG
+dag_full = dagify(
+  Y ~ D,
+  Y ~ Sel,
+  D ~ Sel,
+  coords = tibble(
+    name = c("Y", "D", "Sel"),
+    x = c(1, 3, 2),
+    y = c(2, 2, 1)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "D" & to == "Y") | (name == "Y"),
+  path2 = (name == "D" & to == "Sel") | (name == "Sel" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, dag-ex-ovb, echo = F, fig.height = 3, fig.width = 6}
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = slate,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = slate,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = slate,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[,min(x)]*0.95, dag_dt[,max(x)]*1.05),
+  ylim = c(dag_dt[,min(y)]*0.8, dag_dt[,max(y)]*1.1)
+)
+```
+
+Selection Bias in a DAG
+
+---
+
+.ex[Example] If the Experiment went well...
+
+```{r, dag-ex-setup-exp, echo = F, include = F}
+# The full DAG
+dag_full = dagify(
+  Y ~ D,
+  Y ~ Sel,
+  coords = tibble(
+    name = c("Y", "D", "Sel"),
+    x = c(1, 3, 2),
+    y = c(2, 2, 1)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "D" & to == "Y") | (name == "Y"),
+  path2 = (name == "D" & to == "Sel") | (name == "Sel" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, dag-ex-exp, echo = F, fig.height = 3, fig.width = 6}
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = slate,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = slate,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = slate,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[,min(x)]*0.95, dag_dt[,max(x)]*1.05),
+  ylim = c(dag_dt[,min(y)]*0.8, dag_dt[,max(y)]*1.1)
+)
+```
+
+---
+
+.hi-slate[Practical problem:] Selection bias is unfortunately, difficult to observe, so often we cannot simply condition on `Sel`. In Rubic-Neyman...
 
 $$
 \begin{align}
@@ -300,7 +463,7 @@ $$
 
 Sounds a bit like omitted-variable bias, right?
 --
- Our .pink[treatment] variable is correlated with something that makese the two groups different.
+ Our .pink[treatment] variable is correlated with something that makes the two groups different.
 ---
 
 **Example:** Imagine we have two people—Al and Bri—and a single binary treatment, college. We interested in the effect of college on earnings.
@@ -404,6 +567,163 @@ name: intro
 --
 
 If we use only the exogenous (*good*) variation in $x$, then we can avoid selection bias/omitted-variable bias.
+---
+class:clear
+.ex[In a **DAG**]
+
+```{r, dag-iv-setup, echo = F, include = F}
+# The full DAG
+dag_full = dagify(
+  Y ~ D,
+  Y ~ Sel,
+  D ~ Sel,
+  D ~ IV,
+  coords = tibble(
+    name = c("Y", "D", "Sel", "IV"),
+    x = c(1, 2, 2, 3),
+    y = c(2, 2, 1, 2)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "D" & to == "Y") | (name == "Y"),
+  path2 = (name == "D" & to == "Sel") | (name == "Sel" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, dag-ex-iv, echo = F, fig.height = 3, fig.width = 6}
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = slate,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = slate,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = slate,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[,min(x)]*0.95, dag_dt[,max(x)]*1.05),
+  ylim = c(dag_dt[,min(y)]*0.8, dag_dt[,max(y)]*1.1)
+)
+```
+.hi[Works].
+
+--
+
+What if selection bias goes .purple[the other way?]
+
+---
+
+class:clear
+.ex[In a **DAG**]
+
+```{r, dag-iv-setup-2, echo = F, include = F}
+# The full DAG
+dag_full = dagify(
+  Y ~ D,
+  Y ~ Sel,
+  Sel ~ D,
+  D ~ IV,
+  coords = tibble(
+    name = c("Y", "D", "Sel", "IV"),
+    x = c(1, 2, 2, 3),
+    y = c(2, 2, 1, 2)
+  )
+)
+# Convert to data.table
+dag_dt = dag_full %>% fortify() %>% setDT()
+# Add indicators for paths
+dag_dt[, `:=`(
+  path1 = (name == "D" & to == "Y") | (name == "Y"),
+  path2 = (name == "D" & to == "Sel") | (name == "Sel" & to == "Y") | (name == "Y")
+)]
+# Shorten segments
+mult = 0.15
+dag_dt[, `:=`(
+  xa = x + (xend-x) * (mult),
+  ya = y + (yend-y) * (mult),
+  xb = x + (xend-x) * (1-mult),
+  yb = y + (yend-y) * (1-mult)
+)]
+```
+
+```{r, dag-ex-iv-2, echo = F, fig.height = 3, fig.width = 6}
+# Plot the full DAG
+ggplot(
+  data = dag_dt,
+  aes(x = x, y = y, xend = xend, yend = yend)
+) +
+geom_point(
+  size = 20,
+  fill = "white",
+  color = slate,
+  shape = 21,
+  stroke = 0.6
+) +
+geom_curve(
+  aes(x = xa, y = ya, xend = xb, yend = yb),
+  curvature = 0,
+  arrow = arrow(length = unit(0.07, "npc")),
+  color = slate,
+  size = 1.2,
+  lineend = "round"
+) +
+geom_text(
+  data = dag_dt[,.(name,x,y,xend=x,yend=y)] %>% unique(),
+  aes(x = x, y = y, label = name),
+  family = "Fira Sans Medium",
+  size = 8,
+  color = slate,
+  fontface = "bold"
+) +
+theme_void() +
+theme(
+  legend.position = "none",
+) +
+coord_cartesian(
+  xlim = c(dag_dt[,min(x)]*0.95, dag_dt[,max(x)]*1.05),
+  ylim = c(dag_dt[,min(y)]*0.8, dag_dt[,max(y)]*1.1)
+)
+```
+.hi[Can Work...] IF we make pretty specific assumptions about `IV`
+
+--
+
+Let's lay those out, shall we?
+
 ---
 
 ## Introductory example
@@ -937,6 +1257,7 @@ Back to our age-old battle to estimate the returns to education.
 
 ```{R, wooldridge_data, echo = F}
 # Grab desired variables
+p_load(wooldridge)
 wage_df <- wage2 %>% transmute(wage, education = educ, education_dad = feduc, education_mom = meduc) %>% na.omit() %>% as_tibble()
 # Print to screen
 wage_df
@@ -956,7 +1277,7 @@ $$
 ```{R, ols, echo = F}
 reg_ols <- lm(wage ~ education, wage_df)
 reg_ols %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = purple
@@ -987,7 +1308,7 @@ $$
 ```{R, first_stage, echo = F}
 reg_iv1 <- lm(education ~ education_mom, wage_df)
 reg_iv1 %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Mother's Education"),
     highlight_row = 2,
     highlight_color = red_pink
@@ -1060,7 +1381,7 @@ $$
 ```{R, reduced_form, echo = F}
 reg_rf <- lm(wage ~ education_mom, wage_df)
 reg_rf %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Mother's Education"),
     highlight_row = 2,
     highlight_color = red_pink,
@@ -1128,7 +1449,7 @@ iv_est <- iv_robust(wage ~ education | education_mom, data = wage_df)
 
 ```{R, iv_reg_results, echo = F}
 iv_est %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = purple
@@ -1251,7 +1572,7 @@ stage1 <- lm(education ~ education_mom + education_dad, wage_df)
 .hi-slate[First-stage results:]
 ```{R, stage1_table, echo = F}
 stage1 %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Mother's Education", "Father's Education"),
     highlight_row = 2:3,
     highlight_color = red_pink
@@ -1302,7 +1623,7 @@ stage2 <- lm(wage ~ education_hat, wage_df)
 .hi-green[Second-stage results:]
 ```{R, stage2_table, echo = F}
 stage2 %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Fitted Education"),
     highlight_row = 2,
     highlight_color = purple
@@ -1315,7 +1636,7 @@ class: clear
 .purple[Ordinary least squares]
 ```{R, results_ols, echo = F}
 reg_ols %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = purple
@@ -1324,7 +1645,7 @@ reg_ols %>%
 <br>.slate[Instrumental variables]
 ```{R, results_iv, echo = F}
 iv_est %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = "darkslategrey"
@@ -1333,7 +1654,7 @@ iv_est %>%
 <br>.green[Two-stage least squares w/ two instruments]
 ```{R, results_2sls, echo = F}
 stage2 %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = "#8bb174"
@@ -1363,7 +1684,7 @@ iv_robust(wage ~ education | education_mom + education_dad, data = wage_df)
 
 ```{R, iv_robus_2sls_table, echo = F}
 iv_robust(wage ~ education | education_mom + education_dad, data = wage_df) %>%
-  tidy_table(
+  tidy(
     terms = c("Intercept", "Education, fitted"),
     highlight_row = 2,
     highlight_color = purple
@@ -1418,3 +1739,13 @@ layout: false
 1. [More applications](#more)
 ]
 ]
+
+---
+
+exclude: true
+
+```{r, generate pdfs, include = F, eval = F}
+pagedown::chrome_print("IV.html", output = "IV.pdf")
+pagedown::chrome_print("IV.html", output = "IV.pdf")
+```
+
