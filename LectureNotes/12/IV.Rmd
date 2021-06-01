@@ -1258,9 +1258,9 @@ Back to our age-old battle to estimate the returns to education.
 ```{R, wooldridge_data, echo = F}
 # Grab desired variables
 p_load(wooldridge)
-wage_df <- wage2 %>% transmute(wage, education = educ, education_dad = feduc, education_mom = meduc) %>% na.omit() %>% as_tibble()
+wage_df <- wage2 %>% transmute(wage, education = educ, education_dad = feduc, education_mom = meduc) %>% na.omit() %>% as_tibble() %>% data.table()
 # Print to screen
-wage_df
+wage_df %>% head() %>%  DT::datatable()
 ```
 ---
 
@@ -1302,7 +1302,9 @@ $$
 \end{align}
 $$
 
---
+---
+
+We can check/test the *relevance* of .hi-pink[mother's education] for .hi-purple[education].
 
 .hi-slate[First-stage results:]
 ```{R, first_stage, echo = F}
@@ -1312,7 +1314,7 @@ reg_iv1 %>%
     terms = c("Intercept", "Mother's Education"),
     highlight_row = 2,
     highlight_color = red_pink
-  )
+  ) %>% head()
 ```
 --
 
