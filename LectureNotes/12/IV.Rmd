@@ -1260,7 +1260,7 @@ Back to our age-old battle to estimate the returns to education.
 p_load(wooldridge)
 wage_df <- wage2 %>% transmute(wage, education = educ, education_dad = feduc, education_mom = meduc) %>% na.omit() %>% as_tibble() %>% data.table()
 # Print to screen
-wage_df %>% head() %>%  DT::datatable()
+wage_df %>%  DT::datatable(options = list(pageLength = 4))
 ```
 ---
 
@@ -1455,7 +1455,7 @@ iv_est %>%
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = purple
-  )
+  ) %>% dplyr::select(term, estimate, std.error, statistic, p.value)
 ```
 ---
 layout: true
@@ -1585,7 +1585,7 @@ stage1 %>%
 
 Our instruments each appear to be *relevant*.
 --
-<br>Formally, we should jointly test them (_e.g._, $F$ test).
+ Formally, we want an $F$ test.
 ---
 
 Using our .slate[estimated first stage], we grab the *fitted* .purple[endogenous variable]
@@ -1651,7 +1651,7 @@ iv_est %>%
     terms = c("Intercept", "Education"),
     highlight_row = 2,
     highlight_color = "darkslategrey"
-  )
+  ) %>% dplyr::select(term, estimate, std.error, statistic, p.value)
 ```
 <br>.green[Two-stage least squares w/ two instruments]
 ```{R, results_2sls, echo = F}
@@ -1680,6 +1680,10 @@ In our case, we have
 - one explanatory variable (`x`) (.purple[education])
 - two instruments (`z`) (.pink[parents' educations])
 
+Let's see how to do this in .mono[R]
+
+---
+
 ```{R, iv_robust_2sls, eval = F}
 iv_robust(wage ~ education | education_mom + education_dad, data = wage_df)
 ```
@@ -1690,7 +1694,7 @@ iv_robust(wage ~ education | education_mom + education_dad, data = wage_df) %>%
     terms = c("Intercept", "Education, fitted"),
     highlight_row = 2,
     highlight_color = purple
-  )
+  )%>% dplyr::select(term, estimate, std.error, statistic, p.value)
 ```
 ---
 name: more
@@ -1747,7 +1751,7 @@ layout: false
 exclude: true
 
 ```{r, generate pdfs, include = F, eval = F}
-pagedown::chrome_print("IV.html", output = "IV.pdf")
+pagedown::chrome_print("IV.html", output = "12-IV.pdf")
 pagedown::chrome_print("IV.html", output = "IV.pdf")
 ```
 
