@@ -30,10 +30,10 @@ I create the slides with [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 
 9. [Nonstationarity](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/009/09-nonstationarity.html) <br> [PDF](https://rawcdn.githack.com/CMLennon/EC421S21/0c14a4f1ce0dd80f5577981fc490beb21369dbc3/LectureNotes/009/09-nonstationarity.pdf) | [.Rmd](https://rawcdn.githack.com/CMLennon/EC421S21/0c14a4f1ce0dd80f5577981fc490beb21369dbc3/LectureNotes/009/09-nonstationarity.Rmd)
 
-10. [Causality I](https://rawcdn.githack.com/CMLennon/EC421S21/29f58ab45e1458d20ab658f25db087700dbd8a74/LectureNotes/010/10-causality.html) <br> (https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/010/10-causality.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/010/10-causality.Rmd)
+10. [Causality I](https://rawcdn.githack.com/CMLennon/EC421S21/29f58ab45e1458d20ab658f25db087700dbd8a74/LectureNotes/010/10-causality.html) <br> [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/010/10-causality.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/010/10-causality.Rmd)
  
-11. [Causality II (SCM)](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.html) <br> (https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.Rmd)
-12. [Instrumental Variables (IV) and 2SLS](https://rawcdn.githack.com/CMLennon/EC421S21/e6c5ada6f6a365ee54a1459c2d71f95fb0844edb/LectureNotes/12/IV.html) <br> (https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/12/12-IV.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/12/12-IV.Rmd)
+11. [Causality II (SCM)](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.html) <br> (https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.pdf)[PDF] | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/011/SCM.Rmd)
+12. [Instrumental Variables (IV) and 2SLS](https://rawcdn.githack.com/CMLennon/EC421S21/e6c5ada6f6a365ee54a1459c2d71f95fb0844edb/LectureNotes/12/IV.html) <br> [PDF](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/12/12-IV.pdf) | [.Rmd](https://raw.githack.com/CMLennon/EC421S21/main/LectureNotes/12/12-IV.Rmd)
 
 ## Problem sets
 
